@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Cloud, Sun, CloudRain, CloudSun, CloudSnow, CloudLightning, AlertCircle, MapPin, Calendar } from 'lucide-react';
+import { Cloud, Sun, CloudRain, CloudSun, CloudSnow, CloudLightning, AlertCircle, MapPin } from 'lucide-react';
 
 // Open-Meteo WMO Weather codes mapping
 const getWeatherDetails = (code) => {
@@ -43,7 +43,7 @@ export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23' })
 
         if (dateIndex !== -1) {
           setWeatherData({
-            found: true,
+            isTodayFallback: false,
             name: coords.name,
             targetDate,
             maxTemp: Math.round(data.daily.temperature_2m_max[dateIndex]),
@@ -51,10 +51,14 @@ export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23' })
             code: data.daily.weather_code[dateIndex]
           });
         } else {
+          // Beyond 16 days, fallback to today's weather (index 0)
           setWeatherData({
-            found: false,
+            isTodayFallback: true,
             name: coords.name,
-            targetDate
+            targetDate,
+            maxTemp: Math.round(data.daily.temperature_2m_max[0]),
+            minTemp: Math.round(data.daily.temperature_2m_min[0]),
+            code: data.daily.weather_code[0]
           });
         }
       } catch (err) {
@@ -82,27 +86,14 @@ export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23' })
     );
   }
 
-  if (!weatherData?.found) {
-    return (
-      <div className="py-2 px-4 bg-white/80 backdrop-blur-md rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-white/50 flex items-center gap-3 transition-all">
-        <Calendar className="w-6 h-6 text-[#7A726D]/60" />
-        <div>
-          <div className="flex items-center gap-1 text-[#7A726D]">
-            <MapPin className="w-3.5 h-3.5" />
-            <span className="text-xs font-medium uppercase tracking-wide">{weatherData?.name}</span>
-          </div>
-          <div className="text-xs font-bold text-[#3D3835] mt-0.5">
-            {dateStr} 超出預報範圍
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   const { icon, text } = getWeatherDetails(weatherData.code);
+  const isFallback = weatherData.isTodayFallback;
 
   return (
-    <div className="py-2 px-4 bg-white/80 backdrop-blur-md rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-white/50 flex items-center gap-4 transition-all">
+    <div 
+      className="py-2 px-4 bg-white/80 backdrop-blur-md rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-white/50 flex items-center gap-4 transition-all"
+      title={isFallback ? `${dateStr} 超出預報範圍，顯示今日氣溫` : ""}
+    >
       <div className="flex items-center gap-3">
         {icon}
         <div>
@@ -112,10 +103,11 @@ export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23' })
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-bold text-[#3D3835]">
-              {weatherData.maxTemp}°C
+              {weatherData.maxTemp}°C 
+              {isFallback && <span className="text-base font-bold text-[#C96A4E] ml-0.5">*</span>}
             </span>
             <span className="text-xs text-[#7A726D]">
-              {text} ({dateStr})
+              {text} {isFallback ? '(今日)' : `(${dateStr})`}
             </span>
           </div>
         </div>
