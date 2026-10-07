@@ -1,10 +1,28 @@
 import { useState } from 'react';
-import { Settings, X, Download, Plus, Trash2, ArrowRight } from 'lucide-react';
+import { Settings, X, Download, Plus, Trash2, ArrowUp, ArrowDown, Clock } from 'lucide-react';
 import initialData from '../data/itinerary.json';
+
+// Ensure all days have 早上, 下午, 晚上
+const ensureStandardPeriods = (data) => {
+  return data.map(day => {
+    const standardPeriods = ['早上', '下午', '晚上'];
+    const newSchedule = standardPeriods.map(periodName => {
+      const existing = day.schedule?.find(s => s.period === periodName) || 
+                       // Attempt to map old ones like 晚餐 to 晚上
+                       (periodName === '晚上' && day.schedule?.find(s => s.period === '晚餐'));
+                       
+      return {
+        period: periodName,
+        activities: existing ? existing.activities || [] : []
+      };
+    });
+    return { ...day, schedule: newSchedule };
+  });
+};
 
 export default function ItineraryEditor() {
   const [isOpen, setIsOpen] = useState(false);
-  const [itinerary, setItinerary] = useState(initialData);
+  const [itinerary, setItinerary] = useState(() => ensureStandardPeriods(initialData));
   const [activeDayIdx, setActiveDayIdx] = useState(0);
 
   if (!import.meta.env.DEV) return null;
@@ -35,9 +53,9 @@ export default function ItineraryEditor() {
 
   const addActivity = (periodIdx, type) => {
     const newItinerary = [...itinerary];
-    const base = type === 'text' ? { type: 'text', content: '' } :
-                 type === 'transit' ? { type: 'transit', method: 'train', route: [''], duration: '', notes: '' } :
-                 { type: 'food', options: [] };
+    const base = type === 'text' ? { type: 'text', content: '', timeRange: '' } :
+                 type === 'transit' ? { type: 'transit', method: 'train', route: [''], duration: '', notes: '', timeRange: '' } :
+                 { type: 'food', options: [], timeRange: '' };
     newItinerary[activeDayIdx].schedule[periodIdx].activities.push(base);
     setItinerary(newItinerary);
   };
@@ -45,6 +63,17 @@ export default function ItineraryEditor() {
   const removeActivity = (periodIdx, actIdx) => {
     const newItinerary = [...itinerary];
     newItinerary[activeDayIdx].schedule[periodIdx].activities.splice(actIdx, 1);
+    setItinerary(newItinerary);
+  };
+
+  const moveActivity = (periodIdx, actIdx, direction) => {
+    const newItinerary = [...itinerary];
+    const activities = newItinerary[activeDayIdx].schedule[periodIdx].activities;
+    if (direction === 'up' && actIdx > 0) {
+      [activities[actIdx - 1], activities[actIdx]] = [activities[actIdx], activities[actIdx - 1]];
+    } else if (direction === 'down' && actIdx < activities.length - 1) {
+      [activities[actIdx + 1], activities[actIdx]] = [activities[actIdx], activities[actIdx + 1]];
+    }
     setItinerary(newItinerary);
   };
 
@@ -108,26 +137,35 @@ export default function ItineraryEditor() {
                 {activeDay.schedule?.map((periodData, pIdx) => (
                   <div key={pIdx} className="bg-white p-4 rounded-xl border border-[#EBE5DB] space-y-4">
                     <div className="flex items-center justify-between border-b pb-2">
-                      <input 
-                        className="font-bold text-[#C96A4E] text-lg outline-none border-b border-transparent focus:border-[#C96A4E] bg-transparent" 
-                        value={periodData.period} 
-                        onChange={(e) => {
-                          const newIt = [...itinerary];
-                          newIt[activeDayIdx].schedule[pIdx].period = e.target.value;
-                          setItinerary(newIt);
-                        }}
-                      />
+                      <span className="font-bold text-[#C96A4E] text-lg">{periodData.period}</span>
                     </div>
                     
                     <div className="space-y-4">
                       {periodData.activities.map((act, aIdx) => (
-                        <div key={aIdx} className="relative bg-gray-50 p-4 rounded-lg border border-gray-200">
-                          <button onClick={() => removeActivity(pIdx, aIdx)} className="absolute top-2 right-2 p-1 text-red-400 hover:bg-red-50 rounded"><Trash2 className="w-4 h-4"/></button>
+                        <div key={aIdx} className="relative bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+                          {/* Actions */}
+                          <div className="absolute top-2 right-2 flex gap-1">
+                            <button onClick={() => moveActivity(pIdx, aIdx, 'up')} disabled={aIdx === 0} className="p-1 text-gray-400 hover:bg-gray-200 rounded disabled:opacity-30"><ArrowUp className="w-4 h-4"/></button>
+                            <button onClick={() => moveActivity(pIdx, aIdx, 'down')} disabled={aIdx === periodData.activities.length - 1} className="p-1 text-gray-400 hover:bg-gray-200 rounded disabled:opacity-30"><ArrowDown className="w-4 h-4"/></button>
+                            <button onClick={() => removeActivity(pIdx, aIdx)} className="p-1 text-red-400 hover:bg-red-50 rounded ml-2"><Trash2 className="w-4 h-4"/></button>
+                          </div>
                           
+                          {/* Common Time Range */}
+                          <div className="mb-3 flex items-center gap-2">
+                            <Clock className="w-4 h-4 text-gray-400" />
+                            <input 
+                              className="border rounded px-2 py-1 text-sm w-36" 
+                              placeholder="時間 e.g. 13:00~13:45" 
+                              value={act.timeRange || ''} 
+                              onChange={e => updateActivity(pIdx, aIdx, 'timeRange', e.target.value)} 
+                            />
+                            <span className="text-xs text-gray-400">(選填)</span>
+                          </div>
+
                           {/* Text Type */}
                           {act.type === 'text' && (
                             <div>
-                              <span className="text-xs font-bold bg-gray-200 px-2 py-1 rounded text-gray-600 mb-2 inline-block">TEXT</span>
+                              <span className="text-xs font-bold bg-gray-200 px-2 py-1 rounded text-gray-600 mb-2 inline-block">一般內文</span>
                               <textarea 
                                 className="w-full border rounded p-2 text-sm mt-1 min-h-[80px]" 
                                 value={act.content || ''} 
@@ -140,7 +178,7 @@ export default function ItineraryEditor() {
                           {/* Transit Type */}
                           {act.type === 'transit' && (
                             <div className="space-y-3">
-                              <span className="text-xs font-bold bg-blue-100 px-2 py-1 rounded text-blue-600 inline-block">TRANSIT</span>
+                              <span className="text-xs font-bold bg-blue-100 px-2 py-1 rounded text-blue-600 inline-block">交通路線</span>
                               <div className="flex gap-4">
                                 <div>
                                   <label className="block text-xs text-gray-500">方式</label>
@@ -162,7 +200,7 @@ export default function ItineraryEditor() {
                                 <label className="block text-xs text-gray-500 mb-1">路線站點 (以逗號分隔)</label>
                                 <input 
                                   className="w-full border rounded p-2 text-sm" 
-                                  value={act.route.join(', ')} 
+                                  value={(act.route || []).join(', ')} 
                                   onChange={e => updateActivity(pIdx, aIdx, 'route', e.target.value.split(',').map(s=>s.trim()))} 
                                 />
                               </div>
@@ -172,7 +210,7 @@ export default function ItineraryEditor() {
                           {/* Food Type */}
                           {act.type === 'food' && (
                             <div>
-                              <span className="text-xs font-bold bg-rose-100 px-2 py-1 rounded text-rose-600 inline-block mb-2">FOOD</span>
+                              <span className="text-xs font-bold bg-rose-100 px-2 py-1 rounded text-rose-600 inline-block mb-2">餐飲選擇</span>
                               <div className="space-y-2">
                                 {act.options?.map((opt, oIdx) => (
                                   <div key={oIdx} className="flex gap-2 items-center">
@@ -216,8 +254,8 @@ export default function ItineraryEditor() {
                     </div>
 
                     <div className="flex gap-2 pt-2 border-t mt-4">
-                      <span className="text-xs text-gray-400 self-center mr-2">新增區塊:</span>
-                      <button onClick={() => addActivity(pIdx, 'text')} className="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded font-medium">+ 一般內文</button>
+                      <span className="text-xs text-gray-400 self-center mr-2">新增小卡片:</span>
+                      <button onClick={() => addActivity(pIdx, 'text')} className="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded font-medium text-gray-700">+ 一般內文</button>
                       <button onClick={() => addActivity(pIdx, 'transit')} className="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-3 py-1.5 rounded font-medium">+ 交通路線</button>
                       <button onClick={() => addActivity(pIdx, 'food')} className="text-xs bg-rose-50 text-rose-600 hover:bg-rose-100 px-3 py-1.5 rounded font-medium">+ 餐飲選擇</button>
                     </div>
