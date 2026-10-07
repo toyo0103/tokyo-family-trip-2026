@@ -106,23 +106,35 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "購買「中禪寺溫泉巴士周遊券」",
-            "timeRange": ""
+            "type": "spot",
+            "title": "東武車站周邊購買",
+            "timeRange": "",
+            "locations": [
+              "日光 SAKAEYA 炸湯波饅頭",
+              "日光布丁亭",
+              "補陀洛本舗 石屋町店"
+            ],
+            "note": "日光 SAKAEYA 炸湯波饅頭（紅豆炸饅頭）, 補陀洛本舗 石屋町店(買湯波飯糰)"
           },
           {
-            "type": "text",
-            "content": "東武車站周邊購買日光 SAKAEYA 炸湯波饅頭（紅豆炸饅頭）",
-            "timeRange": ""
-          },
-          {
-            "type": "text",
-            "content": "日光布丁亭",
-            "timeRange": ""
-          },
-          {
-            "type": "text",
-            "content": "補陀洛本舗 石屋町店買湯波飯糰",
+            "type": "food",
+            "options": [
+              {
+                "name": "西洋料理 明治の館",
+                "category": null,
+                "note": "蛋包飯"
+              },
+              {
+                "name": "石臼碾日光珈琲 御用邸通",
+                "category": null,
+                "note": "Maibaru的愛"
+              },
+              {
+                "name": "自然茶寮 廻",
+                "category": "素食",
+                "note": ""
+              }
+            ],
             "timeRange": ""
           },
           {
@@ -247,6 +259,33 @@
             ],
             "duration": "25 min",
             "notes": "",
+            "timeRange": ""
+          },
+          {
+            "type": "spot",
+            "title": "湯瀧瀑布",
+            "locations": [
+              "湯瀧瀑布"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "湯瀧瀑布（Yudaki Falls）是奧日光三大名瀑之一，位於湯之湖南端，高達 70 公尺。湖水沿著傾斜的岩壁奔騰而下，氣勢磅礴且水花四濺。最特別的是，瀑布底部設有觀景台，能近距離感受水流從眼前傾瀉而下的震撼力。周邊環繞著茂密的原始森林，秋天時滿谷的紅葉與白練般的瀑布相映成輝，是一處不可錯過的自然絕景。",
+            "imageUrl": "/spots/yudaki-falls.jpg"
+          },
+          {
+            "type": "food",
+            "options": [
+              {
+                "name": "三本松茶屋",
+                "category": null,
+                "note": ""
+              },
+              {
+                "name": "湯瀧レストハウス",
+                "category": null,
+                "note": ""
+              }
+            ],
             "timeRange": ""
           }
         ]
