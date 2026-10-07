@@ -243,9 +243,9 @@ const FlightCard = ({ flight }) => {
       const dep = rawParts[0].trim().split(' ');
       const arr = rawParts[1].trim().split(' ');
       depTime = dep[0] || '';
-      depAirport = dep[1] || '';
+      depAirport = dep.slice(1).join(' ') || '';
       arrTime = arr[0] || '';
-      arrAirport = arr[1] || '';
+      arrAirport = arr.slice(1).join(' ') || '';
     }
   }
 
@@ -263,21 +263,21 @@ const FlightCard = ({ flight }) => {
         </span>
       </div>
 
-      <div className="flex items-center justify-between mt-2">
-        <div className="text-center w-16">
+      <div className="flex items-center justify-between mt-2 gap-2">
+        <div className="text-center flex-shrink-0 min-w-[4rem]">
           <div className="text-xl font-black text-[#3D3835]">{depTime}</div>
           <div className="text-sm font-bold text-[#7A726D]">{depAirport}</div>
         </div>
 
-        <div className="flex-1 px-4 flex flex-col items-center justify-center">
+        <div className="flex-1 px-2 flex flex-col items-center justify-center">
           <div className="w-full flex items-center opacity-40">
             <div className="h-0.5 bg-[#C96A4E] flex-1 rounded-l-full"></div>
-            <Plane className="w-5 h-5 mx-2 text-[#C96A4E]" />
+            <Plane className="w-5 h-5 mx-2 text-[#C96A4E] shrink-0" />
             <div className="h-0.5 bg-[#C96A4E] flex-1 rounded-r-full"></div>
           </div>
         </div>
 
-        <div className="text-center w-16">
+        <div className="text-center flex-shrink-0 min-w-[4rem]">
           <div className="text-xl font-black text-[#3D3835]">{arrTime}</div>
           <div className="text-sm font-bold text-[#7A726D]">{arrAirport}</div>
         </div>
