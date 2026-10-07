@@ -4,6 +4,7 @@ import WeatherWidget from './components/WeatherWidget';
 import ItineraryTimeline from './components/ItineraryTimeline';
 import PackingList from './components/PackingList';
 import ItineraryEditor from './components/ItineraryEditor';
+import AutumnLeaves from './components/AutumnLeaves';
 import itineraryData from './data/itinerary.json';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#F9F6F0] text-[#3D3835] font-sans selection:bg-[#C96A4E]/20 selection:text-[#3D3835]">
+      <AutumnLeaves />
       
       {/* Hero Section */}
       <div 

@@ -11,3 +11,29 @@
     scrollbar-width: none;
   }
 }
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+@keyframes sway {
+  0%, 100% {
+    transform: translateX(-25px) rotate(-15deg);
+  }
+  50% {
+    transform: translateX(25px) rotate(15deg);
+  }
+}
+
+.animate-fall {
+  animation: fall linear infinite;
+}
+
+.animate-sway {
+  animation: sway ease-in-out infinite alternate;
+}
