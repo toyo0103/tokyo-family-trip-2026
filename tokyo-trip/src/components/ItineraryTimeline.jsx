@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
 
-const TransitCard = ({ data }) => {
+const TransitCard = ({ data, timeRange }) => {
   const isBus = data.method === 'bus' || data.notes?.includes('巴士');
   const Icon = isBus ? Bus : Train;
 
@@ -17,10 +17,16 @@ const TransitCard = ({ data }) => {
     <div className="bg-white border border-[#EBE5DB] rounded-2xl p-4 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
             <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase">
               {isBus ? 'Bus Transit' : 'Train Transit'}
             </span>
+            {timeRange && (
+              <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                {timeRange}
+              </span>
+            )}
             {data.duration && (
               <span className="text-xs text-[#7A726D] font-medium">⏱ {data.duration}</span>
             )}
@@ -56,7 +62,7 @@ const TransitCard = ({ data }) => {
   );
 };
 
-const FoodCard = ({ data }) => {
+const FoodCard = ({ data, timeRange }) => {
   if (!data || !data.options || data.options.length === 0) return null;
 
   // Separate by categories based on the category property (e.g., '葷食', '素食')
@@ -65,10 +71,16 @@ const FoodCard = ({ data }) => {
   
   return (
     <div className="bg-white border border-[#EBE5DB] rounded-2xl p-4 sm:p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex flex-wrap items-center gap-2 mb-3">
         <span className="text-[10px] font-bold text-white bg-[#B86B77] px-2 py-1 rounded tracking-wider uppercase">
           Dining Options
         </span>
+        {timeRange && (
+          <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            {timeRange}
+          </span>
+        )}
       </div>
       
       <div className="space-y-4 mt-2">
@@ -320,29 +332,29 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                       
                       let cardContent = null;
                       if (activity.type === 'transit') {
-                        cardContent = <TransitCard data={activity} />;
+                        cardContent = <TransitCard data={activity} timeRange={timeRange} />;
                       } else if (activity.type === 'food') {
-                        cardContent = <FoodCard data={activity} />;
+                        cardContent = <FoodCard data={activity} timeRange={timeRange} />;
                       } else {
                         const textContent = activity.content || activity;
                         cardContent = (
                           <div className="bg-white border border-[#EBE5DB] rounded-2xl p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all">
+                            {timeRange && (
+                              <div className="flex items-center gap-1 mb-3">
+                                <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  {timeRange}
+                                </span>
+                              </div>
+                            )}
                             <p className="text-[#3D3835] leading-relaxed whitespace-pre-wrap">{textContent}</p>
                           </div>
                         );
                       }
 
                       return (
-                        <div key={actIdx} className="relative flex flex-col md:flex-row gap-2 md:gap-4 items-start">
-                          {timeRange && (
-                            <div className="md:w-28 shrink-0 flex items-center md:pt-4 text-[#7A726D]">
-                              <Clock className="w-4 h-4 mr-1.5 opacity-60" />
-                              <span className="text-sm font-medium tracking-wide">{timeRange}</span>
-                            </div>
-                          )}
-                          <div className="flex-1 min-w-0 w-full">
-                            {cardContent}
-                          </div>
+                        <div key={actIdx} className="relative">
+                          {cardContent}
                         </div>
                       );
                     })}
