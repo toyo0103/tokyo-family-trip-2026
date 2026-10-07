@@ -56,19 +56,14 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "[買隔天早餐]\n西友超市 or LIFE Arcakit \n(提醒：正哲、阿元可能要買後面兩天晚餐)",
-            "timeRange": ""
-          },
-          {
             "type": "spot",
             "title": "買隔天早餐",
             "timeRange": "",
             "locations": [
-              "西友超市",
-              "LIFE Arcakit"
+              "西友 錦糸町店",
+              "LIFE Arcakit Kinshicho"
             ],
-            "note": "提醒：正哲、阿元可能要買後面兩天晚餐"
+            "note": "正哲、阿元可能要買後面兩天晚餐"
           }
         ]
       }
