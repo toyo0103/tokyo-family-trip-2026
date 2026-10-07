@@ -4,27 +4,58 @@ import itineraryData from '../data/itinerary.json';
 
 const FlightCard = ({ flight }) => {
   if (!flight) return null;
-  const lines = flight.split('\n');
-  const flightNumber = lines[0].trim();
+  const lines = flight.split('\n').map(l => l.trim());
+  const flightNumber = lines[0];
   const flightRadarUrl = `https://www.flightradar24.com/data/flights/${flightNumber.toLowerCase()}`;
+
+  // Helper to format "1300 TPE" -> { time: "13:00", airport: "TPE" }
+  const parseFlightLine = (line) => {
+    if (!line) return { time: '', airport: '' };
+    const parts = line.split(' ');
+    const rawTime = parts[0];
+    const airport = parts[1] || '';
+    const time = rawTime.length === 4 ? `${rawTime.slice(0,2)}:${rawTime.slice(2,4)}` : rawTime;
+    return { time, airport };
+  };
+
+  const departure = parseFlightLine(lines[1]);
+  const arrival = parseFlightLine(lines[2]);
 
   return (
     <a 
       href={flightRadarUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4 flex items-start gap-3 hover:bg-blue-100 transition-colors cursor-pointer block"
+      className="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4 flex flex-col hover:bg-blue-100 transition-colors cursor-pointer block"
+      title="點擊前往 FlightRadar24 追蹤航班動態"
     >
-      <Plane className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-      <div className="flex-1">
-        <div className="flex items-center justify-between">
-          <h4 className="font-bold text-blue-800">{flightNumber}</h4>
-          <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
-            航班動態
-          </span>
+      <div className="flex justify-between items-center mb-2">
+        <span className="font-bold text-blue-900">{flightNumber}</span>
+        <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full flex items-center gap-1">
+          即時動態
+        </span>
+      </div>
+
+      <div className="flex items-center justify-between mt-2">
+        {/* Departure */}
+        <div className="text-center w-16">
+          <div className="text-xl font-black text-blue-950">{departure.time}</div>
+          <div className="text-sm font-bold text-blue-600">{departure.airport}</div>
         </div>
-        <div className="text-sm text-blue-600 mt-1">
-          {lines.slice(1).map((l, i) => <div key={i}>{l}</div>)}
+
+        {/* Route Visual */}
+        <div className="flex-1 px-4 flex flex-col items-center justify-center">
+          <div className="w-full flex items-center">
+            <div className="h-0.5 bg-blue-200 flex-1 rounded-l-full"></div>
+            <Plane className="w-5 h-5 mx-2 text-blue-500" />
+            <div className="h-0.5 bg-blue-200 flex-1 rounded-r-full"></div>
+          </div>
+        </div>
+
+        {/* Arrival */}
+        <div className="text-center w-16">
+          <div className="text-xl font-black text-blue-950">{arrival.time}</div>
+          <div className="text-sm font-bold text-blue-600">{arrival.airport}</div>
         </div>
       </div>
     </a>
