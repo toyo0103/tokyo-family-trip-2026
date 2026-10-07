@@ -62,7 +62,6 @@ for col in sorted(date_cols.keys()):
             continue
             
         if row_label == "住宿":
-            # Map to detailed object if exists, otherwise just string
             day_data["accommodation"] = hotel_db.get(val, {"name": val})
             continue
             
@@ -90,5 +89,15 @@ for col in sorted(date_cols.keys()):
         day_data["title"] = title_val
 
     itinerary.append(day_data)
+
+# Carry over accommodation logic
+current_acc = None
+for day in itinerary:
+    if day["accommodation"]:
+        current_acc = day["accommodation"]
+    elif current_acc:
+        # If it's the last day and they have a flight back, we might still want to show it so they know where to check out.
+        # But maybe we add a property "isCheckOutDay" if we want, but copying it is fine.
+        day["accommodation"] = current_acc
 
 print(json.dumps(itinerary, ensure_ascii=False, indent=2))
