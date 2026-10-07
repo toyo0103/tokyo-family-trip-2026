@@ -107,7 +107,7 @@ export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23' })
               {isFallback && <span className="text-base font-bold text-[#C96A4E] ml-0.5">*</span>}
             </span>
             <span className="text-xs text-[#7A726D]">
-              {text} {isFallback ? '(今日)' : `(${dateStr})`}
+              {text} {isFallback && '(今日)'}
             </span>
           </div>
         </div>
