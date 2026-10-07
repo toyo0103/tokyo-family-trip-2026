@@ -146,9 +146,15 @@
         "period": "下午",
         "activities": [
           {
-            "type": "text",
-            "content": "日光東照宮",
-            "timeRange": ""
+            "type": "spot",
+            "title": "日光東照宮",
+            "locations": [
+              "日光東照宮"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "日光東照宮是位於日本栃木縣日光市的世界文化遺產，主要祭祀江戶幕府第一代將軍德川家康（東照大權現）。宮內建築以「豪華絢爛」聞名，展現了江戶時代初期的頂尖工藝。其中最著名的是裝飾極度繁複精美的「陽明門」，以及神廄舍上象徵「不看、不言、不聽」的三猿雕刻與祈求和平的「眠貓」雕刻。此處不僅是歷史建築的傑作，也是感受德川家族輝煌歷史的必訪聖地。",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/47/Nikko_Toshogu_Yomeimon_2020.jpg"
           },
           {
             "type": "transit",
@@ -167,9 +173,15 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "中禪寺湖畔碼頭散步",
-            "timeRange": ""
+            "type": "spot",
+            "title": "中禪寺湖畔碼頭",
+            "locations": [
+              "中禪寺湖畔碼頭"
+            ],
+            "note": "建議沿著湖畔步道散步，可拍到男體山與湖面相呼應的美照。",
+            "timeRange": "",
+            "description": "中禪寺湖海拔約 1,269 公尺，是日本海拔最高的天然湖泊。約兩萬年前因男體山火山噴發，熔岩堵塞溪谷而形成。從明治時期開始，這裡因氣候涼爽宜人，成為許多外國使節與貴族的避暑度假勝地。在湖畔碼頭漫步，可欣賞波光粼粼的湖水與壯麗的男體山交織出的四季美景，特別是秋季的紅葉更令人流連忘返。",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Lake_Chuzenji_2019.jpg"
           }
         ]
       },

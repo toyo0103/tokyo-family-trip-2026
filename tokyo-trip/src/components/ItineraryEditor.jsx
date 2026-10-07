@@ -230,6 +230,19 @@ export default function ItineraryEditor() {
                                   <label className="block text-xs text-gray-500 mb-1">備註 (Note, 選填)</label>
                                   <input className="w-full border rounded p-2 text-sm" value={act.note || ''} onChange={e => updateActivity(pIdx, aIdx, 'note', e.target.value)} placeholder="e.g. 提醒：正哲、阿元可能要買後面兩天晚餐" />
                                 </div>
+                                <div className="border-t border-gray-200 pt-3 mt-3">
+                                  <label className="block text-xs text-emerald-600 font-semibold mb-2">擴充圖文介紹 (若填寫，點擊將開啟詳細彈窗)</label>
+                                  <div className="space-y-3">
+                                    <div>
+                                      <label className="block text-xs text-gray-500 mb-1">圖片網址 (Image URL)</label>
+                                      <input className="w-full border rounded p-2 text-sm" value={act.imageUrl || ''} onChange={e => updateActivity(pIdx, aIdx, 'imageUrl', e.target.value)} placeholder="https://..." />
+                                    </div>
+                                    <div>
+                                      <label className="block text-xs text-gray-500 mb-1">詳細介紹 (Description)</label>
+                                      <textarea className="w-full border rounded p-2 text-sm min-h-[80px]" value={act.description || ''} onChange={e => updateActivity(pIdx, aIdx, 'description', e.target.value)} placeholder="輸入該景點的詳細歷史或介紹..." />
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           )}
