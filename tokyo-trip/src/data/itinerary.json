@@ -319,11 +319,11 @@
             "type": "transit",
             "method": "bus",
             "route": [
-              "湯滝入口",
+              "中禅寺温泉",
               "東武日光站"
             ],
             "duration": "44 min",
-            "notes": "巴士下山回東武日光站"
+            "notes": "巴士下山回東武日光站, 日光駅～光徳温泉～湯元温泉"
           }
         ]
       },
@@ -348,20 +348,12 @@
             "method": "train",
             "route": [
               "東武日光站",
-              "北千住"
+              "北千住車站",
+              "步行 2min",
+              "錦糸町車站"
             ],
             "duration": "100 min",
-            "notes": "Tobu Railway Express ＲＥＶＡＴＹ"
-          },
-          {
-            "type": "transit",
-            "method": "train",
-            "route": [
-              "北千住",
-              "錦糸町站"
-            ],
-            "duration": "半藏門線",
-            "notes": ""
+            "notes": "(Tobu Railway Express) SPACIA X 或 REVATY 轉(半藏門線)"
           },
           {
             "type": "text",
