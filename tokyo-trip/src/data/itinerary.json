@@ -504,9 +504,15 @@
         "period": "早上",
         "activities": [
           {
-            "type": "text",
-            "content": "皇居東御苑",
-            "timeRange": ""
+            "type": "spot",
+            "title": "皇居東御苑",
+            "locations": [
+              "皇居東御苑"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "皇居東御苑是過去江戶城本丸、二之丸及三之丸的所在地，現已作為皇室附屬庭園開放給一般民眾免費參觀。這裡不僅保留了江戶城天守台的巨大石垣，還有精心修剪的日式庭園與豐富的四季花草。漫步其中，能在東京最繁華的都心感受到濃厚的歷史底蘊與難得的寧靜。",
+            "imageUrl": "/spots/imperial-palace.jpg"
           }
         ]
       },
@@ -514,9 +520,15 @@
         "period": "下午",
         "activities": [
           {
-            "type": "text",
-            "content": "晴空塔購物（精品/日牌女裝/吉卜力橡子共和國與寶可夢中心）",
-            "timeRange": ""
+            "type": "spot",
+            "title": "晴空塔 (Tokyo Skytree)",
+            "locations": [
+              "東京晴空塔"
+            ],
+            "note": "購物精品, 日牌女裝, 吉卜力橡子共和國與寶可夢中心",
+            "timeRange": "",
+            "description": "東京晴空塔高達 634 公尺，是目前世界第一高塔。除了能從展望台飽覽關東平原的壯麗日夜景之外，塔下的「東京晴空街道 (Tokyo Solamachi)」更是極具規模的複合式購物中心。這裡匯聚了從國際精品、日系服飾、傳統工藝品到各式知名動漫周邊，是好逛又好買的必訪地標。",
+            "imageUrl": "/spots/tokyo-skytree.jpg"
           },
           {
             "type": "text",
