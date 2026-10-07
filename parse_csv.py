@@ -9,20 +9,28 @@ with open('2026_japan.csv', 'r', encoding='utf-8') as f:
 dates = reader[0]
 days_of_week = reader[1]
 
-# We want 7 days: 10/21 to 10/27
-# Let's map column indices to dates
 date_cols = {}
 for i, val in enumerate(dates):
     val = val.strip()
     if val.startswith('10/'):
         date_cols[i] = val
 
-# Let's extract row titles
-row_titles = {}
-for i, row in enumerate(reader):
-    title = row[0].strip() if len(row) > 0 else ''
-    if title:
-        row_titles[i] = title
+hotel_db = {
+    "東京黎凡特東武酒店 （3星）": {
+        "name": "東武ホテルレバント東京",
+        "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
+        "phone": "+81356115511",
+        "checkIn": "下午3:00",
+        "checkOut": "上午11:00"
+    },
+    "日光中禪寺湖花庵旅館": {
+        "name": "日光中禅寺湖温泉 ホテル花庵",
+        "address": "2480 Chugushi, Nikko, Tochigi 321-1661日本",
+        "phone": "+81288510105",
+        "checkIn": "下午3:00",
+        "checkOut": "上午11:00"
+    }
+}
 
 itinerary = []
 for col in sorted(date_cols.keys()):
@@ -38,16 +46,14 @@ for col in sorted(date_cols.keys()):
         "schedule": []
     }
     
-    # Process rows
     current_time_period = None
     
     for row_idx, row in enumerate(reader):
-        if row_idx < 2: continue # Skip header
+        if row_idx < 2: continue 
         if len(row) <= col: continue
         
         val = row[col].strip()
-        if not val:
-            continue
+        if not val: continue
             
         row_label = row[0].strip()
         
@@ -56,7 +62,8 @@ for col in sorted(date_cols.keys()):
             continue
             
         if row_label == "住宿":
-            day_data["accommodation"] = val
+            # Map to detailed object if exists, otherwise just string
+            day_data["accommodation"] = hotel_db.get(val, {"name": val})
             continue
             
         if row_label in ["早餐", "早上", "中餐", "下午", "晚餐", "晚上"]:
@@ -66,7 +73,6 @@ for col in sorted(date_cols.keys()):
                 "activities": [val]
             })
         else:
-            # If no row label, it belongs to the previous period
             if current_time_period and len(day_data["schedule"]) > 0:
                 day_data["schedule"][-1]["activities"].append(val)
             elif "日光" in val or "迪士尼" in val:
@@ -79,12 +85,10 @@ for col in sorted(date_cols.keys()):
                 else:
                     day_data["schedule"][-1]["activities"].append(val)
 
-    # Clean up title if it was found in the second row
     title_val = reader[2][col].strip() if len(reader[2]) > col else ""
     if title_val and "CX" not in title_val:
         day_data["title"] = title_val
 
     itinerary.append(day_data)
 
-# Print parsed json
 print(json.dumps(itinerary, ensure_ascii=False, indent=2))

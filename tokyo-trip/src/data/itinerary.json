@@ -4,7 +4,13 @@
     "dayOfWeek": "三",
     "title": "",
     "flight": "CX450\n1300 TPE\n1715 NRT",
-    "accommodation": "東京黎凡特東武酒店 （3星）",
+    "accommodation": {
+      "name": "東武ホテルレバント東京",
+      "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
+      "phone": "+81356115511",
+      "checkIn": "下午3:00",
+      "checkOut": "上午11:00"
+    },
     "schedule": [
       {
         "period": "全天",
@@ -32,7 +38,13 @@
     "dayOfWeek": "四",
     "title": "日光",
     "flight": null,
-    "accommodation": "日光中禪寺湖花庵旅館",
+    "accommodation": {
+      "name": "日光中禅寺湖温泉 ホテル花庵",
+      "address": "2480 Chugushi, Nikko, Tochigi 321-1661日本",
+      "phone": "+81288510105",
+      "checkIn": "下午3:00",
+      "checkOut": "上午11:00"
+    },
     "schedule": [
       {
         "period": "早餐",
@@ -122,7 +134,13 @@
     "dayOfWeek": "六",
     "title": "日光",
     "flight": null,
-    "accommodation": "東京黎凡特東武酒店 （3星）",
+    "accommodation": {
+      "name": "東武ホテルレバント東京",
+      "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
+      "phone": "+81356115511",
+      "checkIn": "下午3:00",
+      "checkOut": "上午11:00"
+    },
     "schedule": [
       {
         "period": "早餐",
