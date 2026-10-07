@@ -21,17 +21,17 @@ function App() {
       <div 
         className="h-64 sm:h-72 flex flex-col items-center justify-center text-white text-center px-4 rounded-b-3xl shadow-md relative"
         style={{
-          background: "linear-gradient(135deg, rgba(201, 106, 78, 0.8), rgba(184, 107, 119, 0.8)), url('/niko_banner.jpg') no-repeat center center",
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.3) 100%), url('/niko_banner.jpg') no-repeat center center",
           backgroundSize: 'cover'
         }}
       >
         <div className="absolute top-4 right-4 z-50">
           <WeatherWidget location={currentLocation} dateStr={activeDay.date} />
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-3" style={{ textShadow: "0 2px 4px rgba(0,0,0,0.2)" }}>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-3" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}>
           東京・日光の秋
         </h1>
-        <p className="text-lg md:text-xl font-light opacity-90 tracking-wide" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>
+        <p className="text-lg md:text-xl font-light opacity-90 tracking-wide" style={{ textShadow: "0 2px 6px rgba(0,0,0,0.5)" }}>
           Wabi-Sabi Autumn Journey
         </p>
       </div>
