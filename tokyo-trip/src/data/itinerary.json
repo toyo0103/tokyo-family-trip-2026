@@ -226,9 +226,15 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "戰場之原健行",
-            "timeRange": ""
+            "type": "spot",
+            "title": "戰場之原健行",
+            "locations": [
+              "戰場之原"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "戰場之原是位於奧日光海拔約 1,400 公尺的廣闊濕地，名稱源自神話中男體山神與赤城山神爭奪中禪寺湖的傳說。這裡設有平緩易行的木棧道，沿途可欣賞高山植物、野鳥以及壯麗的男體山景緻。秋季時，濕地上的草木會轉為迷人的金黃與赤紅色，是日光地區極具代表性的自然生態健行聖地。",
+            "imageUrl": "/spots/senjogahara.jpg"
           },
           {
             "type": "transit",
@@ -308,9 +314,15 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "華嚴瀑布",
-            "timeRange": ""
+            "type": "spot",
+            "title": "華嚴瀑布",
+            "locations": [
+              "華嚴瀑布"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "華嚴瀑布是「日本三大名瀑」之一，中禪寺湖的湖水從 97 公尺高的峭壁傾瀉而下，氣勢磅礴。搭乘專屬電梯至觀瀑台，可近距離感受瀑布飛濺的水花與震耳欲聾的水聲。這裡不僅是賞楓名所，冬季時瀑布周圍結出的冰柱（冰瀑）更是一大絕景。",
+            "imageUrl": "/spots/kegon-falls.jpg"
           },
           {
             "type": "transit",
@@ -388,9 +400,15 @@
         "period": "早上",
         "activities": [
           {
-            "type": "text",
-            "content": "新宿御苑",
-            "timeRange": ""
+            "type": "spot",
+            "title": "新宿御苑",
+            "locations": [
+              "新宿御苑"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "新宿御苑最初是江戶時代大名的宅邸，後來成為皇室庭園，現為國民公園。這裡佔地廣闊，巧妙結合了日式傳統庭園、法式幾何庭園與英式風景庭園三種風格。作為東京市中心的都市綠洲，秋季有著美麗的紅葉與銀杏，四季皆有動人景緻。",
+            "imageUrl": "/spots/shinjuku-gyoen.jpg"
           },
           {
             "type": "transit",
@@ -414,14 +432,26 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "芝公園",
-            "timeRange": ""
+            "type": "spot",
+            "title": "芝公園",
+            "locations": [
+              "芝公園"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "芝公園是日本最古老的公園之一，歷史悠久，園內綠意盎然。這裡最大的特色是能夠近距離仰望與拍攝壯觀的東京鐵塔，尤其以鄰近增上寺與東京鐵塔同框的經典畫面最為著名，是許多攝影愛好者與遊客必訪的打卡聖地。",
+            "imageUrl": "/spots/shiba-park.jpg"
           },
           {
-            "type": "text",
-            "content": "東京鐵塔",
-            "timeRange": ""
+            "type": "spot",
+            "title": "東京鐵塔",
+            "locations": [
+              "東京鐵塔"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "東京鐵塔建於 1958 年，是一座高 333 公尺的紅白相間電波塔，長期以來作為東京的象徵而深受喜愛。夜晚時分，溫暖的橘黃色燈光點亮了東京的夜空，是浪漫經典的必訪地標。",
+            "imageUrl": "/spots/tokyo-tower.jpg"
           }
         ]
       },
@@ -434,9 +464,15 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "六本木hills夜景",
-            "timeRange": ""
+            "type": "spot",
+            "title": "六本木之丘 展望台",
+            "locations": [
+              "六本木之丘 森大樓"
+            ],
+            "note": "Tokyo City View",
+            "timeRange": "",
+            "description": "六本木之丘展望台（Tokyo City View）位於森大樓 52 樓，擁有高達 11 公尺的巨大落地窗，提供無死角的絕佳視野。在這裡能將東京鐵塔、台場盡收眼底。其無反光設計與絕佳的地理位置，使其成為觀賞東京璀璨夜景的首選之地。",
+            "imageUrl": "/spots/roppongi-hills.jpg"
           }
         ]
       }
