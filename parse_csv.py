@@ -82,13 +82,14 @@ for col in sorted(date_cols.keys()):
         if row_idx < 2: continue 
         if len(row) <= col: continue
         
+        row_label = row[0].strip()
+        if row_label in ["早餐", "早上", "中餐", "下午", "晚餐", "晚上"]:
+            current_time_period = row_label
+            
         val = row[col].strip()
         if not val: continue
-            
-        row_label = row[0].strip()
         
         if "[FLIGHT]" in val:
-            # [FLIGHT] CX450 | 13:00 TPE -> 17:15 NRT
             parts = [p.strip() for p in val.replace("[FLIGHT]", "").split("|")]
             number = parts[0] if len(parts) > 0 else ""
             times = parts[1] if len(parts) > 1 else ""
@@ -103,13 +104,23 @@ for col in sorted(date_cols.keys()):
             continue
             
         if row_label in ["早餐", "早上", "中餐", "下午", "晚餐", "晚上"]:
-            current_time_period = row_label
-            day_data["schedule"].append({
-                "period": current_time_period,
-                "activities": parse_activity(val)
-            })
+            # If the period definition row itself has a value, add it as the first activity
+            if not any(s["period"] == current_time_period for s in day_data["schedule"]):
+                day_data["schedule"].append({
+                    "period": current_time_period,
+                    "activities": parse_activity(val)
+                })
+            else:
+                day_data["schedule"][-1]["activities"].extend(parse_activity(val))
         else:
-            if current_time_period and len(day_data["schedule"]) > 0:
+            # Handle values in rows that don't define a new period
+            if current_time_period:
+                # Ensure the period bucket exists
+                if not any(s["period"] == current_time_period for s in day_data["schedule"]):
+                    day_data["schedule"].append({
+                        "period": current_time_period,
+                        "activities": []
+                    })
                 day_data["schedule"][-1]["activities"].extend(parse_activity(val))
             elif "日光" in val or "迪士尼" in val:
                 day_data["title"] = val

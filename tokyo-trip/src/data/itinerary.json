@@ -17,6 +17,21 @@
     },
     "schedule": [
       {
+        "period": "下午",
+        "activities": [
+          {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "成田機場 (千葉空港) platform 1",
+              "錦系町 platform 3"
+            ],
+            "duration": "",
+            "notes": "成田線 快速 (東京行)"
+          }
+        ]
+      },
+      {
         "period": "晚餐",
         "activities": [
           {
@@ -155,16 +170,6 @@
           {
             "type": "text",
             "content": "中禪寺湖畔碼頭散步"
-          },
-          {
-            "type": "transit",
-            "method": "train",
-            "route": [
-              "成田機場 (千葉空港) platform 1",
-              "錦系町 platform 3"
-            ],
-            "duration": "",
-            "notes": "成田線 快速 (東京行)"
           }
         ]
       },
@@ -258,6 +263,10 @@
           {
             "type": "text",
             "content": "中禪寺湖觀光船（遊湖55mins）"
+          },
+          {
+            "type": "text",
+            "content": "中禪寺（看立木觀音）也可以喝日式茶屋"
           }
         ]
       },
@@ -361,10 +370,6 @@
           {
             "type": "text",
             "content": "飯店周邊逛逛（錦糸町公園、PARCO百貨、Arcakit 百貨or藥妝店）"
-          },
-          {
-            "type": "text",
-            "content": "中禪寺（看立木觀音）也可以喝日式茶屋"
           }
         ]
       },
@@ -449,6 +454,10 @@
           {
             "type": "text",
             "content": "芝公園"
+          },
+          {
+            "type": "text",
+            "content": "東京鐵塔"
           }
         ]
       },
@@ -523,16 +532,6 @@
           {
             "type": "text",
             "content": "買藥妝"
-          },
-          {
-            "type": "transit",
-            "method": "train",
-            "route": [
-              "神谷町站",
-              "六代木站"
-            ],
-            "duration": "東京Metro日比谷線",
-            "notes": ""
           }
         ]
       },
@@ -577,7 +576,12 @@
             ],
             "duration": "立木津巴士",
             "notes": ""
-          },
+          }
+        ]
+      },
+      {
+        "period": "晚上",
+        "activities": [
           {
             "type": "text",
             "content": "自由之丘"
