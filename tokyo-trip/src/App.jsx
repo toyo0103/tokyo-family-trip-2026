@@ -3,6 +3,7 @@ import { Briefcase } from 'lucide-react';
 import WeatherWidget from './components/WeatherWidget';
 import ItineraryTimeline from './components/ItineraryTimeline';
 import PackingList from './components/PackingList';
+import ItineraryEditor from './components/ItineraryEditor';
 import itineraryData from './data/itinerary.json';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Briefcase className="w-6 h-6 group-hover:animate-bounce" />
       </button>
 
+      <ItineraryEditor />
       <PackingList isOpen={isPackingListOpen} onClose={() => setIsPackingListOpen(false)} />
       
       {/* Footer */}
