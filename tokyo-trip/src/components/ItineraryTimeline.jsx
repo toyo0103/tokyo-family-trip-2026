@@ -15,7 +15,7 @@ const TransitCard = ({ data }) => {
 
   return (
     <div className="bg-white border border-[#EBE5DB] rounded-2xl p-4 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
+      <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase">
@@ -41,18 +41,16 @@ const TransitCard = ({ data }) => {
           </div>
         </div>
         
-        {/* Map button at bottom right */}
-        <div className="flex-shrink-0 self-end mt-2 sm:mt-0">
-          <a 
-            href={mapUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[#C96A4E] bg-[#C96A4E]/5 hover:bg-[#C96A4E]/15 px-3 py-1.5 rounded-full transition-colors"
-          >
-            <MapIcon className="w-4 h-4" />
-            導航
-          </a>
-        </div>
+        {/* Map button at top right */}
+        <a 
+          href={mapUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 inline-flex items-center justify-center w-8 h-8 text-[#C96A4E] bg-[#C96A4E]/5 hover:bg-[#C96A4E]/15 rounded-full transition-colors mt-[-4px] mr-[-4px]"
+          title="Google Map 導航"
+        >
+          <MapIcon className="w-4 h-4" />
+        </a>
       </div>
     </div>
   );
