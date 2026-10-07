@@ -317,12 +317,6 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                   <div className="space-y-4">
                     {item.activities.map((activity, actIdx) => {
                       const timeRange = activity.timeRange;
-                      const TimeBadge = timeRange ? (
-                        <div className="inline-flex items-center text-[#C96A4E] text-xs font-bold mb-1.5 ml-1 bg-white/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-[#C96A4E]/20 shadow-sm">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {timeRange}
-                        </div>
-                      ) : null;
                       
                       let cardContent = null;
                       if (activity.type === 'transit') {
@@ -339,9 +333,16 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                       }
 
                       return (
-                        <div key={actIdx} className="relative flex flex-col">
-                          {TimeBadge}
-                          {cardContent}
+                        <div key={actIdx} className="relative flex flex-col md:flex-row gap-2 md:gap-4 items-start">
+                          {timeRange && (
+                            <div className="md:w-28 shrink-0 flex items-center md:pt-4 text-[#7A726D]">
+                              <Clock className="w-4 h-4 mr-1.5 opacity-60" />
+                              <span className="text-sm font-medium tracking-wide">{timeRange}</span>
+                            </div>
+                          )}
+                          <div className="flex-1 min-w-0 w-full">
+                            {cardContent}
+                          </div>
                         </div>
                       );
                     })}
