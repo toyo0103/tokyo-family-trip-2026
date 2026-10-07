@@ -20,7 +20,7 @@ function App() {
         }}
       >
         <div className="absolute top-4 right-4 z-50">
-          <WeatherWidget location={currentLocation} />
+          <WeatherWidget location={currentLocation} dateStr={activeDay.date} />
         </div>
         <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-3" style={{ textShadow: "0 2px 4px rgba(0,0,0,0.2)" }}>
           東京・日光の秋
