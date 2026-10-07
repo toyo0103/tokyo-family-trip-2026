@@ -249,6 +249,20 @@ const FlightCard = ({ flight }) => {
     }
   }
 
+  const renderAirport = (str) => {
+    if (!str) return null;
+    const parts = str.split(' (');
+    if (parts.length > 1) {
+      return (
+        <div className="text-sm font-bold text-[#7A726D] leading-tight mt-1">
+          <div>{parts[0]}</div>
+          <div className="text-xs opacity-75 font-medium mt-0.5">({parts[1]}</div>
+        </div>
+      );
+    }
+    return <div className="text-sm font-bold text-[#7A726D] mt-1">{str}</div>;
+  };
+
   return (
     <a 
       href={flightRadarUrl}
@@ -266,7 +280,7 @@ const FlightCard = ({ flight }) => {
       <div className="flex items-center justify-between mt-2 gap-2">
         <div className="text-center flex-shrink-0 min-w-[4rem]">
           <div className="text-xl font-black text-[#3D3835]">{depTime}</div>
-          <div className="text-sm font-bold text-[#7A726D]">{depAirport}</div>
+          {renderAirport(depAirport)}
         </div>
 
         <div className="flex-1 px-2 flex flex-col items-center justify-center">
@@ -279,7 +293,7 @@ const FlightCard = ({ flight }) => {
 
         <div className="text-center flex-shrink-0 min-w-[4rem]">
           <div className="text-xl font-black text-[#3D3835]">{arrTime}</div>
-          <div className="text-sm font-bold text-[#7A726D]">{arrAirport}</div>
+          {renderAirport(arrAirport)}
         </div>
       </div>
     </a>
