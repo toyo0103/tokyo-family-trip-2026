@@ -9,7 +9,8 @@
       "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
       "phone": "+81356115511",
       "checkIn": "下午3:00",
-      "checkOut": "上午11:00"
+      "checkOut": "上午11:00",
+      "image": "/hotels/tobu-levant.jpg"
     },
     "schedule": [
       {
@@ -43,7 +44,8 @@
       "address": "2480 Chugushi, Nikko, Tochigi 321-1661日本",
       "phone": "+81288510105",
       "checkIn": "下午3:00",
-      "checkOut": "上午11:00"
+      "checkOut": "上午11:00",
+      "image": "/hotels/hana-an.jpg"
     },
     "schedule": [
       {
@@ -94,7 +96,8 @@
       "address": "2480 Chugushi, Nikko, Tochigi 321-1661日本",
       "phone": "+81288510105",
       "checkIn": "下午3:00",
-      "checkOut": "上午11:00"
+      "checkOut": "上午11:00",
+      "image": "/hotels/hana-an.jpg"
     },
     "schedule": [
       {
@@ -145,7 +148,8 @@
       "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
       "phone": "+81356115511",
       "checkIn": "下午3:00",
-      "checkOut": "上午11:00"
+      "checkOut": "上午11:00",
+      "image": "/hotels/tobu-levant.jpg"
     },
     "schedule": [
       {
@@ -201,7 +205,8 @@
       "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
       "phone": "+81356115511",
       "checkIn": "下午3:00",
-      "checkOut": "上午11:00"
+      "checkOut": "上午11:00",
+      "image": "/hotels/tobu-levant.jpg"
     },
     "schedule": [
       {
@@ -254,7 +259,8 @@
       "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
       "phone": "+81356115511",
       "checkIn": "下午3:00",
-      "checkOut": "上午11:00"
+      "checkOut": "上午11:00",
+      "image": "/hotels/tobu-levant.jpg"
     },
     "schedule": [
       {
@@ -295,13 +301,7 @@
     "dayOfWeek": "二",
     "title": "",
     "flight": "CX451\n1530 NRT\n1840 TPE",
-    "accommodation": {
-      "name": "東武ホテルレバント東京",
-      "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
-      "phone": "+81356115511",
-      "checkIn": "下午3:00",
-      "checkOut": "上午11:00"
-    },
+    "accommodation": null,
     "schedule": [
       {
         "period": "早上",

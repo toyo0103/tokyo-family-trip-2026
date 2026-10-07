@@ -74,34 +74,48 @@ const AccommodationCard = ({ accommodation }) => {
       href={mapUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-4 flex items-start gap-3 hover:bg-amber-100 transition-colors cursor-pointer block"
+      className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-4 flex items-start gap-4 hover:bg-amber-100 transition-colors cursor-pointer block group overflow-hidden"
     >
       <Hotel className="w-5 h-5 text-amber-600 mt-1 shrink-0" />
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
           <span className="text-xs text-amber-600 font-semibold uppercase tracking-wider">Accommodation</span>
           <span className="text-xs font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
             開啟地圖
           </span>
         </div>
-        <h4 className="font-bold text-amber-900 mt-0.5">{name}</h4>
+        <h4 className="font-bold text-amber-900 mt-0.5 truncate">{name}</h4>
         
         {typeof accommodation === 'object' && accommodation.address && (
-          <div className="mt-3 space-y-1.5 border-t border-amber-200/60 pt-2">
-            <div className="flex items-start gap-2 text-sm text-amber-800">
-              <MapPin className="w-4 h-4 shrink-0 mt-0.5 opacity-70" />
-              <span>{accommodation.address}</span>
-            </div>
-            {accommodation.phone && (
-              <div className="flex items-center gap-2 text-sm text-amber-800">
-                <Phone className="w-4 h-4 shrink-0 opacity-70" />
-                <span>{accommodation.phone}</span>
+          <div className="mt-3 flex flex-col md:flex-row gap-4">
+            <div className="flex-1 space-y-2 border-t border-amber-200/60 pt-2">
+              <div className="flex items-start gap-2 text-sm text-amber-800">
+                <MapPin className="w-4 h-4 shrink-0 mt-0.5 opacity-70" />
+                <span className="leading-tight">{accommodation.address}</span>
               </div>
-            )}
-            {accommodation.checkIn && accommodation.checkOut && (
-              <div className="flex items-center gap-2 text-sm text-amber-800">
-                <Info className="w-4 h-4 shrink-0 opacity-70" />
-                <span>Check-in: {accommodation.checkIn} / Check-out: {accommodation.checkOut}</span>
+              {accommodation.phone && (
+                <div className="flex items-center gap-2 text-sm text-amber-800">
+                  <Phone className="w-4 h-4 shrink-0 opacity-70" />
+                  <span>{accommodation.phone}</span>
+                </div>
+              )}
+              {accommodation.checkIn && accommodation.checkOut && (
+                <div className="flex items-center gap-2 text-sm text-amber-800">
+                  <Info className="w-4 h-4 shrink-0 opacity-70" />
+                  <span>Check-in: {accommodation.checkIn} / Check-out: {accommodation.checkOut}</span>
+                </div>
+              )}
+            </div>
+            
+            {/* 圖片區塊 (如果 JSON 有提供 image) */}
+            {accommodation.image && (
+              <div className="w-full md:w-32 h-24 shrink-0 rounded-md overflow-hidden bg-amber-100 border border-amber-200">
+                <img 
+                  src={accommodation.image} 
+                  alt={name} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                  onError={(e) => e.target.style.display = 'none'}
+                />
               </div>
             )}
           </div>

@@ -21,14 +21,16 @@ hotel_db = {
         "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
         "phone": "+81356115511",
         "checkIn": "下午3:00",
-        "checkOut": "上午11:00"
+        "checkOut": "上午11:00",
+        "image": "/hotels/tobu-levant.jpg"
     },
     "日光中禪寺湖花庵旅館": {
         "name": "日光中禅寺湖温泉 ホテル花庵",
         "address": "2480 Chugushi, Nikko, Tochigi 321-1661日本",
         "phone": "+81288510105",
         "checkIn": "下午3:00",
-        "checkOut": "上午11:00"
+        "checkOut": "上午11:00",
+        "image": "/hotels/hana-an.jpg"
     }
 }
 
@@ -92,12 +94,14 @@ for col in sorted(date_cols.keys()):
 
 # Carry over accommodation logic
 current_acc = None
-for day in itinerary:
+for i, day in enumerate(itinerary):
     if day["accommodation"]:
         current_acc = day["accommodation"]
     elif current_acc:
-        # If it's the last day and they have a flight back, we might still want to show it so they know where to check out.
-        # But maybe we add a property "isCheckOutDay" if we want, but copying it is fine.
-        day["accommodation"] = current_acc
+        # Do not carry over accommodation to the very last day (checkout day)
+        if i == len(itinerary) - 1:
+            day["accommodation"] = None
+        else:
+            day["accommodation"] = current_acc
 
 print(json.dumps(itinerary, ensure_ascii=False, indent=2))
