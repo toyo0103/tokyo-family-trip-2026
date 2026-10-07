@@ -14,47 +14,43 @@ const TransitCard = ({ data }) => {
   }
 
   return (
-    <div className="bg-indigo-50/70 border border-indigo-200 rounded-lg p-3 sm:p-4 shadow-sm relative overflow-hidden group">
-      <div className="flex items-start gap-3 h-full">
-        <div className="bg-indigo-100 p-2 rounded-full shrink-0">
-          <Icon className="w-5 h-5 text-indigo-600" />
-        </div>
-        <div className="flex-1 min-w-0 flex flex-col justify-between h-full relative">
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
-                {isBus ? 'Bus Transit' : 'Train Transit'}
-              </span>
-              {data.duration && (
-                <span className="text-xs font-bold bg-indigo-600 text-white px-2 py-0.5 rounded-full shadow-sm">
-                  ⏱ {data.duration}
-                </span>
-              )}
-            </div>
-            
-            <div className="text-sm text-indigo-800/90 leading-relaxed font-medium pb-8 sm:pb-0 sm:pr-28">
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                {data.route.map((seg, idx) => (
-                  <span key={idx} className="flex items-center gap-2">
-                    <span className="bg-white/60 px-2 py-0.5 rounded shadow-sm border border-indigo-100">{seg}</span>
-                    {idx < data.route.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-indigo-400 shrink-0" />}
-                  </span>
-                ))}
-              </div>
-              {data.notes && (
-                <div className="text-xs text-indigo-500 mt-2">備註：{data.notes}</div>
-              )}
-            </div>
+    <div className="bg-white border border-[#EBE5DB] rounded-2xl p-4 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase">
+              {isBus ? 'Bus Transit' : 'Train Transit'}
+            </span>
+            {data.duration && (
+              <span className="text-xs text-[#7A726D] font-medium">⏱ {data.duration}</span>
+            )}
           </div>
           
+          <div className="text-[#3D3835] text-sm leading-relaxed font-medium">
+            <div className="flex flex-wrap items-center gap-2 mb-1">
+              {data.route.map((seg, idx) => (
+                <span key={idx} className="flex items-center gap-2">
+                  <span>{seg}</span>
+                  {idx < data.route.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-[#C96A4E]/60 shrink-0" />}
+                </span>
+              ))}
+            </div>
+            {data.notes && (
+              <div className="text-xs text-[#7A726D] mt-1 opacity-80">備註：{data.notes}</div>
+            )}
+          </div>
+        </div>
+        
+        {/* Map button at bottom right */}
+        <div className="flex-shrink-0 self-end mt-2 sm:mt-0">
           <a 
             href={mapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute bottom-0 right-0 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 bg-indigo-100/50 hover:bg-indigo-200/70 border border-indigo-200 px-3 py-1.5 rounded-md transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-[#C96A4E] bg-[#C96A4E]/5 hover:bg-[#C96A4E]/15 px-3 py-1.5 rounded-full transition-colors"
           >
-            <MapIcon className="w-3.5 h-3.5" />
-            Google Maps
+            <MapIcon className="w-4 h-4" />
+            導航
           </a>
         </div>
       </div>
@@ -65,48 +61,72 @@ const TransitCard = ({ data }) => {
 const FoodCard = ({ data }) => {
   if (!data || !data.options || data.options.length === 0) return null;
 
-  // Group by category if categories exist
-  const hasCategories = data.options.some(opt => opt.category);
+  // Separate by categories based on the category property (e.g., '葷食', '素食')
+  const meatOptions = data.options.filter(opt => !opt.category || !opt.category.includes('素'));
+  const vegOptions = data.options.filter(opt => opt.category && opt.category.includes('素'));
   
   return (
-    <div className="bg-rose-50/50 border border-rose-100 rounded-lg p-3 sm:p-4 shadow-sm relative group">
-      <div className="flex items-start gap-3">
-        <div className="bg-rose-100 p-2 rounded-full shrink-0">
-          <Utensils className="w-4 h-4 text-rose-500" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <span className="text-xs font-bold text-rose-500 uppercase tracking-wider mb-2 block">
-            Dining Options
-          </span>
-          
-          <div className="flex flex-wrap gap-2">
-            {data.options.map((opt, idx) => {
-              const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(opt.name)}`;
-              return (
-                <a
-                  key={idx}
-                  href={mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 bg-white hover:bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-full text-sm font-medium text-rose-800 transition-colors shadow-sm hover:shadow group/food"
-                >
-                  {opt.category && (
-                    <span className="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide shrink-0">
-                      {opt.category}
-                    </span>
-                  )}
-                  <span className="flex flex-wrap items-baseline gap-1.5">
+    <div className="bg-white border border-[#EBE5DB] rounded-2xl p-4 sm:p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-[10px] font-bold text-white bg-[#B86B77] px-2 py-1 rounded tracking-wider uppercase">
+          Dining Options
+        </span>
+      </div>
+      
+      <div className="space-y-4 mt-2">
+        {meatOptions.length > 0 && (
+          <div>
+            <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-[#C96A4E]">
+              <Utensils className="w-3.5 h-3.5" />
+              葷食選擇 (Meat)
+            </div>
+            <div className="flex flex-wrap gap-2.5">
+              {meatOptions.map((opt, idx) => {
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(opt.name)}`;
+                return (
+                  <a
+                    key={idx}
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] hover:border-[#C96A4E] px-4 py-2 rounded-full text-sm font-medium text-[#3D3835] hover:shadow-sm hover:-translate-y-px transition-all decoration-transparent"
+                  >
                     <span>{opt.name}</span>
-                    {opt.note && (
-                      <span className="text-[11px] text-rose-500/80 font-normal">({opt.note})</span>
-                    )}
-                  </span>
-                  <MapIcon className="w-3.5 h-3.5 text-rose-400 ml-0.5 group-hover/food:text-rose-600 shrink-0" />
-                </a>
-              );
-            })}
+                    {opt.note && <span className="text-xs text-[#7A726D] font-normal">({opt.note})</span>}
+                    <MapIcon className="w-3.5 h-3.5 text-[#C96A4E]/60 ml-0.5" />
+                  </a>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
+
+        {vegOptions.length > 0 && (
+          <div>
+            <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-[#6C7D63]">
+              <Utensils className="w-3.5 h-3.5" />
+              素食選擇 (Vegetarian)
+            </div>
+            <div className="flex flex-wrap gap-2.5">
+              {vegOptions.map((opt, idx) => {
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(opt.name)}`;
+                return (
+                  <a
+                    key={idx}
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] hover:border-[#6C7D63] px-4 py-2 rounded-full text-sm font-medium text-[#6C7D63] hover:shadow-sm hover:-translate-y-px transition-all decoration-transparent"
+                  >
+                    <span>{opt.name}</span>
+                    {opt.note && <span className="text-xs opacity-70 font-normal">({opt.note})</span>}
+                    <MapIcon className="w-3.5 h-3.5 opacity-70 ml-0.5" />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -136,33 +156,32 @@ const FlightCard = ({ flight }) => {
       href={flightRadarUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4 flex flex-col hover:bg-blue-100 transition-colors cursor-pointer block"
-      title="點擊前往 FlightRadar24 追蹤航班動態"
+      className="bg-[#FFFFFF] border border-[#EBE5DB] rounded-2xl p-4 my-4 flex flex-col hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer block"
     >
       <div className="flex justify-between items-center mb-2">
-        <span className="font-bold text-blue-900">{flightNumber}</span>
-        <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full flex items-center gap-1">
+        <span className="font-bold text-[#3D3835]">{flightNumber}</span>
+        <span className="text-xs font-semibold bg-[#B86B77]/10 text-[#B86B77] px-2 py-0.5 rounded-full flex items-center gap-1">
           即時動態
         </span>
       </div>
 
       <div className="flex items-center justify-between mt-2">
         <div className="text-center w-16">
-          <div className="text-xl font-black text-blue-950">{depTime}</div>
-          <div className="text-sm font-bold text-blue-600">{depAirport}</div>
+          <div className="text-xl font-black text-[#3D3835]">{depTime}</div>
+          <div className="text-sm font-bold text-[#7A726D]">{depAirport}</div>
         </div>
 
         <div className="flex-1 px-4 flex flex-col items-center justify-center">
-          <div className="w-full flex items-center">
-            <div className="h-0.5 bg-blue-200 flex-1 rounded-l-full"></div>
-            <Plane className="w-5 h-5 mx-2 text-blue-500" />
-            <div className="h-0.5 bg-blue-200 flex-1 rounded-r-full"></div>
+          <div className="w-full flex items-center opacity-40">
+            <div className="h-0.5 bg-[#C96A4E] flex-1 rounded-l-full"></div>
+            <Plane className="w-5 h-5 mx-2 text-[#C96A4E]" />
+            <div className="h-0.5 bg-[#C96A4E] flex-1 rounded-r-full"></div>
           </div>
         </div>
 
         <div className="text-center w-16">
-          <div className="text-xl font-black text-blue-950">{arrTime}</div>
-          <div className="text-sm font-bold text-blue-600">{arrAirport}</div>
+          <div className="text-xl font-black text-[#3D3835]">{arrTime}</div>
+          <div className="text-sm font-bold text-[#7A726D]">{arrAirport}</div>
         </div>
       </div>
     </a>
@@ -180,33 +199,33 @@ const AccommodationCard = ({ accommodation }) => {
       href={mapUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-4 flex items-start gap-4 hover:bg-amber-100 transition-colors cursor-pointer block group overflow-hidden"
+      className="bg-white border border-[#EBE5DB] rounded-2xl p-4 my-4 flex items-start gap-4 hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer block group overflow-hidden"
     >
-      <Hotel className="w-5 h-5 text-amber-600 mt-1 shrink-0" />
+      <Hotel className="w-5 h-5 text-[#C96A4E] mt-1 shrink-0" />
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
-          <span className="text-xs text-amber-600 font-semibold uppercase tracking-wider">Accommodation</span>
-          <span className="text-xs font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
+          <span className="text-xs text-[#C96A4E] font-semibold uppercase tracking-wider">Accommodation</span>
+          <span className="text-[10px] font-semibold bg-[#C96A4E]/10 text-[#C96A4E] px-2 py-1 rounded-full">
             開啟地圖
           </span>
         </div>
-        <h4 className="font-bold text-amber-900 mt-0.5 truncate">{name}</h4>
+        <h4 className="font-bold text-[#3D3835] mt-1 truncate">{name}</h4>
         
         {typeof accommodation === 'object' && accommodation.address && (
           <div className="mt-3 flex flex-col md:flex-row gap-4">
-            <div className="flex-1 space-y-2 border-t border-amber-200/60 pt-2">
-              <div className="flex items-start gap-2 text-sm text-amber-800">
+            <div className="flex-1 space-y-2 border-t border-[#EBE5DB] pt-3">
+              <div className="flex items-start gap-2 text-sm text-[#7A726D]">
                 <MapPin className="w-4 h-4 shrink-0 mt-0.5 opacity-70" />
                 <span className="leading-tight">{accommodation.address}</span>
               </div>
               {accommodation.phone && (
-                <div className="flex items-center gap-2 text-sm text-amber-800">
+                <div className="flex items-center gap-2 text-sm text-[#7A726D]">
                   <Phone className="w-4 h-4 shrink-0 opacity-70" />
                   <span>{accommodation.phone}</span>
                 </div>
               )}
               {accommodation.checkIn && accommodation.checkOut && (
-                <div className="flex items-center gap-2 text-sm text-amber-800">
+                <div className="flex items-center gap-2 text-sm text-[#7A726D]">
                   <Info className="w-4 h-4 shrink-0 opacity-70" />
                   <span>Check-in: {accommodation.checkIn} / Check-out: {accommodation.checkOut}</span>
                 </div>
@@ -214,7 +233,7 @@ const AccommodationCard = ({ accommodation }) => {
             </div>
             
             {accommodation.image && (
-              <div className="w-full md:w-32 h-24 shrink-0 rounded-md overflow-hidden bg-amber-100 border border-amber-200">
+              <div className="w-full md:w-32 h-24 shrink-0 rounded-md overflow-hidden bg-gray-100 border border-[#EBE5DB]">
                 <img 
                   src={accommodation.image} 
                   alt={name} 
@@ -234,23 +253,27 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
   const activeDay = itineraryData[activeTabIndex];
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
+    <div className="max-w-3xl mx-auto py-8">
       {/* Tabs */}
       <div className="mb-8">
-        <div className="flex overflow-x-auto hide-scrollbar gap-2 pb-2">
+        <div className="flex overflow-x-auto gap-4 pb-4 pt-2 px-1" style={{ scrollbarWidth: 'none' }}>
           {itineraryData.map((day, index) => {
             const isActive = index === activeTabIndex;
             return (
               <button
                 key={index}
                 onClick={() => setActiveTabIndex(index)}
-                className={`flex-none px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
-                }`}
+                className={`relative flex-none px-6 py-3 rounded-xl text-sm font-semibold transition-all border
+                  ${
+                    isActive
+                      ? 'bg-white text-[#C96A4E] border-[#C96A4E] shadow-[0_4px_12px_rgba(201,106,78,0.1)]'
+                      : 'bg-white text-[#7A726D] border-[#EBE5DB] hover:border-[#C96A4E]/30 hover:text-[#C96A4E]'
+                  }`}
+                style={isActive ? {} : {}}
               >
-                Day {index + 1} ({day.date})
+                {/* Simulated ticket cutouts using pseudo elements in CSS normally, but we can do it inline or rely on the simple roundness */}
+                <div className="whitespace-nowrap">Day {index + 1}</div>
+                <div className="text-xs font-normal opacity-80">{day.date}</div>
               </button>
             );
           })}
@@ -258,14 +281,17 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
       </div>
 
       <div className="space-y-12">
-        <div className="relative">
+        <div className="relative mt-6">
+          {/* Timeline Line */}
+          <div className="absolute left-[19px] top-0 bottom-0 w-[3px] rounded-full" style={{ background: 'linear-gradient(to bottom, #C96A4E, #B86B77)' }}></div>
+
           {/* Day Header */}
-          <div className="mb-6">
+          <div className="mb-8 pl-12">
             <div className="flex flex-wrap items-end gap-3">
-              <h2 className="text-3xl font-black text-gray-800 tracking-tight">{activeDay.date}</h2>
-              <span className="text-lg font-medium text-gray-500 mb-1">({activeDay.dayOfWeek})</span>
+              <h2 className="text-3xl font-black text-[#3D3835] tracking-tight">{activeDay.date}</h2>
+              <span className="text-lg font-medium text-[#7A726D] mb-1">({activeDay.dayOfWeek})</span>
               {activeDay.title && (
-                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="bg-[#FFFFFF] text-[#C96A4E] border border-[#EBE5DB] px-3 py-1 rounded-full text-sm font-semibold shadow-sm">
                   {activeDay.title}
                 </span>
               )}
@@ -273,46 +299,45 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
           </div>
 
           {/* Content */}
-          <div className="pl-2 md:pl-4">
-            <FlightCard flight={activeDay.flight} />
+          <div className="pl-0">
+            <div className="pl-12">
+              <FlightCard flight={activeDay.flight} />
+            </div>
             
-            <div className="relative border-l-2 border-indigo-100 space-y-8 pb-4 ml-2">
+            <div className="space-y-8 pb-4">
               {activeDay.schedule.map((item, idx) => (
-                <div key={idx} className="relative pl-6 md:pl-8">
+                <div key={idx} className="relative pl-12">
                   {/* Timeline dot */}
-                  <div className="absolute -left-[9px] top-1.5 w-4 h-4 bg-white border-2 border-indigo-500 rounded-full shadow-sm"></div>
+                  <div className="absolute left-[12px] top-0 w-4 h-4 bg-[#F9F6F0] border-[3px] border-[#C96A4E] rounded-full z-10" style={{ borderColor: idx % 2 === 0 ? '#C96A4E' : '#B86B77' }}></div>
                   
-                  <div className="flex flex-col md:flex-row md:gap-4">
-                    <div className="md:w-24 shrink-0">
-                      <span className="inline-flex items-center gap-1.5 text-sm font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">
-                        <Clock className="w-3.5 h-3.5" />
-                        {item.period}
-                      </span>
-                    </div>
+                  <div className="flex flex-col mb-2">
+                    <span className="text-sm font-bold text-[#7A726D]">
+                      {item.period}
+                    </span>
+                  </div>
                     
-                    <div className="mt-3 md:mt-0 flex-1 space-y-3">
-                      {item.activities.map((activity, actIdx) => {
-                        if (activity.type === 'transit') {
-                          return <TransitCard key={actIdx} data={activity} />;
-                        }
-                        if (activity.type === 'food') {
-                          return <FoodCard key={actIdx} data={activity} />;
-                        }
-                        
-                        const content = activity.content || activity;
-                        return (
-                          <div key={actIdx} className="bg-white border border-gray-100 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-                            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{content}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
+                  <div className="space-y-4">
+                    {item.activities.map((activity, actIdx) => {
+                      if (activity.type === 'transit') {
+                        return <TransitCard key={actIdx} data={activity} />;
+                      }
+                      if (activity.type === 'food') {
+                        return <FoodCard key={actIdx} data={activity} />;
+                      }
+                      
+                      const content = activity.content || activity;
+                      return (
+                        <div key={actIdx} className="bg-white border border-[#EBE5DB] rounded-2xl p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all">
+                          <p className="text-[#3D3835] leading-relaxed whitespace-pre-wrap">{content}</p>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="ml-2">
+            <div className="pl-12 mt-6">
               <AccommodationCard accommodation={activeDay.accommodation} />
             </div>
           </div>
