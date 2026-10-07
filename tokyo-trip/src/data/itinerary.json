@@ -359,9 +359,17 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "飯店周邊逛逛（錦糸町公園、PARCO百貨、Arcakit 百貨or藥妝店）",
-            "timeRange": ""
+            "type": "spot",
+            "title": "飯店周邊逛逛或買藥妝",
+            "locations": [
+              "錦糸町公園",
+              "PARCO百貨",
+              "Arcakit 百貨"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "",
+            "imageUrl": ""
           }
         ]
       },
