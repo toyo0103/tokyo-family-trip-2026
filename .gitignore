@@ -1,0 +1,14 @@
+# Ignore AI Assistant local state
+.gemini/
+
+# Ignore Environment variables globally
+.env
+.env.*
+!.env.example
+
+# OS generated files
+.DS_Store
+
+# Ignore node_modules
+node_modules/
+tokyo-trip/node_modules/
