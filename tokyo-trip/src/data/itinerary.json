@@ -101,6 +101,16 @@
           {
             "type": "text",
             "content": "補陀洛本舗 石屋町店買湯波飯糰"
+          },
+          {
+            "type": "transit",
+            "method": "bus",
+            "route": [
+              "東武日光站",
+              "日光東照宮"
+            ],
+            "duration": "",
+            "notes": "巴士名稱：日光駅～光徳温泉～湯元温泉"
           }
         ]
       },
@@ -127,16 +137,6 @@
           {
             "type": "text",
             "content": "日光東照宮"
-          },
-          {
-            "type": "transit",
-            "method": "bus",
-            "route": [
-              "東武日光站",
-              "湯元温泉"
-            ],
-            "duration": "",
-            "notes": ""
           },
           {
             "type": "transit",
