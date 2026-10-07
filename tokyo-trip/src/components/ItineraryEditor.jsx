@@ -55,6 +55,7 @@ export default function ItineraryEditor() {
     const newItinerary = [...itinerary];
     const base = type === 'text' ? { type: 'text', content: '', timeRange: '' } :
                  type === 'transit' ? { type: 'transit', method: 'train', route: [''], duration: '', notes: '', timeRange: '' } :
+                 type === 'spot' ? { type: 'spot', title: '', locations: [''], note: '', timeRange: '' } :
                  { type: 'food', options: [], timeRange: '' };
     newItinerary[activeDayIdx].schedule[periodIdx].activities.push(base);
     setItinerary(newItinerary);
@@ -207,7 +208,33 @@ export default function ItineraryEditor() {
                             </div>
                           )}
 
-                          {/* Food Type */}
+                                                    {/* Spot Type */}
+                          {act.type === 'spot' && (
+                            <div>
+                              <span className="text-xs font-bold bg-emerald-100 px-2 py-1 rounded text-emerald-600 inline-block mb-2">地點景點</span>
+                              <div className="space-y-3">
+                                <div>
+                                  <label className="block text-xs text-gray-500 mb-1">標題 (必填)</label>
+                                  <input className="w-full border rounded p-2 text-sm" value={act.title || ''} onChange={e => updateActivity(pIdx, aIdx, 'title', e.target.value)} placeholder="e.g. 買隔天早餐" />
+                                </div>
+                                <div>
+                                  <label className="block text-xs text-gray-500 mb-1">地點 (以逗號分隔，自動帶入 Google Maps 連結)</label>
+                                  <input 
+                                    className="w-full border rounded p-2 text-sm" 
+                                    value={(act.locations || []).join(', ')} 
+                                    onChange={e => updateActivity(pIdx, aIdx, 'locations', e.target.value.split(',').map(s=>s.trim()))} 
+                                    placeholder="e.g. 西友超市, LIFE Arcakit"
+                                  />
+                                </div>
+                                <div>
+                                  <label className="block text-xs text-gray-500 mb-1">備註 (Note, 選填)</label>
+                                  <input className="w-full border rounded p-2 text-sm" value={act.note || ''} onChange={e => updateActivity(pIdx, aIdx, 'note', e.target.value)} placeholder="e.g. 提醒：正哲、阿元可能要買後面兩天晚餐" />
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+{/* Food Type */}
                           {act.type === 'food' && (
                             <div>
                               <span className="text-xs font-bold bg-rose-100 px-2 py-1 rounded text-rose-600 inline-block mb-2">餐飲選擇</span>
@@ -258,6 +285,7 @@ export default function ItineraryEditor() {
                       <button onClick={() => addActivity(pIdx, 'text')} className="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded font-medium text-gray-700">+ 一般內文</button>
                       <button onClick={() => addActivity(pIdx, 'transit')} className="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-3 py-1.5 rounded font-medium">+ 交通路線</button>
                       <button onClick={() => addActivity(pIdx, 'food')} className="text-xs bg-rose-50 text-rose-600 hover:bg-rose-100 px-3 py-1.5 rounded font-medium">+ 餐飲選擇</button>
+                      <button onClick={() => addActivity(pIdx, 'spot')} className="text-xs bg-emerald-50 text-emerald-600 hover:bg-emerald-100 px-3 py-1.5 rounded font-medium">+ 地點景點</button>
                     </div>
                   </div>
                 ))}

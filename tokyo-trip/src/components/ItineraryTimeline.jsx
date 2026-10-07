@@ -62,6 +62,62 @@ const TransitCard = ({ data, timeRange }) => {
   );
 };
 
+
+const SpotCard = ({ data, timeRange }) => {
+  if (!data || !data.title) return null;
+  const locations = data.locations || [];
+  
+  return (
+    <div className="bg-white border border-[#EBE5DB] rounded-2xl p-4 sm:p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <span className="text-[10px] font-bold text-white bg-[#6C7D63] px-2 py-1 rounded tracking-wider uppercase">
+          SPOT
+        </span>
+        {timeRange && (
+          <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            {timeRange}
+          </span>
+        )}
+      </div>
+      
+      <div className="text-[#3D3835]">
+        <h3 className="font-bold text-lg leading-tight mb-2">{data.title}</h3>
+        
+        {locations.length > 0 && locations[0] !== "" && (
+          <div className="flex flex-wrap gap-2 mb-3">
+            {locations.map((loc, idx) => {
+              if (!loc.trim()) return null;
+              const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.trim())}`;
+              return (
+                <a
+                  key={idx}
+                  href={mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] hover:border-[#6C7D63] px-3 py-1.5 rounded-full text-sm font-medium text-[#6C7D63] hover:shadow-sm hover:-translate-y-px transition-all decoration-transparent"
+                >
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>{loc.trim()}</span>
+                  {idx < locations.length - 1 && data.locations.length > 1 && data.note?.includes('or') ? (
+                    <span className="text-xs text-gray-400 font-normal">or</span>
+                  ) : null}
+                </a>
+              );
+            })}
+          </div>
+        )}
+        
+        {data.note && (
+          <p className="text-sm text-[#7A726D] bg-[#F9F6F0] p-3 rounded-lg border border-[#EBE5DB] leading-relaxed whitespace-pre-wrap">
+            {data.note}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const FoodCard = ({ data, timeRange }) => {
   if (!data || !data.options || data.options.length === 0) return null;
 
@@ -333,6 +389,8 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                       let cardContent = null;
                       if (activity.type === 'transit') {
                         cardContent = <TransitCard data={activity} timeRange={timeRange} />;
+                      } else if (activity.type === 'spot') {
+                        cardContent = <SpotCard data={activity} timeRange={timeRange} />;
                       } else if (activity.type === 'food') {
                         cardContent = <FoodCard data={activity} timeRange={timeRange} />;
                       } else {
