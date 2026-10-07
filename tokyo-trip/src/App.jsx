@@ -1,7 +1,13 @@
+import { useState } from 'react';
 import WeatherWidget from './components/WeatherWidget';
 import ItineraryTimeline from './components/ItineraryTimeline';
+import itineraryData from './data/itinerary.json';
 
 function App() {
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const activeDay = itineraryData[activeTabIndex];
+  const currentLocation = activeDay.title.includes('日光') ? 'Nikko' : 'Tokyo';
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans selection:bg-indigo-100 selection:text-indigo-900">
       {/* Header */}
@@ -11,19 +17,22 @@ function App() {
             Tokyo & Nikko Trip 2026
           </h1>
           <div className="hidden sm:block">
-            <WeatherWidget />
+            <WeatherWidget location={currentLocation} />
           </div>
         </div>
       </header>
 
       {/* Mobile Weather Widget */}
       <div className="sm:hidden bg-white px-4 py-3 border-b border-gray-200">
-        <WeatherWidget />
+        <WeatherWidget location={currentLocation} />
       </div>
 
       {/* Main Content */}
       <main>
-        <ItineraryTimeline />
+        <ItineraryTimeline 
+          activeTabIndex={activeTabIndex} 
+          setActiveTabIndex={setActiveTabIndex} 
+        />
       </main>
       
       {/* Footer */}

@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Cloud, Sun, CloudRain, AlertCircle, MapPin } from 'lucide-react';
 
-export default function WeatherWidget() {
+export default function WeatherWidget({ location = 'Tokyo' }) {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchWeather = async () => {
+      setLoading(true);
       const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
       
       if (!apiKey || apiKey === 'your_openweather_api_key_here') {
@@ -17,11 +18,12 @@ export default function WeatherWidget() {
       }
 
       try {
-        // Fetch weather for Tokyo
-        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Tokyo&units=metric&appid=${apiKey}`);
+        // Fetch weather for the requested location
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${apiKey}`);
         if (!res.ok) throw new Error('Failed to fetch weather data');
         const data = await res.json();
         setWeather(data);
+        setError(null);
       } catch (err) {
         setError('Unable to load weather information.');
       } finally {
@@ -30,7 +32,7 @@ export default function WeatherWidget() {
     };
 
     fetchWeather();
-  }, []);
+  }, [location]);
 
   const getWeatherIcon = (main) => {
     switch (main?.toLowerCase()) {

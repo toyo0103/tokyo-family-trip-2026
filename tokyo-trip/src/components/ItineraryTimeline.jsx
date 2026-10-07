@@ -20,19 +20,24 @@ const FlightCard = ({ flight }) => {
 
 const AccommodationCard = ({ accommodation }) => {
   if (!accommodation) return null;
+  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(accommodation)}`;
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-4 flex items-center gap-3">
-      <Hotel className="w-5 h-5 text-amber-600" />
+    <a 
+      href={mapUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-4 flex items-center gap-3 hover:bg-amber-100 transition-colors cursor-pointer block"
+    >
+      <Hotel className="w-5 h-5 text-amber-600 shrink-0" />
       <div>
         <span className="text-xs text-amber-600 font-semibold uppercase tracking-wider">Accommodation</span>
         <h4 className="font-bold text-amber-900">{accommodation}</h4>
       </div>
-    </div>
+    </a>
   );
 };
 
-export default function ItineraryTimeline() {
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
+export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex }) {
   const activeDay = itineraryData[activeTabIndex];
 
   return (
