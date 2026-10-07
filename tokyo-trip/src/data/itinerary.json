@@ -57,12 +57,7 @@
           },
           {
             "type": "text",
-            "content": "西友超市 or LIFE Arcakit 買隔天早餐，正哲要買後面兩天晚餐",
-            "timeRange": ""
-          },
-          {
-            "type": "text",
-            "content": "購物",
+            "content": "[買隔天早餐]\n西友超市 or LIFE Arcakit \n(提醒：正哲、阿元可能要買後面兩天晚餐)",
             "timeRange": ""
           }
         ]
@@ -88,8 +83,8 @@
         "activities": [
           {
             "type": "text",
-            "content": "07:45 – 08:05 退房，寄放行李",
-            "timeRange": ""
+            "content": "退房，寄放行李",
+            "timeRange": "07:45~08:05 "
           },
           {
             "type": "transit",
