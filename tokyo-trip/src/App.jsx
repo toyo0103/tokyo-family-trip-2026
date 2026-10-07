@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { Briefcase } from 'lucide-react';
 import WeatherWidget from './components/WeatherWidget';
 import ItineraryTimeline from './components/ItineraryTimeline';
+import PackingList from './components/PackingList';
 import itineraryData from './data/itinerary.json';
 
 function App() {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [isPackingListOpen, setIsPackingListOpen] = useState(false);
   const activeDay = itineraryData[activeTabIndex];
   const currentLocation = activeDay.title.includes('日光') ? 'Nikko' : 'Tokyo';
 
@@ -37,6 +40,17 @@ function App() {
           setActiveTabIndex={setActiveTabIndex} 
         />
       </main>
+
+      {/* FAB for Packing List */}
+      <button 
+        onClick={() => setIsPackingListOpen(true)}
+        className="fixed bottom-6 right-6 z-40 bg-[#C96A4E] text-white p-4 rounded-full shadow-[0_4px_16px_rgba(201,106,78,0.4)] hover:scale-105 hover:bg-[#b55d44] transition-all flex items-center justify-center group"
+        title="開啟行李清單"
+      >
+        <Briefcase className="w-6 h-6 group-hover:animate-bounce" />
+      </button>
+
+      <PackingList isOpen={isPackingListOpen} onClose={() => setIsPackingListOpen(false)} />
       
       {/* Footer */}
       <footer className="text-[#7A726D] py-8 text-center text-sm opacity-80">
