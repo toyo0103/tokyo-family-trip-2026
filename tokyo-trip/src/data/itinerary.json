@@ -5,7 +5,7 @@
     "title": "",
     "flight": {
       "number": "CX450",
-      "raw": "13:00 TPE -> 17:15 NRT"
+      "raw": "13:00 TPE (Terminal 1) -> 17:15 NRT (Terminal 2)"
     },
     "accommodation": {
       "name": "東武ホテルレバント東京",
@@ -16,10 +16,6 @@
       "image": "/hotels/tobu-levant.jpg"
     },
     "schedule": [
-      {
-        "period": "早上",
-        "activities": []
-      },
       {
         "period": "下午",
         "activities": [
@@ -555,7 +551,7 @@
     "title": "",
     "flight": {
       "number": "CX451",
-      "raw": "15:30 NRT -> 18:40 TPE"
+      "raw": "15:30 NRT (Terminal 2) -> 18:35 TPE (Terminal 1)"
     },
     "accommodation": null,
     "schedule": [
