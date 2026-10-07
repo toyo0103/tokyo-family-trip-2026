@@ -63,132 +63,93 @@ const TransitCard = ({ data, timeRange }) => {
 };
 
 
-import { X } from 'lucide-react';
-
 const SpotCard = ({ data, timeRange }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   if (!data || !data.title) return null;
   const locations = data.locations || [];
-  const hasDetails = data.description || data.imageUrl;
   
   return (
-    <>
-    <div 
-      className={`bg-white border border-[#EBE5DB] rounded-2xl p-4 sm:p-5 shadow-sm transition-all duration-200 ${hasDetails ? 'hover:-translate-y-1 hover:shadow-lg cursor-pointer ring-1 ring-transparent hover:ring-[#6C7D63]/30' : 'hover:-translate-y-0.5 hover:shadow-md'}`}
-      onClick={() => hasDetails && setIsModalOpen(true)}
-    >
-      {hasDetails && (
-        <div className="absolute top-4 right-4 text-[10px] font-bold text-[#6C7D63] bg-[#6C7D63]/10 px-2 py-1 rounded-full flex items-center gap-1">
-          <Info className="w-3 h-3" /> 介紹
-        </div>
-      )}
-      <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="text-[10px] font-bold text-white bg-[#6C7D63] px-2 py-1 rounded tracking-wider uppercase">
-          SPOT
-        </span>
-        {timeRange && (
-          <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
-            <Clock className="w-3 h-3" />
-            {timeRange}
-          </span>
-        )}
-      </div>
+    <div className="bg-white border border-[#EBE5DB] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200">
       
-      <div className="text-[#3D3835]">
-        <h3 className="font-bold text-lg leading-tight mb-2">{data.title}</h3>
+      {data.imageUrl && (
+         <div 
+           className={`relative w-full transition-all duration-500 ease-in-out cursor-pointer ${isExpanded ? 'h-56 sm:h-64' : 'h-24 sm:h-32'}`} 
+           onClick={() => setIsExpanded(!isExpanded)}
+         >
+           <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover" />
+           <div className="absolute inset-0 bg-black/10 hover:bg-black/0 transition-colors"></div>
+           {!isExpanded && (
+             <div className="absolute bottom-2 right-3 bg-black/40 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1">
+               <Info className="w-3 h-3" /> 點擊展開
+             </div>
+           )}
+         </div>
+      )}
+
+      <div className="p-4 sm:p-5">
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <span className="text-[10px] font-bold text-white bg-[#6C7D63] px-2 py-1 rounded tracking-wider uppercase">
+            SPOT
+          </span>
+          {timeRange && (
+            <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              {timeRange}
+            </span>
+          )}
+        </div>
         
-        {locations.length > 0 && locations[0] !== "" && (
-          <div className="flex flex-wrap gap-2 mb-3">
-            {locations.map((loc, idx) => {
-              if (!loc.trim()) return null;
-              const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.trim())}`;
-              return (
-                <a
-                  key={idx}
-                  href={mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] hover:border-[#6C7D63] px-3 py-1.5 rounded-full text-sm font-medium text-[#6C7D63] hover:shadow-sm hover:-translate-y-px transition-all decoration-transparent"
-                >
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>{loc.trim()}</span>
-                  {idx < locations.length - 1 && data.locations.length > 1 && data.note?.includes('or') ? (
-                    <span className="text-xs text-gray-400 font-normal">or</span>
-                  ) : null}
-                </a>
-              );
-            })}
-          </div>
-        )}
-        
-        {data.note && (
-          <p className="text-sm text-[#7A726D] bg-[#F9F6F0] p-3 rounded-lg border border-[#EBE5DB] leading-relaxed whitespace-pre-wrap">
-            {data.note}
-          </p>
-        )}
+        <div className="text-[#3D3835]">
+          <h3 className="font-bold text-xl leading-tight mb-2">{data.title}</h3>
+          
+          {data.description && (
+            <div className="mb-4">
+              <p className={`text-[15px] text-[#5D5753] leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-2'}`}>
+                {data.description}
+              </p>
+              <button 
+                onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }} 
+                className="text-[#6C7D63] text-sm font-bold mt-1.5 hover:underline flex items-center gap-1"
+              >
+                {isExpanded ? '收起介紹' : '閱讀更多...'}
+              </button>
+            </div>
+          )}
+
+          {locations.length > 0 && locations[0] !== "" && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {locations.map((loc, idx) => {
+                if (!loc.trim()) return null;
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.trim())}`;
+                return (
+                  <a
+                    key={idx}
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] hover:border-[#6C7D63] px-3 py-1.5 rounded-full text-sm font-medium text-[#6C7D63] hover:shadow-sm hover:-translate-y-px transition-all decoration-transparent"
+                  >
+                    <MapPin className="w-3.5 h-3.5" />
+                    <span>{loc.trim()}</span>
+                    {idx < locations.length - 1 && data.locations.length > 1 && data.note?.includes('or') ? (
+                      <span className="text-xs text-gray-400 font-normal">or</span>
+                    ) : null}
+                  </a>
+                );
+              })}
+            </div>
+          )}
+          
+          {data.note && (
+            <p className="text-sm text-[#7A726D] bg-[#F9F6F0] p-3 rounded-lg border border-[#EBE5DB] leading-relaxed whitespace-pre-wrap">
+              {data.note}
+            </p>
+          )}
+        </div>
       </div>
     </div>
-
-    {/* Details Modal */}
-    {isModalOpen && hasDetails && (
-      <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 animate-fade-in" onClick={() => setIsModalOpen(false)}>
-        <div 
-          className="bg-[#F9F6F0] w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col relative"
-          onClick={e => e.stopPropagation()}
-        >
-          {/* Close button */}
-          <button 
-            onClick={() => setIsModalOpen(false)}
-            className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-md transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-          
-          <div className="flex-1 overflow-y-auto" style={{ scrollbarWidth: 'none' }}>
-            {data.imageUrl && (
-              <div className="w-full h-64 sm:h-80 relative">
-                <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <h2 className="absolute bottom-6 left-6 right-6 text-3xl font-black text-white drop-shadow-md">{data.title}</h2>
-              </div>
-            )}
-            
-            <div className="p-6 sm:p-8 space-y-6">
-              {!data.imageUrl && (
-                <h2 className="text-3xl font-black text-[#3D3835] border-b border-[#EBE5DB] pb-4">{data.title}</h2>
-              )}
-              
-              {locations.length > 0 && locations[0] !== "" && (
-                <div className="flex flex-wrap gap-2">
-                  {locations.map((loc, idx) => {
-                    if (!loc.trim()) return null;
-                    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.trim())}`;
-                    return (
-                      <a key={idx} href={mapUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] px-3 py-1.5 rounded-full text-sm font-medium text-[#6C7D63] hover:bg-[#6C7D63]/5 transition-colors">
-                        <MapPin className="w-3.5 h-3.5" />
-                        <span>{loc.trim()}</span>
-                      </a>
-                    );
-                  })}
-                </div>
-              )}
-
-              {data.description && (
-                <div className="prose prose-stone max-w-none">
-                  <p className="text-[#3D3835] leading-loose whitespace-pre-wrap text-[15px]">
-                    {data.description}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    )}
-    </>
   );
 };
-
 const FoodCard = ({ data, timeRange }) => {
   if (!data || !data.options || data.options.length === 0) return null;
 
