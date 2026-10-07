@@ -151,12 +151,14 @@
             "type": "food",
             "options": [
               {
-                "name": "西洋料理 明治の館 蛋包飯",
-                "category": "葷食"
+                "name": "西洋料理 明治の館",
+                "category": "葷食",
+                "note": "蛋包飯"
               },
               {
-                "name": "Maibaru的愛日光珈琲 御用邸通",
-                "category": "葷食"
+                "name": "日光珈琲 御用邸通",
+                "category": "葷食",
+                "note": "Maibaru的愛"
               },
               {
                 "name": "自然茶寮 廻",
