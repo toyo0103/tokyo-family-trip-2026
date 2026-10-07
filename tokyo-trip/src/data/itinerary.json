@@ -38,12 +38,14 @@
             "type": "food",
             "options": [
               {
-                "name": "東京最頂漢堡Shake tree burger & bar",
-                "category": null
+                "name": "Shake tree burger & bar",
+                "category": null,
+                "note": "東京最頂漢堡"
               },
               {
-                "name": "百大烏龍麵石臼碾磨烏龍麵",
-                "category": null
+                "name": "石臼碾磨烏龍麵",
+                "category": null,
+                "note": "百大烏龍麵"
               }
             ]
           }

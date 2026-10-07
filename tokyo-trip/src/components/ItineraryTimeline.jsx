@@ -88,15 +88,20 @@ const FoodCard = ({ data }) => {
                   href={mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 bg-white hover:bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-full text-sm font-medium text-rose-800 transition-colors shadow-sm hover:shadow"
+                  className="inline-flex items-center gap-1.5 bg-white hover:bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-full text-sm font-medium text-rose-800 transition-colors shadow-sm hover:shadow group/food"
                 >
                   {opt.category && (
-                    <span className="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">
+                    <span className="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide shrink-0">
                       {opt.category}
                     </span>
                   )}
-                  {opt.name}
-                  <MapIcon className="w-3.5 h-3.5 text-rose-400 ml-0.5" />
+                  <span className="flex flex-wrap items-baseline gap-1.5">
+                    <span>{opt.name}</span>
+                    {opt.note && (
+                      <span className="text-[11px] text-rose-500/80 font-normal">({opt.note})</span>
+                    )}
+                  </span>
+                  <MapIcon className="w-3.5 h-3.5 text-rose-400 ml-0.5 group-hover/food:text-rose-600 shrink-0" />
                 </a>
               );
             })}

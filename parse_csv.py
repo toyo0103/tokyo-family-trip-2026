@@ -49,8 +49,20 @@ def parse_food_line(line):
     options = []
     parts = [p.strip() for p in re.split(r'\s+or\s+', line, flags=re.IGNORECASE)]
     for p in parts:
-        if p:
-            options.append({"name": p, "category": category})
+        if not p: continue
+        note = None
+        # Support full-width and half-width parentheses
+        m = re.search(r'[(（](.*?)[)）]', p)
+        if m:
+            note = m.group(1).strip()
+            name = re.sub(r'[(（].*?[)）]', '', p).strip()
+        else:
+            name = p
+        
+        opt_dict = {"name": name, "category": category}
+        if note:
+            opt_dict["note"] = note
+        options.append(opt_dict)
     return options
 
 def parse_activity(val, period=None):
@@ -66,7 +78,7 @@ def parse_activity(val, period=None):
             if not line: continue
             if "or" not in line.lower() and "葷食" not in line and "素食" not in line and line.endswith("："):
                 prefix_texts.append(line)
-            elif line == "溫泉旅館會席料理": # Handle normal strings in the same block gracefully
+            elif line == "溫泉旅館會席料理": 
                 prefix_texts.append(line)
             else:
                 food_options.extend(parse_food_line(line))
