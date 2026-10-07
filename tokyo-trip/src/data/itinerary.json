@@ -584,20 +584,6 @@
             "timeRange": ""
           }
         ]
-      },
-      {
-        "period": "下午",
-        "activities": []
-      },
-      {
-        "period": "晚上",
-        "activities": [
-          {
-            "type": "text",
-            "content": "自由之丘",
-            "timeRange": ""
-          }
-        ]
       }
     ]
   }
