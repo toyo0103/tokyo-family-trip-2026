@@ -15,7 +15,7 @@ function App() {
       <div 
         className="h-64 sm:h-72 flex flex-col items-center justify-center text-white text-center px-4 rounded-b-3xl shadow-md relative"
         style={{
-          background: "linear-gradient(135deg, rgba(201, 106, 78, 0.8), rgba(184, 107, 119, 0.8)), url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1000&auto=format&fit=crop') no-repeat center center",
+          background: "linear-gradient(135deg, rgba(201, 106, 78, 0.8), rgba(184, 107, 119, 0.8)), url('/niko_banner.jpg') no-repeat center center",
           backgroundSize: 'cover'
         }}
       >
