@@ -2,51 +2,17 @@ import { useState } from 'react';
 import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
 
-const TransitCard = ({ text }) => {
-  const isBus = text.includes('巴士') || text.includes('bus') || text.includes('バス');
+const TransitCard = ({ data }) => {
+  const isBus = data.method === 'bus' || data.notes?.includes('巴士');
   const Icon = isBus ? Bus : Train;
 
-  // Extract time like "43 min" or "100min"
-  const durationMatch = text.match(/\d+\s*min/i);
-  const duration = durationMatch ? durationMatch[0] : null;
-
-  // Try to extract origin and destination for Google Maps link
-  const splitRegex = />|-->|➔|到/;
+  // Try to construct a Google Maps URL
   let mapUrl = 'https://www.google.com/maps/dir/?api=1&travelmode=transit';
-  
-  if (splitRegex.test(text)) {
-    const parts = text.split(splitRegex);
-    const originRaw = parts[0].split('\n').pop().trim();
-    const destRaw = parts[parts.length - 1].split('\n')[0].trim();
-    
-    // Clean up times, parentheses, etc. to get a clean location name
-    const clean = (str) => str.replace(/\(.*?\)/g, '').replace(/（.*?）/g, '').replace(/\d{1,2}:\d{2}/g, '').replace(/\d+\s*min/ig, '').trim();
-    const origin = clean(originRaw);
-    const destination = clean(destRaw);
-    
-    if (origin && destination) {
-      mapUrl += `&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`;
-    }
+  if (data.route && data.route.length >= 2) {
+    const origin = data.route[0];
+    const destination = data.route[data.route.length - 1];
+    mapUrl += `&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`;
   }
-
-  // Highlight routes by replacing raw text arrows with nice UI
-  const formatRouteText = (str) => {
-    return str.split('\n').map((line, i) => {
-      if (!splitRegex.test(line)) return <div key={i} className="mb-1">{line}</div>;
-      
-      const segments = line.split(splitRegex);
-      return (
-        <div key={i} className="flex flex-wrap items-center gap-2 mb-1 text-indigo-900 font-medium">
-          {segments.map((seg, idx) => (
-            <span key={idx} className="flex items-center gap-2">
-              <span className="bg-white/60 px-2 py-0.5 rounded shadow-sm border border-indigo-100">{seg.trim()}</span>
-              {idx < segments.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-indigo-400 shrink-0" />}
-            </span>
-          ))}
-        </div>
-      );
-    });
-  };
 
   return (
     <div className="bg-indigo-50/70 border border-indigo-200 rounded-lg p-4 shadow-sm relative overflow-hidden group">
@@ -59,15 +25,25 @@ const TransitCard = ({ text }) => {
             <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
               {isBus ? 'Bus Transit' : 'Train Transit'}
             </span>
-            {duration && (
+            {data.duration && (
               <span className="text-xs font-bold bg-indigo-600 text-white px-2 py-0.5 rounded-full shadow-sm">
-                ⏱ {duration}
+                ⏱ {data.duration}
               </span>
             )}
           </div>
           
-          <div className="text-sm text-indigo-800/90 leading-relaxed">
-            {formatRouteText(text)}
+          <div className="text-sm text-indigo-800/90 leading-relaxed font-medium">
+            <div className="flex flex-wrap items-center gap-2 mb-1">
+              {data.route.map((seg, idx) => (
+                <span key={idx} className="flex items-center gap-2">
+                  <span className="bg-white/60 px-2 py-0.5 rounded shadow-sm border border-indigo-100">{seg}</span>
+                  {idx < data.route.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-indigo-400 shrink-0" />}
+                </span>
+              ))}
+            </div>
+            {data.notes && (
+              <div className="text-xs text-indigo-500 mt-2">備註：{data.notes}</div>
+            )}
           </div>
 
           <a 
@@ -87,22 +63,22 @@ const TransitCard = ({ text }) => {
 
 const FlightCard = ({ flight }) => {
   if (!flight) return null;
-  const lines = flight.split('\n').map(l => l.trim());
-  const flightNumber = lines[0];
+  const flightNumber = flight.number || flight.split('\n')[0];
   const flightRadarUrl = `https://www.flightradar24.com/data/flights/${flightNumber.toLowerCase()}`;
 
-  // Helper to format "1300 TPE" -> { time: "13:00", airport: "TPE" }
-  const parseFlightLine = (line) => {
-    if (!line) return { time: '', airport: '' };
-    const parts = line.split(' ');
-    const rawTime = parts[0];
-    const airport = parts[1] || '';
-    const time = rawTime.length === 4 ? `${rawTime.slice(0,2)}:${rawTime.slice(2,4)}` : rawTime;
-    return { time, airport };
-  };
-
-  const departure = parseFlightLine(lines[1]);
-  const arrival = parseFlightLine(lines[2]);
+  let depTime = '', depAirport = '', arrTime = '', arrAirport = '';
+  
+  if (typeof flight === 'object' && flight.raw) {
+    const rawParts = flight.raw.split('->');
+    if (rawParts.length >= 2) {
+      const dep = rawParts[0].trim().split(' ');
+      const arr = rawParts[1].trim().split(' ');
+      depTime = dep[0] || '';
+      depAirport = dep[1] || '';
+      arrTime = arr[0] || '';
+      arrAirport = arr[1] || '';
+    }
+  }
 
   return (
     <a 
@@ -122,8 +98,8 @@ const FlightCard = ({ flight }) => {
       <div className="flex items-center justify-between mt-2">
         {/* Departure */}
         <div className="text-center w-16">
-          <div className="text-xl font-black text-blue-950">{departure.time}</div>
-          <div className="text-sm font-bold text-blue-600">{departure.airport}</div>
+          <div className="text-xl font-black text-blue-950">{depTime}</div>
+          <div className="text-sm font-bold text-blue-600">{depAirport}</div>
         </div>
 
         {/* Route Visual */}
@@ -137,8 +113,8 @@ const FlightCard = ({ flight }) => {
 
         {/* Arrival */}
         <div className="text-center w-16">
-          <div className="text-xl font-black text-blue-950">{arrival.time}</div>
-          <div className="text-sm font-bold text-blue-600">{arrival.airport}</div>
+          <div className="text-xl font-black text-blue-950">{arrTime}</div>
+          <div className="text-sm font-bold text-blue-600">{arrAirport}</div>
         </div>
       </div>
     </a>
@@ -148,7 +124,6 @@ const FlightCard = ({ flight }) => {
 const AccommodationCard = ({ accommodation }) => {
   if (!accommodation) return null;
   
-  // Backward compatibility in case it's still just a string
   const name = typeof accommodation === 'string' ? accommodation : accommodation.name;
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}`;
   
@@ -190,7 +165,6 @@ const AccommodationCard = ({ accommodation }) => {
               )}
             </div>
             
-            {/* 圖片區塊 (如果 JSON 有提供 image) */}
             {accommodation.image && (
               <div className="w-full md:w-32 h-24 shrink-0 rounded-md overflow-hidden bg-amber-100 border border-amber-200">
                 <img 
@@ -270,12 +244,15 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                     
                     <div className="mt-3 md:mt-0 flex-1 space-y-3">
                       {item.activities.map((activity, actIdx) => {
-                        const isTransit = />|-->|➔|到|\(bus\)|min|線/i.test(activity);
-                        return isTransit ? (
-                          <TransitCard key={actIdx} text={activity} />
-                        ) : (
+                        if (activity.type === 'transit') {
+                          return <TransitCard key={actIdx} data={activity} />;
+                        }
+                        
+                        // Handle backward compatibility or text type
+                        const content = activity.content || activity;
+                        return (
                           <div key={actIdx} className="bg-white border border-gray-100 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-                            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{activity}</p>
+                            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{content}</p>
                           </div>
                         );
                       })}

@@ -3,7 +3,10 @@
     "date": "10/21",
     "dayOfWeek": "三",
     "title": "",
-    "flight": "CX450\n1300 TPE\n1715 NRT",
+    "flight": {
+      "number": "CX450",
+      "raw": "13:00 TPE -> 17:15 NRT"
+    },
     "accommodation": {
       "name": "東武ホテルレバント東京",
       "address": "1 Chome-2-2 Kinshi, Sumida City, Tokyo 130-0013日本",
@@ -14,22 +17,25 @@
     },
     "schedule": [
       {
-        "period": "全天",
-        "activities": [
-          "(成田線) [千葉-空港]\n 快速 (東京行) platform 1\n> 錦系町 platform3"
-        ]
-      },
-      {
         "period": "晚餐",
         "activities": [
-          "飯店附近吃東京最頂漢堡Shake tree burger & bar or 百大烏龍麵石臼碾磨烏龍麵"
+          {
+            "type": "text",
+            "content": "飯店附近吃東京最頂漢堡Shake tree burger & bar or 百大烏龍麵石臼碾磨烏龍麵"
+          }
         ]
       },
       {
         "period": "晚上",
         "activities": [
-          "西友超市 or LIFE Arcakit 買隔天早餐，正哲要買後面兩天晚餐",
-          "購物"
+          {
+            "type": "text",
+            "content": "西友超市 or LIFE Arcakit 買隔天早餐，正哲要買後面兩天晚餐"
+          },
+          {
+            "type": "text",
+            "content": "購物"
+          }
         ]
       }
     ]
@@ -51,37 +57,124 @@
       {
         "period": "早餐",
         "activities": [
-          "TBD"
+          {
+            "type": "text",
+            "content": "TBD"
+          }
         ]
       },
       {
         "period": "早上",
         "activities": [
-          "07:45 – 08:05 退房，寄放行李",
-          "東武特急列車(Spacia 或 Revaty) to 東武日光站\n\n9:18 (半藏門線) 錦糸町車站 > 押上>免轉車 (東武晴空塔線) 北千住 > (Revaty 華嚴 13 號)> 東武日光 11:22",
-          "行李於東武日光站寄放 or 手荷物配送服務到溫泉旅館\n購買「中禪寺溫泉巴士周遊券」",
-          "東武車站周邊購買日光 SAKAEYA 炸湯波饅頭（紅豆炸饅頭）\n日光布丁亭\n補陀洛本舗 石屋町店買湯波飯糰"
+          {
+            "type": "text",
+            "content": "07:45 – 08:05 退房，寄放行李"
+          },
+          {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "錦糸町車站",
+              "押上",
+              "北千住",
+              "東武日光"
+            ],
+            "duration": "124 min",
+            "notes": "9:18 半藏門線, 轉車東武晴空塔線, Revaty 華嚴 13 號 11:22"
+          },
+          {
+            "type": "text",
+            "content": "行李於東武日光站寄放 or 手荷物配送服務到溫泉旅館"
+          },
+          {
+            "type": "text",
+            "content": "購買「中禪寺溫泉巴士周遊券」"
+          },
+          {
+            "type": "text",
+            "content": "東武車站周邊購買日光 SAKAEYA 炸湯波饅頭（紅豆炸饅頭）"
+          },
+          {
+            "type": "text",
+            "content": "日光布丁亭"
+          },
+          {
+            "type": "text",
+            "content": "補陀洛本舗 石屋町店買湯波飯糰"
+          }
         ]
       },
       {
         "period": "中餐",
         "activities": [
-          "東照宮周邊：\n葷食-西洋料理 明治の館 蛋包飯 or Maibaru的愛日光珈琲 御用邸通\n素食自然茶寮 廻"
+          {
+            "type": "text",
+            "content": "東照宮周邊："
+          },
+          {
+            "type": "text",
+            "content": "葷食-西洋料理 明治の館 蛋包飯 or Maibaru的愛日光珈琲 御用邸通"
+          },
+          {
+            "type": "text",
+            "content": "素食自然茶寮 廻"
+          }
         ]
       },
       {
         "period": "下午",
         "activities": [
-          "日光東照宮\n\n(bus)日光駅～光徳温泉～湯元温泉",
-          "巴士to中禪寺溫泉站（行經紅葉坂）\n\n安川町 > (bus)日光駅～光徳温泉～湯元温泉湯元温泉行 > 中禅寺温泉（バス）43 min",
-          "溫泉旅館check in",
-          "中禪寺湖畔碼頭散步"
+          {
+            "type": "text",
+            "content": "日光東照宮"
+          },
+          {
+            "type": "transit",
+            "method": "bus",
+            "route": [
+              "東武日光站",
+              "湯元温泉"
+            ],
+            "duration": "",
+            "notes": ""
+          },
+          {
+            "type": "transit",
+            "method": "bus",
+            "route": [
+              "安川町",
+              "中禅寺温泉"
+            ],
+            "duration": "43 min",
+            "notes": "湯元温泉行，行經紅葉坂"
+          },
+          {
+            "type": "text",
+            "content": "溫泉旅館check in"
+          },
+          {
+            "type": "text",
+            "content": "中禪寺湖畔碼頭散步"
+          },
+          {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "成田機場",
+              "錦系町"
+            ],
+            "duration": "成田線 快速 (東京行)",
+            "notes": ""
+          }
         ]
       },
       {
         "period": "晚餐",
         "activities": [
-          "溫泉旅館會席料理"
+          {
+            "type": "text",
+            "content": "溫泉旅館會席料理"
+          }
         ]
       }
     ]
@@ -103,37 +196,78 @@
       {
         "period": "早餐",
         "activities": [
-          "溫泉旅館"
+          {
+            "type": "text",
+            "content": "溫泉旅館"
+          }
         ]
       },
       {
         "period": "早上",
         "activities": [
-          "中禪寺溫泉搭巴士to赤沼站\n\n中禪寺溫泉 > (bus)日光駅～中禅寺温泉～湯元温泉 > 赤沼站 (16 min)",
-          "戰場之原健行",
-          "湯瀧瀑布\n\n赤沼（バス）> 湯滝入口 25min"
+          {
+            "type": "transit",
+            "method": "bus",
+            "route": [
+              "中禪寺溫泉",
+              "赤沼站"
+            ],
+            "duration": "16 min",
+            "notes": "日光駅～中禅寺温泉～湯元温泉"
+          },
+          {
+            "type": "text",
+            "content": "戰場之原健行"
+          },
+          {
+            "type": "transit",
+            "method": "bus",
+            "route": [
+              "赤沼",
+              "湯滝入口"
+            ],
+            "duration": "25 min",
+            "notes": ""
+          }
         ]
       },
       {
         "period": "中餐",
         "activities": [
-          "三本松茶屋or湯瀧レストハウス"
+          {
+            "type": "text",
+            "content": "三本松茶屋or湯瀧レストハウス"
+          }
         ]
       },
       {
         "period": "下午",
         "activities": [
-          "搭巴士下山回到中禪寺湖畔",
-          "以下三選一",
-          "英國/法國大使館別墅紀念公園喝下午茶",
-          "中禪寺湖觀光船（遊湖55mins）",
-          "中禪寺（看立木觀音）也可以喝日式茶屋"
+          {
+            "type": "text",
+            "content": "搭巴士下山回到中禪寺湖畔"
+          },
+          {
+            "type": "text",
+            "content": "以下三選一"
+          },
+          {
+            "type": "text",
+            "content": "英國/法國大使館別墅紀念公園喝下午茶"
+          },
+          {
+            "type": "text",
+            "content": "中禪寺湖觀光船（遊湖55mins）"
+          }
         ]
       },
       {
         "period": "晚餐",
         "activities": [
-          "溫泉旅館會席料理"
+          {
+            "type": "text",
+            "content": "溫泉旅館會席料理"
+          }
         ]
       }
     ]
@@ -155,42 +289,101 @@
       {
         "period": "早餐",
         "activities": [
-          "溫泉旅館"
+          {
+            "type": "text",
+            "content": "溫泉旅館"
+          }
         ]
       },
       {
         "period": "早上",
         "activities": [
-          "退房＆寄放行李",
-          "華嚴瀑布",
-          "巴士下山回東武日光站\n\n日光駅～光徳温泉～湯元温泉(bus) 44min"
+          {
+            "type": "text",
+            "content": "退房＆寄放行李"
+          },
+          {
+            "type": "text",
+            "content": "華嚴瀑布"
+          },
+          {
+            "type": "transit",
+            "method": "bus",
+            "route": [
+              "湯滝入口",
+              "東武日光站"
+            ],
+            "duration": "44 min",
+            "notes": "巴士下山回東武日光站"
+          }
         ]
       },
       {
         "period": "中餐",
         "activities": [
-          "東武日光站周邊\nKamaya - Café du Réverbère"
+          {
+            "type": "text",
+            "content": "東武日光站周邊"
+          },
+          {
+            "type": "text",
+            "content": "Kamaya - Café du Réverbère"
+          }
         ]
       },
       {
         "period": "下午",
         "activities": [
-          "東武特急回北千住\n\nTobu Railway ExpressＲＥＶＡＴＹ 100min",
-          "轉地鐵半藏門線to錦糸町站",
-          "飯店check in",
-          "飯店周邊逛逛（錦糸町公園、PARCO百貨、Arcakit 百貨or藥妝店）"
+          {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "東武日光站",
+              "北千住"
+            ],
+            "duration": "100 min",
+            "notes": "Tobu Railway Express ＲＥＶＡＴＹ"
+          },
+          {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "北千住",
+              "錦糸町站"
+            ],
+            "duration": "半藏門線",
+            "notes": ""
+          },
+          {
+            "type": "text",
+            "content": "飯店check in"
+          },
+          {
+            "type": "text",
+            "content": "飯店周邊逛逛（錦糸町公園、PARCO百貨、Arcakit 百貨or藥妝店）"
+          },
+          {
+            "type": "text",
+            "content": "中禪寺（看立木觀音）也可以喝日式茶屋"
+          }
         ]
       },
       {
         "period": "晚餐",
         "activities": [
-          "錦糸町車站周邊"
+          {
+            "type": "text",
+            "content": "錦糸町車站周邊"
+          }
         ]
       },
       {
         "period": "晚上",
         "activities": [
-          "超市"
+          {
+            "type": "text",
+            "content": "超市"
+          }
         ]
       }
     ]
@@ -212,39 +405,69 @@
       {
         "period": "早餐",
         "activities": [
-          "TBD"
+          {
+            "type": "text",
+            "content": "TBD"
+          }
         ]
       },
       {
         "period": "早上",
         "activities": [
-          "新宿御苑\n錦糸町車站-->千馱谷"
+          {
+            "type": "text",
+            "content": "新宿御苑"
+          },
+          {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "錦糸町車站",
+              "千馱谷"
+            ],
+            "duration": "",
+            "notes": ""
+          }
         ]
       },
       {
         "period": "中餐",
         "activities": [
-          "新宿"
+          {
+            "type": "text",
+            "content": "新宿"
+          }
         ]
       },
       {
         "period": "下午",
         "activities": [
-          "伊勢丹百貨/Loft/世界旗艦級迪士尼商店 （optional)",
-          "芝公園",
-          "東京鐵塔"
+          {
+            "type": "text",
+            "content": "伊勢丹百貨/Loft/世界旗艦級迪士尼商店 （optional)"
+          },
+          {
+            "type": "text",
+            "content": "芝公園"
+          }
         ]
       },
       {
         "period": "晚餐",
         "activities": [
-          "六本木"
+          {
+            "type": "text",
+            "content": "六本木"
+          }
         ]
       },
       {
         "period": "晚上",
         "activities": [
-          "六本木hills夜景"
+          {
+            "type": "text",
+            "content": "六本木hills夜景"
+          }
         ]
       }
     ]
@@ -266,32 +489,60 @@
       {
         "period": "早餐",
         "activities": [
-          "TBD"
+          {
+            "type": "text",
+            "content": "TBD"
+          }
         ]
       },
       {
         "period": "早上",
         "activities": [
-          "皇居東御苑"
+          {
+            "type": "text",
+            "content": "皇居東御苑"
+          }
         ]
       },
       {
         "period": "中餐",
         "activities": [
-          "東京車站"
+          {
+            "type": "text",
+            "content": "東京車站"
+          }
         ]
       },
       {
         "period": "下午",
         "activities": [
-          "晴空塔購物（精品/日牌女裝/吉卜力橡子共和國與寶可夢中心）",
-          "買藥妝"
+          {
+            "type": "text",
+            "content": "晴空塔購物（精品/日牌女裝/吉卜力橡子共和國與寶可夢中心）"
+          },
+          {
+            "type": "text",
+            "content": "買藥妝"
+          },
+          {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "神谷町站",
+              "六代木站"
+            ],
+            "duration": "東京Metro日比谷線",
+            "notes": ""
+          }
         ]
       },
       {
         "period": "晚餐",
         "activities": [
-          "錦糸町車站周邊"
+          {
+            "type": "text",
+            "content": "錦糸町車站周邊"
+          }
         ]
       }
     ]
@@ -300,18 +551,37 @@
     "date": "10/27",
     "dayOfWeek": "二",
     "title": "",
-    "flight": "CX451\n1530 NRT\n1840 TPE",
+    "flight": {
+      "number": "CX451",
+      "raw": "15:30 NRT -> 18:40 TPE"
+    },
     "accommodation": null,
     "schedule": [
       {
         "period": "早上",
         "activities": [
-          "退房＆寄放行李",
-          "淺草雷門",
-          "立木津巴士to成田機場",
-          "自由之丘",
-          "吉祥寺",
-          "調布"
+          {
+            "type": "text",
+            "content": "退房＆寄放行李"
+          },
+          {
+            "type": "text",
+            "content": "淺草雷門"
+          },
+          {
+            "type": "transit",
+            "method": "bus",
+            "route": [
+              "淺草",
+              "成田機場"
+            ],
+            "duration": "立木津巴士",
+            "notes": ""
+          },
+          {
+            "type": "text",
+            "content": "自由之丘"
+          }
         ]
       }
     ]

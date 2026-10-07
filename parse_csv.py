@@ -34,6 +34,34 @@ hotel_db = {
     }
 }
 
+def parse_activity(val):
+    activities = []
+    lines = val.split('\n')
+    for line in lines:
+        line = line.strip()
+        if not line: continue
+        if line.startswith("[TRANSIT]"):
+            # format: [TRANSIT] bus | origin -> dest | 16 min | notes
+            parts = [p.strip() for p in line.replace("[TRANSIT]", "").split("|")]
+            method = parts[0] if len(parts) > 0 else "train"
+            route_str = parts[1] if len(parts) > 1 else ""
+            route = [r.strip() for r in route_str.split("->")]
+            duration = parts[2] if len(parts) > 2 else ""
+            notes = parts[3] if len(parts) > 3 else ""
+            activities.append({
+                "type": "transit",
+                "method": method,
+                "route": route,
+                "duration": duration,
+                "notes": notes
+            })
+        else:
+            activities.append({
+                "type": "text",
+                "content": line
+            })
+    return activities
+
 itinerary = []
 for col in sorted(date_cols.keys()):
     date = date_cols[col]
@@ -59,8 +87,15 @@ for col in sorted(date_cols.keys()):
             
         row_label = row[0].strip()
         
-        if "CX" in val and "TPE" in val:
-            day_data["flight"] = val
+        if "[FLIGHT]" in val:
+            # [FLIGHT] CX450 | 13:00 TPE -> 17:15 NRT
+            parts = [p.strip() for p in val.replace("[FLIGHT]", "").split("|")]
+            number = parts[0] if len(parts) > 0 else ""
+            times = parts[1] if len(parts) > 1 else ""
+            day_data["flight"] = {
+                "number": number,
+                "raw": times
+            }
             continue
             
         if row_label == "住宿":
@@ -71,23 +106,23 @@ for col in sorted(date_cols.keys()):
             current_time_period = row_label
             day_data["schedule"].append({
                 "period": current_time_period,
-                "activities": [val]
+                "activities": parse_activity(val)
             })
         else:
             if current_time_period and len(day_data["schedule"]) > 0:
-                day_data["schedule"][-1]["activities"].append(val)
+                day_data["schedule"][-1]["activities"].extend(parse_activity(val))
             elif "日光" in val or "迪士尼" in val:
                 day_data["title"] = val
             else:
                 if "schedule" not in day_data:
                     day_data["schedule"] = []
                 if len(day_data["schedule"]) == 0:
-                    day_data["schedule"].append({"period": "全天", "activities": [val]})
+                    day_data["schedule"].append({"period": "全天", "activities": parse_activity(val)})
                 else:
-                    day_data["schedule"][-1]["activities"].append(val)
+                    day_data["schedule"][-1]["activities"].extend(parse_activity(val))
 
     title_val = reader[2][col].strip() if len(reader[2]) > col else ""
-    if title_val and "CX" not in title_val:
+    if title_val and "[FLIGHT]" not in title_val:
         day_data["title"] = title_val
 
     itinerary.append(day_data)
@@ -98,7 +133,6 @@ for i, day in enumerate(itinerary):
     if day["accommodation"]:
         current_acc = day["accommodation"]
     elif current_acc:
-        # Do not carry over accommodation to the very last day (checkout day)
         if i == len(itinerary) - 1:
             day["accommodation"] = None
         else:
