@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight } from 'lucide-react';
+import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
 
 const TransitCard = ({ data }) => {
   const isBus = data.method === 'bus' || data.notes?.includes('巴士');
   const Icon = isBus ? Bus : Train;
 
-  // Try to construct a Google Maps URL
   let mapUrl = 'https://www.google.com/maps/dir/?api=1&travelmode=transit';
   if (data.route && data.route.length >= 2) {
     const origin = data.route[0];
@@ -15,46 +14,93 @@ const TransitCard = ({ data }) => {
   }
 
   return (
-    <div className="bg-indigo-50/70 border border-indigo-200 rounded-lg p-4 shadow-sm relative overflow-hidden group">
-      <div className="flex items-start gap-3">
+    <div className="bg-indigo-50/70 border border-indigo-200 rounded-lg p-3 sm:p-4 shadow-sm relative overflow-hidden group">
+      <div className="flex items-start gap-3 h-full">
         <div className="bg-indigo-100 p-2 rounded-full shrink-0">
           <Icon className="w-5 h-5 text-indigo-600" />
         </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
-              {isBus ? 'Bus Transit' : 'Train Transit'}
-            </span>
-            {data.duration && (
-              <span className="text-xs font-bold bg-indigo-600 text-white px-2 py-0.5 rounded-full shadow-sm">
-                ⏱ {data.duration}
+        <div className="flex-1 min-w-0 flex flex-col justify-between h-full relative">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
+                {isBus ? 'Bus Transit' : 'Train Transit'}
               </span>
-            )}
+              {data.duration && (
+                <span className="text-xs font-bold bg-indigo-600 text-white px-2 py-0.5 rounded-full shadow-sm">
+                  ⏱ {data.duration}
+                </span>
+              )}
+            </div>
+            
+            <div className="text-sm text-indigo-800/90 leading-relaxed font-medium pb-8 sm:pb-0 sm:pr-28">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                {data.route.map((seg, idx) => (
+                  <span key={idx} className="flex items-center gap-2">
+                    <span className="bg-white/60 px-2 py-0.5 rounded shadow-sm border border-indigo-100">{seg}</span>
+                    {idx < data.route.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-indigo-400 shrink-0" />}
+                  </span>
+                ))}
+              </div>
+              {data.notes && (
+                <div className="text-xs text-indigo-500 mt-2">備註：{data.notes}</div>
+              )}
+            </div>
           </div>
           
-          <div className="text-sm text-indigo-800/90 leading-relaxed font-medium">
-            <div className="flex flex-wrap items-center gap-2 mb-1">
-              {data.route.map((seg, idx) => (
-                <span key={idx} className="flex items-center gap-2">
-                  <span className="bg-white/60 px-2 py-0.5 rounded shadow-sm border border-indigo-100">{seg}</span>
-                  {idx < data.route.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-indigo-400 shrink-0" />}
-                </span>
-              ))}
-            </div>
-            {data.notes && (
-              <div className="text-xs text-indigo-500 mt-2">備註：{data.notes}</div>
-            )}
-          </div>
-
           <a 
             href={mapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-indigo-600 bg-indigo-100/50 hover:bg-indigo-200/70 border border-indigo-200 px-3 py-1.5 rounded-md transition-colors"
+            className="absolute bottom-0 right-0 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 bg-indigo-100/50 hover:bg-indigo-200/70 border border-indigo-200 px-3 py-1.5 rounded-md transition-colors"
           >
             <MapIcon className="w-3.5 h-3.5" />
-            Google Maps 導航
+            Google Maps
           </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const FoodCard = ({ data }) => {
+  if (!data || !data.options || data.options.length === 0) return null;
+
+  // Group by category if categories exist
+  const hasCategories = data.options.some(opt => opt.category);
+  
+  return (
+    <div className="bg-rose-50/50 border border-rose-100 rounded-lg p-3 sm:p-4 shadow-sm relative group">
+      <div className="flex items-start gap-3">
+        <div className="bg-rose-100 p-2 rounded-full shrink-0">
+          <Utensils className="w-4 h-4 text-rose-500" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <span className="text-xs font-bold text-rose-500 uppercase tracking-wider mb-2 block">
+            Dining Options
+          </span>
+          
+          <div className="flex flex-wrap gap-2">
+            {data.options.map((opt, idx) => {
+              const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(opt.name)}`;
+              return (
+                <a
+                  key={idx}
+                  href={mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 bg-white hover:bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-full text-sm font-medium text-rose-800 transition-colors shadow-sm hover:shadow"
+                >
+                  {opt.category && (
+                    <span className="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">
+                      {opt.category}
+                    </span>
+                  )}
+                  {opt.name}
+                  <MapIcon className="w-3.5 h-3.5 text-rose-400 ml-0.5" />
+                </a>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -96,13 +142,11 @@ const FlightCard = ({ flight }) => {
       </div>
 
       <div className="flex items-center justify-between mt-2">
-        {/* Departure */}
         <div className="text-center w-16">
           <div className="text-xl font-black text-blue-950">{depTime}</div>
           <div className="text-sm font-bold text-blue-600">{depAirport}</div>
         </div>
 
-        {/* Route Visual */}
         <div className="flex-1 px-4 flex flex-col items-center justify-center">
           <div className="w-full flex items-center">
             <div className="h-0.5 bg-blue-200 flex-1 rounded-l-full"></div>
@@ -111,7 +155,6 @@ const FlightCard = ({ flight }) => {
           </div>
         </div>
 
-        {/* Arrival */}
         <div className="text-center w-16">
           <div className="text-xl font-black text-blue-950">{arrTime}</div>
           <div className="text-sm font-bold text-blue-600">{arrAirport}</div>
@@ -247,8 +290,10 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                         if (activity.type === 'transit') {
                           return <TransitCard key={actIdx} data={activity} />;
                         }
+                        if (activity.type === 'food') {
+                          return <FoodCard key={actIdx} data={activity} />;
+                        }
                         
-                        // Handle backward compatibility or text type
                         const content = activity.content || activity;
                         return (
                           <div key={actIdx} className="bg-white border border-gray-100 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">

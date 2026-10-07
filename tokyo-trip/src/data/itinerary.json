@@ -35,8 +35,17 @@
         "period": "晚餐",
         "activities": [
           {
-            "type": "text",
-            "content": "飯店附近吃東京最頂漢堡Shake tree burger & bar or 百大烏龍麵石臼碾磨烏龍麵"
+            "type": "food",
+            "options": [
+              {
+                "name": "東京最頂漢堡Shake tree burger & bar",
+                "category": null
+              },
+              {
+                "name": "百大烏龍麵石臼碾磨烏龍麵",
+                "category": null
+              }
+            ]
           }
         ]
       },
@@ -137,12 +146,21 @@
             "content": "東照宮周邊："
           },
           {
-            "type": "text",
-            "content": "葷食-西洋料理 明治の館 蛋包飯 or Maibaru的愛日光珈琲 御用邸通"
-          },
-          {
-            "type": "text",
-            "content": "素食自然茶寮 廻"
+            "type": "food",
+            "options": [
+              {
+                "name": "西洋料理 明治の館 蛋包飯",
+                "category": "葷食"
+              },
+              {
+                "name": "Maibaru的愛日光珈琲 御用邸通",
+                "category": "葷食"
+              },
+              {
+                "name": "自然茶寮 廻",
+                "category": "素食"
+              }
+            ]
           }
         ]
       },

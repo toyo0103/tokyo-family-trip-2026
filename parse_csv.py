@@ -34,14 +34,56 @@ hotel_db = {
     }
 }
 
-def parse_activity(val):
+def parse_food_line(line):
+    category = None
+    if line.startswith("葷食-") or line.startswith("葷食"):
+        category = "葷食"
+        line = line.replace("葷食-", "").replace("葷食", "").strip()
+    elif line.startswith("素食-") or line.startswith("素食"):
+        category = "素食"
+        line = line.replace("素食-", "").replace("素食", "").strip()
+        
+    if line.startswith("飯店附近吃"):
+        line = line.replace("飯店附近吃", "", 1).strip()
+        
+    options = []
+    parts = [p.strip() for p in re.split(r'\s+or\s+', line, flags=re.IGNORECASE)]
+    for p in parts:
+        if p:
+            options.append({"name": p, "category": category})
+    return options
+
+def parse_activity(val, period=None):
     activities = []
+    
+    if period in ["中餐", "晚餐"] and (" or " in val.lower() or "葷食" in val or "素食" in val):
+        lines = val.split('\n')
+        food_options = []
+        prefix_texts = []
+        
+        for line in lines:
+            line = line.strip()
+            if not line: continue
+            if "or" not in line.lower() and "葷食" not in line and "素食" not in line and line.endswith("："):
+                prefix_texts.append(line)
+            elif line == "溫泉旅館會席料理": # Handle normal strings in the same block gracefully
+                prefix_texts.append(line)
+            else:
+                food_options.extend(parse_food_line(line))
+        
+        if prefix_texts:
+            activities.append({"type": "text", "content": "\n".join(prefix_texts)})
+            
+        if food_options:
+            activities.append({"type": "food", "options": food_options})
+            
+        return activities
+
     lines = val.split('\n')
     for line in lines:
         line = line.strip()
         if not line: continue
         if line.startswith("[TRANSIT]"):
-            # format: [TRANSIT] bus | origin -> dest | 16 min | notes
             parts = [p.strip() for p in line.replace("[TRANSIT]", "").split("|")]
             method = parts[0] if len(parts) > 0 else "train"
             route_str = parts[1] if len(parts) > 1 else ""
@@ -104,33 +146,30 @@ for col in sorted(date_cols.keys()):
             continue
             
         if row_label in ["早餐", "早上", "中餐", "下午", "晚餐", "晚上"]:
-            # If the period definition row itself has a value, add it as the first activity
             if not any(s["period"] == current_time_period for s in day_data["schedule"]):
                 day_data["schedule"].append({
                     "period": current_time_period,
-                    "activities": parse_activity(val)
+                    "activities": parse_activity(val, current_time_period)
                 })
             else:
-                day_data["schedule"][-1]["activities"].extend(parse_activity(val))
+                day_data["schedule"][-1]["activities"].extend(parse_activity(val, current_time_period))
         else:
-            # Handle values in rows that don't define a new period
             if current_time_period:
-                # Ensure the period bucket exists
                 if not any(s["period"] == current_time_period for s in day_data["schedule"]):
                     day_data["schedule"].append({
                         "period": current_time_period,
                         "activities": []
                     })
-                day_data["schedule"][-1]["activities"].extend(parse_activity(val))
+                day_data["schedule"][-1]["activities"].extend(parse_activity(val, current_time_period))
             elif "日光" in val or "迪士尼" in val:
                 day_data["title"] = val
             else:
                 if "schedule" not in day_data:
                     day_data["schedule"] = []
                 if len(day_data["schedule"]) == 0:
-                    day_data["schedule"].append({"period": "全天", "activities": parse_activity(val)})
+                    day_data["schedule"].append({"period": "全天", "activities": parse_activity(val, current_time_period)})
                 else:
-                    day_data["schedule"][-1]["activities"].extend(parse_activity(val))
+                    day_data["schedule"][-1]["activities"].extend(parse_activity(val, current_time_period))
 
     title_val = reader[2][col].strip() if len(reader[2]) > col else ""
     if title_val and "[FLIGHT]" not in title_val:
@@ -138,7 +177,6 @@ for col in sorted(date_cols.keys()):
 
     itinerary.append(day_data)
 
-# Carry over accommodation logic
 current_acc = None
 for i, day in enumerate(itinerary):
     if day["accommodation"]:
