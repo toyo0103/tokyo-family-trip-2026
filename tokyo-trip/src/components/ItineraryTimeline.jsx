@@ -1,6 +1,89 @@
 import { useState } from 'react';
-import { Clock, Plane, Hotel, MapPin, Phone, Info } from 'lucide-react';
+import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
+
+const TransitCard = ({ text }) => {
+  const isBus = text.includes('巴士') || text.includes('bus') || text.includes('バス');
+  const Icon = isBus ? Bus : Train;
+
+  // Extract time like "43 min" or "100min"
+  const durationMatch = text.match(/\d+\s*min/i);
+  const duration = durationMatch ? durationMatch[0] : null;
+
+  // Try to extract origin and destination for Google Maps link
+  const splitRegex = />|-->|➔|到/;
+  let mapUrl = 'https://www.google.com/maps/dir/?api=1&travelmode=transit';
+  
+  if (splitRegex.test(text)) {
+    const parts = text.split(splitRegex);
+    const originRaw = parts[0].split('\n').pop().trim();
+    const destRaw = parts[parts.length - 1].split('\n')[0].trim();
+    
+    // Clean up times, parentheses, etc. to get a clean location name
+    const clean = (str) => str.replace(/\(.*?\)/g, '').replace(/（.*?）/g, '').replace(/\d{1,2}:\d{2}/g, '').replace(/\d+\s*min/ig, '').trim();
+    const origin = clean(originRaw);
+    const destination = clean(destRaw);
+    
+    if (origin && destination) {
+      mapUrl += `&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`;
+    }
+  }
+
+  // Highlight routes by replacing raw text arrows with nice UI
+  const formatRouteText = (str) => {
+    return str.split('\n').map((line, i) => {
+      if (!splitRegex.test(line)) return <div key={i} className="mb-1">{line}</div>;
+      
+      const segments = line.split(splitRegex);
+      return (
+        <div key={i} className="flex flex-wrap items-center gap-2 mb-1 text-indigo-900 font-medium">
+          {segments.map((seg, idx) => (
+            <span key={idx} className="flex items-center gap-2">
+              <span className="bg-white/60 px-2 py-0.5 rounded shadow-sm border border-indigo-100">{seg.trim()}</span>
+              {idx < segments.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-indigo-400 shrink-0" />}
+            </span>
+          ))}
+        </div>
+      );
+    });
+  };
+
+  return (
+    <div className="bg-indigo-50/70 border border-indigo-200 rounded-lg p-4 shadow-sm relative overflow-hidden group">
+      <div className="flex items-start gap-3">
+        <div className="bg-indigo-100 p-2 rounded-full shrink-0">
+          <Icon className="w-5 h-5 text-indigo-600" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
+              {isBus ? 'Bus Transit' : 'Train Transit'}
+            </span>
+            {duration && (
+              <span className="text-xs font-bold bg-indigo-600 text-white px-2 py-0.5 rounded-full shadow-sm">
+                ⏱ {duration}
+              </span>
+            )}
+          </div>
+          
+          <div className="text-sm text-indigo-800/90 leading-relaxed">
+            {formatRouteText(text)}
+          </div>
+
+          <a 
+            href={mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-indigo-600 bg-indigo-100/50 hover:bg-indigo-200/70 border border-indigo-200 px-3 py-1.5 rounded-md transition-colors"
+          >
+            <MapIcon className="w-3.5 h-3.5" />
+            Google Maps 導航
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const FlightCard = ({ flight }) => {
   if (!flight) return null;
@@ -186,11 +269,16 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                     </div>
                     
                     <div className="mt-3 md:mt-0 flex-1 space-y-3">
-                      {item.activities.map((activity, actIdx) => (
-                        <div key={actIdx} className="bg-white border border-gray-100 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-                          <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{activity}</p>
-                        </div>
-                      ))}
+                      {item.activities.map((activity, actIdx) => {
+                        const isTransit = />|-->|➔|到|\(bus\)|min|線/i.test(activity);
+                        return isTransit ? (
+                          <TransitCard key={actIdx} text={activity} />
+                        ) : (
+                          <div key={actIdx} className="bg-white border border-gray-100 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{activity}</p>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
