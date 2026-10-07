@@ -185,8 +185,14 @@
         "period": "晚上",
         "activities": [
           {
-            "type": "text",
-            "content": "溫泉旅館會席料理",
+            "type": "food",
+            "options": [
+              {
+                "name": "日光中禅寺湖温泉 ホテル花庵 會席料理",
+                "category": null,
+                "note": ""
+              }
+            ],
             "timeRange": ""
           }
         ]
@@ -279,8 +285,14 @@
         "period": "晚上",
         "activities": [
           {
-            "type": "text",
-            "content": "溫泉旅館會席料理",
+            "type": "food",
+            "options": [
+              {
+                "name": "日光中禅寺湖温泉 ホテル花庵 會席料理",
+                "category": null,
+                "note": ""
+              }
+            ],
             "timeRange": ""
           }
         ]
