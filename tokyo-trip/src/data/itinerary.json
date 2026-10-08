@@ -295,8 +295,14 @@
         "period": "下午",
         "activities": [
           {
-            "type": "text",
-            "content": "搭巴士下山回到中禪寺湖畔",
+            "type": "transit",
+            "method": "bus",
+            "route": [
+              "湯滝入口",
+              "中禪寺溫泉"
+            ],
+            "duration": "",
+            "notes": "日光駅～中禅寺温泉～湯元温泉",
             "timeRange": ""
           },
           {
@@ -310,9 +316,15 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "中禪寺湖觀光船（遊湖55mins）",
-            "timeRange": ""
+            "type": "spot",
+            "title": "中禪寺湖觀光船",
+            "locations": [
+              "中禪寺湖遊覽船碼頭"
+            ],
+            "note": "遊湖約 55 mins",
+            "timeRange": "",
+            "description": "搭乘中禪寺湖觀光船，以獨特的湖上視角飽覽奧日光的壯麗自然風光。遊船路線環繞湖面，能將巍峨的男體山與周遭隨四季變換的湖畔絕景盡收眼底。特別是在秋季，滿山遍野的楓紅倒映在波光粼粼的湖面上，是一段令人心曠神怡的愜意水上旅程。",
+            "imageUrl": "/spots/chuzenji-cruise.jpg"
           },
           {
             "type": "text",
