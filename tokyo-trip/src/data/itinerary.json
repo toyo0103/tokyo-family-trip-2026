@@ -311,9 +311,16 @@
             "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "英國/法國大使館別墅紀念公園喝下午茶",
-            "timeRange": ""
+            "type": "spot",
+            "title": "英國/法國大使館別墅紀念公園喝下午茶",
+            "locations": [
+              "英國大使館別墅紀念公園",
+              "義大利大使館別墅紀念公園"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "中禪寺湖畔曾經是外國使節的避暑勝地。這裡保留了過去英國與義大利大使館的別墅，充滿濃厚的異國風情。在別墅內不僅能參觀當時的陳設，還能坐在面湖的窗邊，一邊品嚐道地的英式下午茶，一邊欣賞波光粼粼的湖水與壯麗山景。",
+            "imageUrl": "/spots/embassy-villa.jpg"
           },
           {
             "type": "spot",
@@ -327,9 +334,15 @@
             "imageUrl": "/spots/chuzenji-cruise.jpg"
           },
           {
-            "type": "text",
-            "content": "中禪寺（看立木觀音）也可以喝日式茶屋",
-            "timeRange": ""
+            "type": "spot",
+            "title": "中禪寺（立木觀音）",
+            "locations": [
+              "中禪寺"
+            ],
+            "note": "也可以喝日式茶屋",
+            "timeRange": "",
+            "description": "中禪寺歷史悠久，寺內供奉著由桂樹連根雕刻而成的「立木觀音」，為日本國家重要文化財。參拜後還可到附近的日式茶屋稍作休息，一邊品嚐抹茶與和菓子，一邊靜賞中禪寺湖的寧靜風光。",
+            "imageUrl": "/spots/chuzenji-temple.jpg"
           }
         ]
       },
