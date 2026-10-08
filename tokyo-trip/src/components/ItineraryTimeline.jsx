@@ -69,83 +69,89 @@ const SpotCard = ({ data, timeRange }) => {
   const locations = data.locations || [];
   
   return (
-    <div className="bg-white border border-[#EBE5DB] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200">
-      
-      {data.imageUrl && (
-         <div 
-           className={`relative w-full transition-all duration-500 ease-in-out cursor-pointer ${isExpanded ? 'h-56 sm:h-64' : 'h-24 sm:h-32'}`} 
-           onClick={() => setIsExpanded(!isExpanded)}
-         >
+    <div 
+      className="bg-white border border-[#EBE5DB] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+      onClick={() => setIsExpanded(!isExpanded)}
+    >
+      {isExpanded && data.imageUrl && (
+         <div className="relative w-full h-56 sm:h-72 transition-all duration-500 ease-in-out">
            <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover" />
-           <div className="absolute inset-0 bg-black/10 hover:bg-black/0 transition-colors"></div>
-           {!isExpanded && (
-             <div className="absolute bottom-2 right-3 bg-black/40 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1">
-               <Info className="w-3 h-3" /> 點擊展開
-             </div>
-           )}
+           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
          </div>
       )}
 
-      <div className="p-4 sm:p-5">
-        <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="text-[10px] font-bold text-white bg-[#6C7D63] px-2 py-1 rounded tracking-wider uppercase">
-            SPOT
-          </span>
-          {timeRange && (
-            <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              {timeRange}
+      <div className="p-4 sm:p-5 flex gap-4">
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <span className="text-[10px] font-bold text-white bg-[#6C7D63] px-2 py-1 rounded tracking-wider uppercase">
+              SPOT
             </span>
-          )}
-        </div>
-        
-        <div className="text-[#3D3835]">
-          <h3 className="font-bold text-xl leading-tight mb-2">{data.title}</h3>
+            {timeRange && (
+              <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                {timeRange}
+              </span>
+            )}
+          </div>
           
-          {data.description && (
-            <div className="mb-4">
-              <p className={`text-[15px] text-[#5D5753] leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-2'}`}>
-                {data.description}
-              </p>
-              <button 
-                onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }} 
-                className="text-[#6C7D63] text-sm font-bold mt-1.5 hover:underline flex items-center gap-1"
-              >
-                {isExpanded ? '收起介紹' : '閱讀更多...'}
-              </button>
-            </div>
-          )}
+          <div className="text-[#3D3835]">
+            <h3 className="font-bold text-xl leading-tight mb-2 truncate whitespace-normal">{data.title}</h3>
+            
+            {data.description && (
+              <div className="mb-4">
+                <p className={`text-[15px] text-[#5D5753] leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-2'}`}>
+                  {data.description}
+                </p>
+                <button 
+                  className="text-[#6C7D63] text-sm font-bold mt-1.5 hover:underline flex items-center gap-1"
+                >
+                  {isExpanded ? '收起介紹' : '閱讀更多...'}
+                </button>
+              </div>
+            )}
 
-          {locations.length > 0 && locations[0] !== "" && (
-            <div className="flex flex-wrap gap-2 mb-3">
-              {locations.map((loc, idx) => {
-                if (!loc.trim()) return null;
-                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.trim())}`;
-                return (
-                  <a
-                    key={idx}
-                    href={mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] hover:border-[#6C7D63] px-3 py-1.5 rounded-full text-sm font-medium text-[#6C7D63] hover:shadow-sm hover:-translate-y-px transition-all decoration-transparent"
-                  >
-                    <MapPin className="w-3.5 h-3.5" />
-                    <span>{loc.trim()}</span>
-                    {idx < locations.length - 1 && data.locations.length > 1 && data.note?.includes('or') ? (
-                      <span className="text-xs text-gray-400 font-normal">or</span>
-                    ) : null}
-                  </a>
-                );
-              })}
-            </div>
-          )}
-          
-          {data.note && (
-            <p className="text-sm text-[#7A726D] bg-[#F9F6F0] p-3 rounded-lg border border-[#EBE5DB] leading-relaxed whitespace-pre-wrap">
-              {data.note}
-            </p>
-          )}
+            {locations.length > 0 && locations[0] !== "" && (
+              <div className="flex flex-wrap gap-2 mb-3">
+                {locations.map((loc, idx) => {
+                  if (!loc.trim()) return null;
+                  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.trim())}`;
+                  return (
+                    <a
+                      key={idx}
+                      href={mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] hover:border-[#6C7D63] px-3 py-1.5 rounded-full text-sm font-medium text-[#6C7D63] hover:shadow-sm hover:-translate-y-px transition-all decoration-transparent"
+                    >
+                      <MapPin className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate max-w-[200px]">{loc.trim()}</span>
+                      {idx < locations.length - 1 && data.locations.length > 1 && data.note?.includes('or') ? (
+                        <span className="text-xs text-gray-400 font-normal">or</span>
+                      ) : null}
+                    </a>
+                  );
+                })}
+              </div>
+            )}
+            
+            {data.note && (
+              <p className="text-sm text-[#7A726D] bg-[#F9F6F0] p-3 rounded-lg border border-[#EBE5DB] leading-relaxed whitespace-pre-wrap">
+                {data.note}
+              </p>
+            )}
+          </div>
         </div>
+
+        {!isExpanded && data.imageUrl && (
+          <div className="w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-xl overflow-hidden border border-[#EBE5DB] relative mt-1 group">
+            <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+            <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 bg-black/40 backdrop-blur-sm text-white text-[10px] px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+              <Info className="w-3 h-3" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
