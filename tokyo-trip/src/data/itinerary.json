@@ -163,7 +163,7 @@
             "note": "",
             "timeRange": "",
             "description": "日光東照宮是位於日本栃木縣日光市的世界文化遺產，主要祭祀江戶幕府第一代將軍德川家康（東照大權現）。宮內建築以「豪華絢爛」聞名，展現了江戶時代初期的頂尖工藝。其中最著名的是裝飾極度繁複精美的「陽明門」，以及神廄舍上象徵「不看、不言、不聽」的三猿雕刻與祈求和平的「眠貓」雕刻。此處不僅是歷史建築的傑作，也是感受德川家族輝煌歷史的必訪聖地。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Nikko_Toshogu_Yomeimon_2020.jpg/800px-Nikko_Toshogu_Yomeimon_2020.jpg"
+            "imageUrl": "/spots/nikko-toshogu.jpg"
           },
           {
             "type": "transit",
@@ -190,7 +190,7 @@
             "note": "建議沿著湖畔步道散步，可拍到男體山與湖面相呼應的美照。",
             "timeRange": "",
             "description": "中禪寺湖海拔約 1,269 公尺，是日本海拔最高的天然湖泊。約兩萬年前因男體山火山噴發，熔岩堵塞溪谷而形成。從明治時期開始，這裡因氣候涼爽宜人，成為許多外國使節與貴族的避暑度假勝地。在湖畔碼頭漫步，可欣賞波光粼粼的湖水與壯麗的男體山交織出的四季美景，特別是秋季的紅葉更令人流連忘返。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Lake_Chuzenji_2019.jpg/800px-Lake_Chuzenji_2019.jpg"
+            "imageUrl": "/spots/chuzenji.jpg"
           }
         ]
       },
@@ -249,7 +249,7 @@
             "note": "",
             "timeRange": "",
             "description": "戰場之原是位於奧日光海拔約 1,400 公尺的廣闊濕地，名稱源自神話中男體山神與赤城山神爭奪中禪寺湖的傳說。這裡設有平緩易行的木棧道，沿途可欣賞高山植物、野鳥以及壯麗的男體山景緻。秋季時，濕地上的草木會轉為迷人的金黃與赤紅色，是日光地區極具代表性的自然生態健行聖地。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Senjogahara_at_Nikko.jpg/800px-Senjogahara_at_Nikko.jpg"
+            "imageUrl": "/spots/senjogahara.jpg"
           },
           {
             "type": "transit",
@@ -271,7 +271,7 @@
             "note": "",
             "timeRange": "",
             "description": "湯瀧瀑布（Yudaki Falls）是奧日光三大名瀑之一，位於湯之湖南端，高達 70 公尺。湖水沿著傾斜的岩壁奔騰而下，氣勢磅礴且水花四濺。最特別的是，瀑布底部設有觀景台，能近距離感受水流從眼前傾瀉而下的震撼力。周邊環繞著茂密的原始森林，秋天時滿谷的紅葉與白練般的瀑布相映成輝，是一處不可錯過的自然絕景。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Yudaki_2009.jpg/800px-Yudaki_2009.jpg"
+            "imageUrl": "/spots/yudaki-falls.jpg"
           },
           {
             "type": "food",
@@ -324,7 +324,7 @@
             "note": "遊湖約 55 mins",
             "timeRange": "",
             "description": "搭乘中禪寺湖觀光船，以獨特的湖上視角飽覽奧日光的壯麗自然風光。遊船路線環繞湖面，能將巍峨的男體山與周遭隨四季變換的湖畔絕景盡收眼底。特別是在秋季，滿山遍野的楓紅倒映在波光粼粼的湖面上，是一段令人心曠神怡的愜意水上旅程。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Lake_Ch%C5%ABzenji.jpg/800px-Lake_Ch%C5%ABzenji.jpg"
+            "imageUrl": "/spots/chuzenji-cruise.jpg"
           },
           {
             "type": "text",
@@ -382,7 +382,7 @@
             "note": "",
             "timeRange": "",
             "description": "華嚴瀑布是「日本三大名瀑」之一，中禪寺湖的湖水從 97 公尺高的峭壁傾瀉而下，氣勢磅礴。搭乘專屬電梯至觀瀑台，可近距離感受瀑布飛濺的水花與震耳欲聾的水聲。這裡不僅是賞楓名所，冬季時瀑布周圍結出的冰柱（冰瀑）更是一大絕景。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Kegon_Falls_2019.jpg/800px-Kegon_Falls_2019.jpg"
+            "imageUrl": "/spots/kegon-falls.jpg"
           },
           {
             "type": "transit",
@@ -477,7 +477,7 @@
             "note": "",
             "timeRange": "",
             "description": "新宿御苑最初是江戶時代大名的宅邸，後來成為皇室庭園，現為國民公園。這裡佔地廣闊，巧妙結合了日式傳統庭園、法式幾何庭園與英式風景庭園三種風格。作為東京市中心的都市綠洲，秋季有著美麗的紅葉與銀杏，四季皆有動人景緻。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/ShinjukuGyoen-TaiwanPavilion.JPG/800px-ShinjukuGyoen-TaiwanPavilion.JPG"
+            "imageUrl": "/spots/shinjuku-gyoen.jpg"
           },
           {
             "type": "transit",
@@ -509,7 +509,7 @@
             "note": "",
             "timeRange": "",
             "description": "芝公園是日本最古老的公園之一，歷史悠久，園內綠意盎然。這裡最大的特色是能夠近距離仰望與拍攝壯觀的東京鐵塔，尤其以鄰近增上寺與東京鐵塔同框的經典畫面最為著名，是許多攝影愛好者與遊客必訪的打卡聖地。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Zojoji_Temple_and_Tokyo_Tower.jpg/800px-Zojoji_Temple_and_Tokyo_Tower.jpg"
+            "imageUrl": "/spots/shiba-park.jpg"
           },
           {
             "type": "spot",
@@ -520,7 +520,7 @@
             "note": "",
             "timeRange": "",
             "description": "東京鐵塔建於 1958 年，是一座高 333 公尺的紅白相間電波塔，長期以來作為東京的象徵而深受喜愛。夜晚時分，溫暖的橘黃色燈光點亮了東京的夜空，是浪漫經典的必訪地標。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Tokyo_Tower_2020.jpg/800px-Tokyo_Tower_2020.jpg"
+            "imageUrl": "/spots/tokyo-tower.jpg"
           }
         ]
       },
@@ -541,7 +541,7 @@
             "note": "",
             "timeRange": "",
             "description": "六本木之丘展望台（Tokyo City View）位於森大樓 52 樓，擁有高達 11 公尺的巨大落地窗，提供無死角的絕佳視野。在這裡能將東京鐵塔、台場盡收眼底。其無反光設計與絕佳的地理位置，使其成為觀賞東京璀璨夜景的首選之地。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Tokyo_Nightscape_20170104.jpg/800px-Tokyo_Nightscape_20170104.jpg"
+            "imageUrl": "/spots/roppongi-hills.jpg"
           }
         ]
       }
@@ -573,7 +573,7 @@
             "note": "",
             "timeRange": "",
             "description": "皇居東御苑是過去江戶城本丸、二之丸及三之丸的所在地，現已作為皇室附屬庭園開放給一般民眾免費參觀。這裡不僅保留了江戶城天守台的巨大石垣，還有精心修剪的日式庭園與豐富的四季花草。漫步其中，能在東京最繁華的都心感受到濃厚的歷史底蘊與難得的寧靜。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Edo_Castle_honmaru_2014.jpg/800px-Edo_Castle_honmaru_2014.jpg"
+            "imageUrl": "/spots/imperial-palace.jpg"
           }
         ]
       },
@@ -589,7 +589,7 @@
             "note": "購物精品, 日牌女裝, 吉卜力橡子共和國與寶可夢中心",
             "timeRange": "",
             "description": "東京晴空塔高達 634 公尺，是目前世界第一高塔。除了能從展望台飽覽關東平原的壯麗日夜景之外，塔下的「東京晴空街道 (Tokyo Solamachi)」更是極具規模的複合式購物中心。這裡匯聚了從國際精品、日系服飾、傳統工藝品到各式知名動漫周邊，是好逛又好買的必訪地標。",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Tokyo_Sky_Tree_2012.JPG/800px-Tokyo_Sky_Tree_2012.JPG"
+            "imageUrl": "/spots/tokyo-skytree.jpg"
           },
           {
             "type": "text",
