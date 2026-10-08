@@ -32,7 +32,7 @@ function App() {
           東京・日光の秋
         </h1>
         <p className="text-lg md:text-xl font-light opacity-90 tracking-wide" style={{ textShadow: "0 2px 6px rgba(0,0,0,0.5)" }}>
-          Wabi-Sabi Autumn Journey
+          わびさびの秋旅
         </p>
       </div>
 
