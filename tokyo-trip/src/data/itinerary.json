@@ -93,6 +93,11 @@
         "period": "早上",
         "activities": [
           {
+            "type": "text",
+            "content": "退房，寄放行李",
+            "timeRange": "07:15"
+          },
+          {
             "type": "transit",
             "method": "bus",
             "route": [
@@ -100,7 +105,7 @@
               "東武淺草站"
             ],
             "duration": "約 30 min",
-            "notes": "退房出發，搭公車前往東武淺草站",
+            "notes": "搭公車前往東武淺草站",
             "timeRange": "07:30 ~ 08:00"
           },
           {
