@@ -578,9 +578,9 @@
             "type": "food",
             "options": [
               {
-                "name": "丸之內歐風街道附近午餐",
+                "name": "丸之內仲通",
                 "category": null,
-                "note": "丸之內仲通露天咖啡座 / 歐風餐廳"
+                "note": "歐風街道露天咖啡座 / 餐廳午餐"
               }
             ],
             "timeRange": ""
@@ -615,17 +615,6 @@
           },
           {
             "type": "spot",
-            "title": "下午茶：北斎茶房（和菓子）",
-            "locations": [
-              "北斎茶房"
-            ],
-            "note": "名物わらび餅（蕨餅）、特製抹茶紅豆白玉善哉、季節和菓子",
-            "timeRange": "",
-            "description": "北斎茶房是東京極負盛名的古民家甘味處，以浮世繪大師葛飾北齋命名。店內洋溢著溫暖質樸的木造下町風情，招牌現做軟嫩蕨餅、抹茶白玉餡蜜與各式四季和菓子甜點令人回味無窮，是午後品嚐道地日式茶點的絕佳選擇。",
-            "imageUrl": "/spots/hokusai-sabo.jpg"
-          },
-          {
-            "type": "spot",
             "title": "東京鐵塔",
             "locations": [
               "東京鐵塔"
@@ -634,23 +623,23 @@
             "timeRange": "",
             "description": "東京鐵塔建於 1958 年，是一座高 333 公尺的紅白相間電波塔，長期以來作為東京的象徵而深受喜愛。夜晚時分，溫暖的橘黃色燈光點亮了東京的夜空，是浪漫經典的必訪地標。",
             "imageUrl": "/spots/tokyo-tower.jpg"
+          },
+          {
+            "type": "spot",
+            "title": "下午茶：北斎茶房（和菓子）",
+            "locations": [
+              "北斎茶房"
+            ],
+            "note": "名物わらび餅（蕨餅）、特製抹茶紅豆白玉善哉、季節和菓子",
+            "timeRange": "",
+            "description": "北斎茶房是東京極負盛名的古民家甘味處，以浮世繪大師葛飾北齋命名。店內洋溢著溫暖質樸的木造下町風情，招牌現做軟嫩蕨餅、抹茶白玉餡蜜與各式四季和菓子甜點令人回味無窮，是午後品嚐道地日式茶點的絕佳選擇。",
+            "imageUrl": "/spots/hokusai-sabo.jpg"
           }
         ]
       },
       {
         "period": "晚上",
         "activities": [
-          {
-            "type": "spot",
-            "title": "六本木之丘 展望台",
-            "locations": [
-              "六本木之丘 森大樓"
-            ],
-            "note": "",
-            "timeRange": "",
-            "description": "六本木之丘展望台（Tokyo City View）位於森大樓 52 樓，擁有高達 11 公尺的巨大落地窗，提供無死角的絕佳視野。在這裡能將東京鐵塔、台場盡收眼底。其無反光設計與絕佳的地理位置，使其成為觀賞東京璀璨夜景的首選之地。",
-            "imageUrl": "/spots/roppongi-hills.jpg"
-          },
           {
             "type": "food",
             "options": [
@@ -666,6 +655,17 @@
               }
             ],
             "timeRange": ""
+          },
+          {
+            "type": "spot",
+            "title": "六本木之丘 展望台",
+            "locations": [
+              "六本木之丘 森大樓"
+            ],
+            "note": "",
+            "timeRange": "",
+            "description": "六本木之丘展望台（Tokyo City View）位於森大樓 52 樓，擁有高達 11 公尺的巨大落地窗，提供無死角的絕佳視野。在這裡能將東京鐵塔、台場盡收眼底。其無反光設計與絕佳的地理位置，使其成為觀賞東京璀璨夜景的首選之地。",
+            "imageUrl": "/spots/roppongi-hills.jpg"
           }
         ]
       }

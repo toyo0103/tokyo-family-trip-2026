@@ -209,9 +209,9 @@ const FoodCard = ({ data, timeRange }) => {
             )}
             <div className="flex flex-wrap gap-2.5">
               {meatOptions.map((opt, idx) => {
-                const mapQuery = (opt.name === '溫泉旅館早餐' || opt.name.includes('花庵') || opt.note?.includes('花庵')) 
+                const mapQuery = opt.mapQuery || ((opt.name === '溫泉旅館早餐' || opt.name.includes('花庵') || opt.note?.includes('花庵')) 
                   ? '日光中禅寺湖温泉 ホテル花庵' 
-                  : opt.name;
+                  : opt.name);
                 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
                 return (
                   <a
@@ -239,7 +239,8 @@ const FoodCard = ({ data, timeRange }) => {
             </div>
             <div className="flex flex-wrap gap-2.5">
               {vegOptions.map((opt, idx) => {
-                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(opt.name)}`;
+                const mapQuery = opt.mapQuery || opt.name;
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
                 return (
                   <a
                     key={idx}
