@@ -527,7 +527,7 @@
   {
     "date": "10/25",
     "dayOfWeek": "日",
-    "title": "也可以考慮迪士尼一日遊",
+    "title": "",
     "flight": null,
     "accommodation": {
       "name": "東武ホテルレバント東京",
@@ -542,6 +542,17 @@
         "period": "早上",
         "activities": [
           {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "(半藏門線) 錦糸町車站",
+              "大手町 (東京)"
+            ],
+            "duration": "14 min",
+            "notes": "搭乘地鐵半藏門線直達大手町站，出站後步行即可抵達皇居東御苑 (大手門)",
+            "timeRange": "09:09 ~ 09:23"
+          },
+          {
             "type": "spot",
             "title": "皇居東御苑",
             "locations": [
@@ -553,15 +564,15 @@
             "imageUrl": "/spots/imperial-palace-east-gardens.jpg"
           },
           {
-            "type": "transit",
-            "method": "train",
-            "route": [
-              "錦糸町站",
-              "東京車站 (大手町)"
+            "type": "spot",
+            "title": "丸之內仲通散步",
+            "locations": [
+              "丸之內仲通"
             ],
-            "duration": "8 min",
-            "notes": "搭乘 JR 總武線快速直達東京車站（步行至大手門），或搭地鐵半藏門線至大手町站",
-            "timeRange": ""
+            "note": "露天咖啡座、公共藝術與秋季林蔭大道",
+            "timeRange": "",
+            "description": "丸之內仲通是貫穿東京車站與皇居之間的林蔭大道，寬闊平緩的石板路兩旁林立著高級精品店、露天咖啡廳與現代戶外雕塑藝術。秋季時，整條大道的櫸樹與銀杏轉為溫暖的金黃色，午後在此漫步品嚐咖啡，是感受東京成熟典雅都會氣息最愜意的散策路線。",
+            "imageUrl": "/spots/marunouchi-nakadori.jpg"
           }
         ]
       },
