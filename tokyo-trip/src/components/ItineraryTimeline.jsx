@@ -1,12 +1,17 @@
 import { useState } from 'react';
-import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils } from 'lucide-react';
+import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
 
 const TransitCard = ({ data, timeRange }) => {
   const isBus = data.method === 'bus' || data.notes?.includes('巴士');
-  const Icon = isBus ? Bus : Train;
+  const isCar = data.method === 'car' || data.method === 'shuttle' || data.notes?.includes('接送') || data.notes?.includes('專車');
+  const Icon = isCar ? Car : (isBus ? Bus : Train);
+  const badgeLabel = isCar ? 'Airport Transfer' : (isBus ? 'Bus Transit' : 'Train Transit');
 
-  let mapUrl = 'https://www.google.com/maps/dir/?api=1&travelmode=transit';
+  let mapUrl = isCar 
+    ? 'https://www.google.com/maps/dir/?api=1&travelmode=driving' 
+    : 'https://www.google.com/maps/dir/?api=1&travelmode=transit';
+    
   if (data.route && data.route.length >= 2) {
     const origin = data.route[0];
     const destination = data.route[data.route.length - 1];
@@ -19,7 +24,7 @@ const TransitCard = ({ data, timeRange }) => {
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase">
-              {isBus ? 'Bus Transit' : 'Train Transit'}
+              {badgeLabel}
             </span>
             {timeRange && (
               <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
@@ -447,17 +452,27 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                         cardContent = <FoodCard data={activity} timeRange={timeRange} />;
                       } else {
                         const textContent = activity.content || activity;
+                        const isShuttle = typeof textContent === 'string' && (textContent.includes('接送') || textContent.includes('專車'));
+                        
                         cardContent = (
                           <div className="bg-white border border-[#EBE5DB] rounded-2xl p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all">
-                            {timeRange && (
-                              <div className="flex items-center gap-1 mb-3">
-                                <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
-                                  <Clock className="w-3 h-3" />
-                                  {timeRange}
-                                </span>
+                            {(timeRange || isShuttle) && (
+                              <div className="flex flex-wrap items-center gap-2 mb-3">
+                                {isShuttle && (
+                                  <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase flex items-center gap-1">
+                                    <Car className="w-3 h-3" />
+                                    機場接送
+                                  </span>
+                                )}
+                                {timeRange && (
+                                  <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
+                                    <Clock className="w-3 h-3" />
+                                    {timeRange}
+                                  </span>
+                                )}
                               </div>
                             )}
-                            <p className="text-[#3D3835] leading-relaxed whitespace-pre-wrap">{textContent}</p>
+                            <p className="text-[#3D3835] font-medium leading-relaxed whitespace-pre-wrap">{textContent}</p>
                           </div>
                         );
                       }

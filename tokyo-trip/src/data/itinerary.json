@@ -17,6 +17,16 @@
     },
     "schedule": [
       {
+        "period": "早上",
+        "activities": [
+          {
+            "type": "text",
+            "content": "張犁老家機場接送",
+            "timeRange": "09:50"
+          }
+        ]
+      },
+      {
         "period": "下午",
         "activities": [
           {
