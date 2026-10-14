@@ -455,10 +455,8 @@
               "錦糸町站"
             ],
             "duration": "約 2 小時 20 分",
-            "notes": "搭乘特急華嚴 34 號 (Kegon 34，115分直達淺草)，抵達後轉乘地鐵半藏門線至錦糸町站",
-            "timeRange": "14:10 ~ 16:30",
-            "ticketUrl": "https://tobu-japantrip-tickets.com/",
-            "ticketLabel": "東武鐵道特急券 Kegon 34 線上購票"
+            "notes": "搭乘特急華嚴 34 號 (Kegon 34，115分直達淺草)，抵達後轉乘地鐵半藏門線至錦糸町站。車票在 klook",
+            "timeRange": "14:10 ~ 16:30"
           },
           {
             "type": "text",
@@ -484,13 +482,20 @@
         "period": "晚上",
         "activities": [
           {
-            "type": "text",
-            "content": "錦糸町車站周邊",
-            "timeRange": ""
-          },
-          {
-            "type": "text",
-            "content": "超市",
+            "type": "food",
+            "note": "或是超市簡單買來吃",
+            "options": [
+              {
+                "name": "錦糸町車站周邊",
+                "category": null,
+                "note": ""
+              },
+              {
+                "name": "六本木 TsuruTonTan 麵匠の心烏龍麵",
+                "category": null,
+                "note": ""
+              }
+            ],
             "timeRange": ""
           }
         ]

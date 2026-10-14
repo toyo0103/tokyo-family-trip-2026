@@ -252,6 +252,12 @@ const FoodCard = ({ data, timeRange }) => {
             </div>
           </div>
         )}
+
+        {data.note && (
+          <p className="text-xs text-[#7A726D] bg-[#F9F6F0] p-3 rounded-lg border border-[#EBE5DB] mt-2 leading-relaxed">
+            備註：{data.note}
+          </p>
+        )}
       </div>
     </div>
   );
