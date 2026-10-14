@@ -408,17 +408,6 @@
             "timeRange": "08:30"
           },
           {
-            "type": "transit",
-            "method": "bus",
-            "route": [
-              "ホテル花庵 (中禪寺溫泉)",
-              "華嚴瀑布"
-            ],
-            "duration": "約 3 min (步行約 6 min)",
-            "notes": "搭乘東武巴士至「中禅寺温泉」站（華嚴瀑布距飯店僅約 400 公尺，亦可直接步行 5~7 分鐘輕鬆抵達）",
-            "timeRange": "08:45"
-          },
-          {
             "type": "spot",
             "title": "華嚴瀑布",
             "locations": [
