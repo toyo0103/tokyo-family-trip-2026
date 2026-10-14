@@ -251,6 +251,17 @@
         "period": "早上",
         "activities": [
           {
+            "type": "food",
+            "options": [
+              {
+                "name": "溫泉旅館早餐",
+                "category": null,
+                "note": "日光中禅寺湖温泉 ホテル花庵"
+              }
+            ],
+            "timeRange": ""
+          },
+          {
             "type": "transit",
             "method": "bus",
             "route": [
@@ -402,6 +413,17 @@
       {
         "period": "早上",
         "activities": [
+          {
+            "type": "food",
+            "options": [
+              {
+                "name": "溫泉旅館早餐",
+                "category": null,
+                "note": "日光中禅寺湖温泉 ホテル花庵"
+              }
+            ],
+            "timeRange": ""
+          },
           {
             "type": "text",
             "content": "退房＆寄放行李",

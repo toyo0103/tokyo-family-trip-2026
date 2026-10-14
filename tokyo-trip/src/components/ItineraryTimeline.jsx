@@ -201,13 +201,18 @@ const FoodCard = ({ data, timeRange }) => {
       <div className="space-y-4 mt-2">
         {meatOptions.length > 0 && (
           <div>
-            <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-[#C96A4E]">
-              <Utensils className="w-3.5 h-3.5" />
-              葷食選擇 (Meat)
-            </div>
+            {vegOptions.length > 0 && (
+              <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-[#C96A4E]">
+                <Utensils className="w-3.5 h-3.5" />
+                葷食選擇 (Meat)
+              </div>
+            )}
             <div className="flex flex-wrap gap-2.5">
               {meatOptions.map((opt, idx) => {
-                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(opt.name)}`;
+                const mapQuery = (opt.name === '溫泉旅館早餐' || opt.name.includes('花庵') || opt.note?.includes('花庵')) 
+                  ? '日光中禅寺湖温泉 ホテル花庵' 
+                  : opt.name;
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
                 return (
                   <a
                     key={idx}
