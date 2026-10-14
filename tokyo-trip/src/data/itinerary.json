@@ -449,20 +449,21 @@
             "type": "transit",
             "method": "train",
             "route": [
-              "(Tobu Railway ExpressＲＥＶＡＴＹ華嚴 13付費特急) 東武日光站",
-              "北千住車站",
-              "步行 2min",
-              "(半藏門線)北千住車站",
-              "錦糸町車站"
+              "東武日光站 (14:10發)",
+              "東武淺草站 (16:05抵達)",
+              "轉乘地鐵 (半藏門線)",
+              "錦糸町站"
             ],
-            "duration": "2 小時 4 分",
-            "notes": "",
-            "timeRange": ""
+            "duration": "約 2 小時 20 分",
+            "notes": "搭乘特急華嚴 34 號 (Kegon 34，115分直達淺草)，抵達後轉乘地鐵半藏門線至錦糸町站",
+            "timeRange": "14:10 ~ 16:30",
+            "ticketUrl": "https://tobu-japantrip-tickets.com/",
+            "ticketLabel": "東武鐵道特急券 Kegon 34 線上購票"
           },
           {
             "type": "text",
-            "content": "飯店check in",
-            "timeRange": ""
+            "content": "飯店 Check-in（東武ホテルレバント東京）",
+            "timeRange": "16:45"
           },
           {
             "type": "spot",

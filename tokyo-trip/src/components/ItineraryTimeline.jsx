@@ -470,15 +470,22 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                         const textContent = activity.content || activity;
                         const isShuttle = typeof textContent === 'string' && (textContent.includes('接送') || textContent.includes('專車') || textContent.includes('包車'));
                         const shuttleLabel = typeof textContent === 'string' && textContent.includes('包車') ? '包車接送' : '機場接送';
+                        const isHotelCheckIn = typeof textContent === 'string' && (textContent.toLowerCase().includes('check in') || textContent.toLowerCase().includes('check-in') || textContent.includes('入住'));
                         
                         cardContent = (
                           <div className="bg-white border border-[#EBE5DB] rounded-2xl p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all">
-                            {(timeRange || isShuttle) && (
+                            {(timeRange || isShuttle || isHotelCheckIn) && (
                               <div className="flex flex-wrap items-center gap-2 mb-3">
                                 {isShuttle && (
                                   <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase flex items-center gap-1">
                                     <Car className="w-3 h-3" />
                                     {shuttleLabel}
+                                  </span>
+                                )}
+                                {isHotelCheckIn && (
+                                  <span className="text-[10px] font-bold text-white bg-[#8C6D62] px-2 py-1 rounded tracking-wider uppercase flex items-center gap-1">
+                                    <Hotel className="w-3 h-3" />
+                                    HOTEL CHECK-IN
                                   </span>
                                 )}
                                 {timeRange && (
