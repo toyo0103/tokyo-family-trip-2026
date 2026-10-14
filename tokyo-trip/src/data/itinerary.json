@@ -31,13 +31,13 @@
         "activities": [
           {
             "type": "transit",
-            "method": "train",
+            "method": "car",
             "route": [
-              "成田機場 (千葉空港) platform 1",
-              "錦系町 platform 3"
+              "成田機場",
+              "東武ホテルレバント東京"
             ],
             "duration": "",
-            "notes": "成田線 快速 (東京行)",
+            "notes": "機場包車到飯店",
             "timeRange": ""
           }
         ]

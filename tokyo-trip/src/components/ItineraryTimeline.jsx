@@ -4,7 +4,7 @@ import itineraryData from '../data/itinerary.json';
 
 const TransitCard = ({ data, timeRange }) => {
   const isBus = data.method === 'bus' || data.notes?.includes('巴士');
-  const isCar = data.method === 'car' || data.method === 'shuttle' || data.notes?.includes('接送') || data.notes?.includes('專車');
+  const isCar = data.method === 'car' || data.method === 'shuttle' || data.notes?.includes('接送') || data.notes?.includes('專車') || data.notes?.includes('包車');
   const Icon = isCar ? Car : (isBus ? Bus : Train);
   const badgeLabel = isCar ? 'Airport Transfer' : (isBus ? 'Bus Transit' : 'Train Transit');
 
@@ -23,7 +23,8 @@ const TransitCard = ({ data, timeRange }) => {
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2 mb-2">
-            <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase">
+            <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase flex items-center gap-1">
+              <Icon className="w-3 h-3" />
               {badgeLabel}
             </span>
             {timeRange && (
@@ -452,7 +453,8 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                         cardContent = <FoodCard data={activity} timeRange={timeRange} />;
                       } else {
                         const textContent = activity.content || activity;
-                        const isShuttle = typeof textContent === 'string' && (textContent.includes('接送') || textContent.includes('專車'));
+                        const isShuttle = typeof textContent === 'string' && (textContent.includes('接送') || textContent.includes('專車') || textContent.includes('包車'));
+                        const shuttleLabel = typeof textContent === 'string' && textContent.includes('包車') ? '包車接送' : '機場接送';
                         
                         cardContent = (
                           <div className="bg-white border border-[#EBE5DB] rounded-2xl p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all">
@@ -461,7 +463,7 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                                 {isShuttle && (
                                   <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase flex items-center gap-1">
                                     <Car className="w-3 h-3" />
-                                    機場接送
+                                    {shuttleLabel}
                                   </span>
                                 )}
                                 {timeRange && (
