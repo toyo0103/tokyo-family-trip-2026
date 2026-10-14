@@ -428,6 +428,17 @@
             "duration": "44 min",
             "notes": "巴士下山回東武日光站, 日光駅～光徳温泉～湯元温泉",
             "timeRange": ""
+          },
+          {
+            "type": "food",
+            "options": [
+              {
+                "name": "Kamaya - Café du Réverbère",
+                "category": null,
+                "note": "招牌前日光和牛烤牛肉丼 (NIKKO丼)、老銀行改建法式洋食"
+              }
+            ],
+            "timeRange": ""
           }
         ]
       },
