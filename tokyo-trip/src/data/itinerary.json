@@ -543,24 +543,24 @@
         "activities": [
           {
             "type": "spot",
-            "title": "新宿御苑",
+            "title": "皇居東御苑",
             "locations": [
-              "新宿御苑"
+              "皇居東御苑"
             ],
             "note": "",
             "timeRange": "",
-            "description": "新宿御苑最初是江戶時代大名的宅邸，後來成為皇室庭園，現為國民公園。這裡佔地廣闊，巧妙結合了日式傳統庭園、法式幾何庭園與英式風景庭園三種風格。作為東京市中心的都市綠洲，秋季有著美麗的紅葉與銀杏，四季皆有動人景緻。",
-            "imageUrl": "/spots/shinjuku-gyoen.jpg"
+            "description": "皇居東御苑是昔日江戶城本丸與二之丸的所在地，也是德川幕府統治日本二百多年的歷史中樞。現今免費對外開放，園內石垣雄偉、綠意環繞。登上江戶城天守台遺跡可俯瞰整座御苑與丸之內摩天大樓古今交會的壯麗全景；二之丸庭園則展現精緻的傳統日式迴遊庭園造景，秋季紅葉景致格外幽靜迷人。",
+            "imageUrl": "/spots/imperial-palace-east-gardens.jpg"
           },
           {
             "type": "transit",
             "method": "train",
             "route": [
-              "錦糸町車站",
-              "千馱谷"
+              "錦糸町站",
+              "東京車站 (大手町)"
             ],
-            "duration": "",
-            "notes": "",
+            "duration": "8 min",
+            "notes": "搭乘 JR 總武線快速直達東京車站（步行至大手門），或搭地鐵半藏門線至大手町站",
             "timeRange": ""
           }
         ]
