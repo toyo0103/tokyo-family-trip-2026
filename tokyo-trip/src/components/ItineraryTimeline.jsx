@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car } from 'lucide-react';
+import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car, Ticket, ExternalLink } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
 
 const TransitCard = ({ data, timeRange }) => {
@@ -13,8 +13,8 @@ const TransitCard = ({ data, timeRange }) => {
     : 'https://www.google.com/maps/dir/?api=1&travelmode=transit';
     
   if (data.route && data.route.length >= 2) {
-    const origin = data.route[0];
-    const destination = data.route[data.route.length - 1];
+    const origin = data.route[0].replace(/\s*[(（].*?[)）]/g, '').trim();
+    const destination = data.route[data.route.length - 1].replace(/\s*[(（].*?[)）]/g, '').trim();
     mapUrl += `&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`;
   }
 
@@ -49,6 +49,21 @@ const TransitCard = ({ data, timeRange }) => {
             </div>
             {data.notes && (
               <div className="text-xs text-[#7A726D] mt-1 opacity-80">備註：{data.notes}</div>
+            )}
+            
+            {(data.ticketUrl || data.link) && (
+              <div className="mt-2.5 pt-2 border-t border-[#EBE5DB]/60 flex items-center">
+                <a
+                  href={data.ticketUrl || data.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#C96A4E] bg-[#C96A4E]/10 hover:bg-[#C96A4E]/20 px-3 py-1.5 rounded-lg transition-colors border border-[#C96A4E]/20"
+                >
+                  <Ticket className="w-3.5 h-3.5" />
+                  <span>{data.ticketLabel || '線上訂票 / 票券預約'}</span>
+                  <ExternalLink className="w-3 h-3 opacity-70 ml-0.5" />
+                </a>
+              </div>
             )}
           </div>
         </div>
