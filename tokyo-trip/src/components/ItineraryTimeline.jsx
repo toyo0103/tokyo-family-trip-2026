@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car, Ticket, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car, Ticket, ExternalLink } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
 
 const TransitCard = ({ data, timeRange }) => {
@@ -591,41 +591,6 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
 
             <div className="pl-12 mt-6">
               <AccommodationCard accommodation={activeDay.accommodation} />
-            </div>
-
-            {/* Bottom Day Navigation */}
-            <div className="pl-12 pt-10 mt-6 border-t border-[#EBE5DB]/80 flex items-center justify-between gap-3">
-              <button
-                type="button"
-                disabled={activeTabIndex === 0}
-                onClick={() => setActiveTabIndex(Math.max(0, activeTabIndex - 1))}
-                className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition-all ${
-                  activeTabIndex === 0
-                    ? 'text-[#7A726D]/30 border-[#EBE5DB]/50 bg-transparent cursor-not-allowed'
-                    : 'text-[#7A726D] bg-white border-[#EBE5DB] hover:text-[#C96A4E] hover:border-[#C96A4E] shadow-sm active:scale-95'
-                }`}
-              >
-                <ChevronLeft className="w-4 h-4 shrink-0" />
-                <span>前一天{activeTabIndex > 0 ? ` (${itineraryData[activeTabIndex - 1].date})` : ''}</span>
-              </button>
-
-              <span className="text-xs text-[#7A726D]/60 font-medium hidden sm:inline-block">
-                👈 左右滑動切換日期 👉
-              </span>
-
-              <button
-                type="button"
-                disabled={activeTabIndex === itineraryData.length - 1}
-                onClick={() => setActiveTabIndex(Math.min(itineraryData.length - 1, activeTabIndex + 1))}
-                className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition-all ${
-                  activeTabIndex === itineraryData.length - 1
-                    ? 'text-[#7A726D]/30 border-[#EBE5DB]/50 bg-transparent cursor-not-allowed'
-                    : 'text-[#7A726D] bg-white border-[#EBE5DB] hover:text-[#C96A4E] hover:border-[#C96A4E] shadow-sm active:scale-95'
-                }`}
-              >
-                <span>後一天{activeTabIndex < itineraryData.length - 1 ? ` (${itineraryData[activeTabIndex + 1].date})` : ''}</span>
-                <ChevronRight className="w-4 h-4 shrink-0" />
-              </button>
             </div>
           </div>
         </div>
