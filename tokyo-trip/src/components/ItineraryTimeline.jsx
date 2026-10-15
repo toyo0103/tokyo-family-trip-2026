@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car, Ticket, ExternalLink } from 'lucide-react';
+import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car, Ticket, ExternalLink, Briefcase } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
 
 const TransitCard = ({ data, timeRange }) => {
@@ -548,11 +548,20 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
                         const isShuttle = typeof textContent === 'string' && (textContent.includes('接送') || textContent.includes('專車') || textContent.includes('包車'));
                         const shuttleLabel = typeof textContent === 'string' && textContent.includes('包車') ? '包車接送' : '機場接送';
                         const isHotelCheckIn = typeof textContent === 'string' && (textContent.toLowerCase().includes('check in') || textContent.toLowerCase().includes('check-in') || textContent.includes('入住'));
+                        const isReminder = typeof textContent === 'string' && (textContent.includes('提醒') || textContent.includes('打包') || textContent.includes('注意'));
                         
                         cardContent = (
-                          <div className="bg-white border border-[#EBE5DB] rounded-2xl p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all">
-                            {(timeRange || isShuttle || isHotelCheckIn) && (
+                          <div className={`border rounded-2xl p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all ${
+                            isReminder ? 'bg-[#FCFBF8] border-[#C96A4E]/30' : 'bg-white border-[#EBE5DB]'
+                          }`}>
+                            {(timeRange || isShuttle || isHotelCheckIn || isReminder) && (
                               <div className="flex flex-wrap items-center gap-2 mb-3">
+                                {isReminder && (
+                                  <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase flex items-center gap-1">
+                                    <Briefcase className="w-3 h-3" />
+                                    REMINDER / 提醒
+                                  </span>
+                                )}
                                 {isShuttle && (
                                   <span className="text-[10px] font-bold text-white bg-[#C96A4E] px-2 py-1 rounded tracking-wider uppercase flex items-center gap-1">
                                     <Car className="w-3 h-3" />
