@@ -49,7 +49,7 @@ const TransitCard = ({ data, timeRange }) => {
               ))}
             </div>
             {data.notes && (
-              <div className="text-xs text-[#7A726D] mt-1 opacity-80">備註：{data.notes}</div>
+              <div className="text-xs text-[#7A726D] mt-1 opacity-80 whitespace-pre-wrap leading-relaxed">備註：{data.notes}</div>
             )}
             
             {(data.ticketUrl || data.link) && (
