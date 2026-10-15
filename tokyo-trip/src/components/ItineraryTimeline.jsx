@@ -9,14 +9,21 @@ const TransitCard = ({ data, timeRange }) => {
   const Icon = isCar ? Car : (isBus ? Bus : Train);
   const badgeLabel = isCar ? 'Airport Transfer' : (isBus ? 'Bus Transit' : 'Train Transit');
 
-  let mapUrl = isCar 
-    ? 'https://www.google.com/maps/dir/?api=1&travelmode=driving' 
-    : 'https://www.google.com/maps/dir/?api=1&travelmode=transit';
-    
-  if (data.route && data.route.length >= 2) {
-    const origin = data.route[0].replace(/\s*[(（].*?[)）]/g, '').trim();
-    const destination = data.route[data.route.length - 1].replace(/\s*[(（].*?[)）]/g, '').trim();
-    mapUrl += `&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`;
+  let mapUrl = data.mapUrl;
+  if (!mapUrl) {
+    if (data.originCoords) {
+      mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.originCoords)}`;
+    } else {
+      mapUrl = isCar 
+        ? 'https://www.google.com/maps/dir/?api=1&travelmode=driving' 
+        : 'https://www.google.com/maps/dir/?api=1&travelmode=transit';
+        
+      if (data.route && data.route.length >= 2) {
+        const origin = data.route[0].replace(/\s*[(（].*?[)）]/g, '').trim();
+        const destination = data.route[data.route.length - 1].replace(/\s*[(（].*?[)）]/g, '').trim();
+        mapUrl += `&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`;
+      }
+    }
   }
 
   return (
@@ -50,6 +57,21 @@ const TransitCard = ({ data, timeRange }) => {
             </div>
             {data.notes && (
               <div className="text-xs text-[#7A726D] mt-1 opacity-80 whitespace-pre-wrap leading-relaxed">備註：{data.notes}</div>
+            )}
+            
+            {data.originCoords && (
+              <div className="mt-2.5">
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.originCoords)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#6C7D63] bg-[#6C7D63]/10 hover:bg-[#6C7D63]/20 px-3 py-1.5 rounded-lg transition-colors border border-[#6C7D63]/25"
+                >
+                  <MapPin className="w-3.5 h-3.5 shrink-0" />
+                  <span>精準搭車地點 ({data.originCoords})</span>
+                  <ExternalLink className="w-3 h-3 opacity-70 ml-0.5" />
+                </a>
+              </div>
             )}
             
             {(data.ticketUrl || data.link) && (
