@@ -746,14 +746,40 @@
             "type": "food",
             "options": [
               {
-                "name": "晴空塔美食街 (Solamachi 3F Food Court)",
+                "name": "牛たん炭焼 利久 (6F)",
+                "mapQuery": "牛たん炭焼 利久 東京ソラマチ店",
                 "category": null,
-                "note": "快速多樣、各式日式平價小吃"
+                "note": "仙台極品炭烤厚切牛舌定食，附麥飯與牛尾湯"
               },
               {
-                "name": "晴空塔景觀餐廳街 (6F~7F Solamachi Dining)",
+                "name": "六厘舎 (6F)",
+                "mapQuery": "六厘舎 東京ソラマチ店",
                 "category": null,
-                "note": "利久牛舌、六厘舍沾麵、鰻魚飯等知名美食"
+                "note": "超人氣排隊名店・濃厚豚骨魚介沾麵"
+              },
+              {
+                "name": "回転寿し トリトン (6F)",
+                "mapQuery": "回転寿しトリトン 東京ソラマチ店",
+                "category": null,
+                "note": "北海道發跡第一名迴轉壽司，厚切新鮮極品海鮮"
+              },
+              {
+                "name": "ひつまぶし名古屋備長 (7F)",
+                "mapQuery": "ひつまぶし名古屋備長 東京ソラマチ店",
+                "category": null,
+                "note": "名古屋經典炭火直烤・酥脆鰻魚飯三吃"
+              },
+              {
+                "name": "敘敘苑 燒肉 (30F)",
+                "mapQuery": "叙々苑 東京スカイツリータウン・ソラマチ店",
+                "category": null,
+                "note": "30F 高空俯瞰景觀、高CP值午間燒肉套餐"
+              },
+              {
+                "name": "晴空塔美食街 (3F)",
+                "mapQuery": "東京ソラマチ タベテラス",
+                "category": null,
+                "note": "快速平價免排隊、各式日式小吃美食廣場"
               }
             ],
             "timeRange": ""
