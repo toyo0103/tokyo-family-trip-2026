@@ -108,24 +108,20 @@ const TransitCard = ({ data, timeRange }) => {
 
 
 const SpotCard = ({ data, timeRange }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   if (!data || !data.title) return null;
   const locations = data.locations || [];
   
   return (
-    <div 
-      className="bg-white border border-[#EBE5DB] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
-      onClick={() => setIsExpanded(!isExpanded)}
-    >
-      {isExpanded && data.imageUrl && (
-         <div className="relative w-full h-56 sm:h-72 transition-all duration-500 ease-in-out">
-           <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover" />
-           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-         </div>
+    <div className="bg-white border border-[#EBE5DB] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+      {data.imageUrl && (
+        <div className="relative w-full h-56 sm:h-72 transition-all duration-500 ease-in-out">
+          <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+        </div>
       )}
 
-      <div className="p-4 sm:p-5 flex gap-4">
-        <div className="flex-1 min-w-0">
+      <div className="p-4 sm:p-5">
+        <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="text-[10px] font-bold text-white bg-[#6C7D63] px-2 py-1 rounded tracking-wider uppercase">
               SPOT
@@ -149,14 +145,9 @@ const SpotCard = ({ data, timeRange }) => {
             
             {data.description && (
               <div className="mb-4">
-                <p className={`text-[15px] text-[#5D5753] leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-2'}`}>
+                <p className="text-[15px] text-[#5D5753] leading-relaxed">
                   {data.description}
                 </p>
-                <button 
-                  className="text-[#6C7D63] text-sm font-bold mt-1.5 hover:underline flex items-center gap-1"
-                >
-                  {isExpanded ? '收起介紹' : '閱讀更多...'}
-                </button>
               </div>
             )}
 
@@ -171,7 +162,6 @@ const SpotCard = ({ data, timeRange }) => {
                       href={mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1.5 bg-white border border-[#EBE5DB] hover:border-[#6C7D63] px-3 py-1.5 rounded-full text-sm font-medium text-[#6C7D63] hover:shadow-sm hover:-translate-y-px transition-all decoration-transparent"
                     >
                       <MapPin className="w-3.5 h-3.5 shrink-0" />
@@ -192,16 +182,6 @@ const SpotCard = ({ data, timeRange }) => {
             )}
           </div>
         </div>
-
-        {!isExpanded && data.imageUrl && (
-          <div className="w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-xl overflow-hidden border border-[#EBE5DB] relative mt-1 group">
-            <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
-            <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 bg-black/40 backdrop-blur-sm text-white text-[10px] px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
-              <Info className="w-3 h-3" />
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -431,7 +411,10 @@ const AccommodationCard = ({ accommodation }) => {
 
 export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex }) {
   const activeDay = itineraryData[activeTabIndex];
-  const currentLocation = (activeDay.title && activeDay.title.includes('日光')) || (activeDay.accommodation?.name && activeDay.accommodation.name.includes('日光')) ? 'Nikko' : 'Tokyo';
+  const isNikko = ['10/22', '10/23', '10/24'].includes(activeDay.date) || 
+                  (activeDay.title && activeDay.title.includes('日光')) || 
+                  (activeDay.accommodation?.name && activeDay.accommodation.name.includes('日光'));
+  const currentLocation = isNikko ? 'Nikko' : 'Tokyo';
   const tabContainerRef = useRef(null);
   const tabRefs = useRef([]);
   const touchStartX = useRef(0);
