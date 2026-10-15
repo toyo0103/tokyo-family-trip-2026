@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car, Ticket, ExternalLink, Briefcase } from 'lucide-react';
+import WeatherWidget from './WeatherWidget';
 import itineraryData from '../data/itinerary.json';
 
 const TransitCard = ({ data, timeRange }) => {
@@ -408,6 +409,7 @@ const AccommodationCard = ({ accommodation }) => {
 
 export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex }) {
   const activeDay = itineraryData[activeTabIndex];
+  const currentLocation = (activeDay.title && activeDay.title.includes('日光')) || (activeDay.accommodation?.name && activeDay.accommodation.name.includes('日光')) ? 'Nikko' : 'Tokyo';
   const tabContainerRef = useRef(null);
   const tabRefs = useRef([]);
   const touchStartX = useRef(0);
@@ -502,15 +504,19 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
           <div className="absolute left-[19px] top-0 bottom-0 w-[3px] rounded-full" style={{ background: 'linear-gradient(to bottom, #C96A4E, #B86B77)' }}></div>
 
           {/* Day Header */}
-          <div className="mb-8 pl-12">
-            <div className="flex flex-wrap items-end gap-3">
+          <div className="mb-8 pl-12 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <h2 className="text-3xl font-black text-[#3D3835] tracking-tight">{activeDay.date}</h2>
-              <span className="text-lg font-medium text-[#7A726D] mb-1">({activeDay.dayOfWeek})</span>
+              <span className="text-lg font-medium text-[#7A726D]">({activeDay.dayOfWeek})</span>
               {activeDay.title && (
                 <span className="bg-[#FFFFFF] text-[#C96A4E] border border-[#EBE5DB] px-3 py-1 rounded-full text-sm font-semibold shadow-sm">
                   {activeDay.title}
                 </span>
               )}
+            </div>
+
+            <div className="shrink-0">
+              <WeatherWidget location={currentLocation} dateStr={activeDay.date} />
             </div>
           </div>
 

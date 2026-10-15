@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Briefcase } from 'lucide-react';
-import WeatherWidget from './components/WeatherWidget';
 import ItineraryTimeline from './components/ItineraryTimeline';
 import PackingList from './components/PackingList';
 import ItineraryEditor from './components/ItineraryEditor';
@@ -10,8 +9,6 @@ import itineraryData from './data/itinerary.json';
 function App() {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [isPackingListOpen, setIsPackingListOpen] = useState(false);
-  const activeDay = itineraryData[activeTabIndex];
-  const currentLocation = activeDay.title.includes('日光') ? 'Nikko' : 'Tokyo';
 
   return (
     <div className="min-h-screen bg-[#F9F6F0] text-[#3D3835] font-sans selection:bg-[#C96A4E]/20 selection:text-[#3D3835]">
@@ -25,9 +22,6 @@ function App() {
           backgroundSize: 'cover'
         }}
       >
-        <div className="absolute top-4 right-4 z-50">
-          <WeatherWidget location={currentLocation} dateStr={activeDay.date} />
-        </div>
         <h1 className="text-4xl md:text-5xl font-bold tracking-wider mb-3" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}>
           東京・日光の秋
         </h1>

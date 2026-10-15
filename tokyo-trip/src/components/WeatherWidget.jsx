@@ -12,7 +12,7 @@ const getWeatherDetails = (code) => {
   return { icon: <Cloud className="w-8 h-8 text-[#7A726D]" />, text: '未知' };
 };
 
-export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23' }) {
+export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23', className = '' }) {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -72,13 +72,13 @@ export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23' })
   }, [location, dateStr]);
 
   if (loading) {
-    return <div className="p-4 bg-white/40 backdrop-blur-sm rounded-2xl shadow-sm animate-pulse h-16 w-48"></div>;
+    return <div className="p-3 bg-white border border-[#EBE5DB] rounded-2xl shadow-sm animate-pulse h-14 w-44"></div>;
   }
 
   if (error) {
     return (
-      <div className="p-3 bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl shadow-sm flex items-center gap-3">
-        <AlertCircle className="w-5 h-5 text-[#C96A4E]" />
+      <div className="py-2 px-3 bg-white border border-[#EBE5DB] rounded-2xl shadow-sm flex items-center gap-2">
+        <AlertCircle className="w-4 h-4 text-[#C96A4E]" />
         <div className="text-xs text-[#3D3835]">
           <p className="font-semibold">{error}</p>
         </div>
@@ -91,28 +91,28 @@ export default function WeatherWidget({ location = 'Tokyo', dateStr = '10/23' })
 
   return (
     <div 
-      className="py-2 px-4 bg-white/80 backdrop-blur-md rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-white/50 flex items-center gap-4 transition-all"
+      className={`py-1.5 sm:py-2 px-3 sm:px-4 bg-white border border-[#EBE5DB] rounded-2xl shadow-sm flex items-center gap-3 sm:gap-4 transition-all ${className}`}
       title={isFallback ? `${dateStr} 超出預報範圍，顯示今日氣溫` : ""}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5 sm:gap-3">
         {icon}
         <div>
           <div className="flex items-center gap-1 text-[#7A726D]">
-            <MapPin className="w-3.5 h-3.5" />
-            <span className="text-xs font-medium uppercase tracking-wide">{weatherData.name}</span>
+            <MapPin className="w-3 h-3 text-[#C96A4E]" />
+            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wide">{weatherData.name}</span>
           </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold text-[#3D3835]">
+          <div className="flex items-baseline gap-1.5 sm:gap-2">
+            <span className="text-lg sm:text-xl font-bold text-[#3D3835]">
               {weatherData.maxTemp}°C 
               {isFallback && <span className="text-base font-bold text-[#C96A4E] ml-0.5">*</span>}
             </span>
-            <span className="text-xs text-[#7A726D]">
+            <span className="text-xs text-[#7A726D] font-medium">
               {text}
             </span>
           </div>
         </div>
       </div>
-      <div className="text-right text-xs text-[#7A726D] border-l border-[#3D3835]/10 pl-4 hidden sm:block">
+      <div className="text-right text-xs text-[#7A726D] border-l border-[#EBE5DB] pl-3 sm:pl-4 hidden sm:block">
         <p>最高: {weatherData.maxTemp}°</p>
         <p>最低: {weatherData.minTemp}°</p>
       </div>
