@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car, Ticket, ExternalLink } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Clock, Plane, Hotel, MapPin, Phone, Info, Train, Bus, Map as MapIcon, ArrowRight, Utensils, Car, Ticket, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import itineraryData from '../data/itinerary.json';
 
 const TransitCard = ({ data, timeRange }) => {
@@ -111,6 +111,12 @@ const SpotCard = ({ data, timeRange }) => {
               <span className="text-xs font-semibold text-[#7A726D] bg-[#F9F6F0] px-2 py-1 rounded-md border border-[#EBE5DB] flex items-center gap-1">
                 <Clock className="w-3 h-3" />
                 {timeRange}
+              </span>
+            )}
+            {data.closingTime && (
+              <span className="text-xs font-semibold text-[#C96A4E] bg-[#C96A4E]/10 border border-[#C96A4E]/25 px-2 py-1 rounded-md flex items-center gap-1">
+                <Clock className="w-3 h-3 text-[#C96A4E]" />
+                {data.closingTime}
               </span>
             )}
           </div>
@@ -402,27 +408,81 @@ const AccommodationCard = ({ accommodation }) => {
 
 export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex }) {
   const activeDay = itineraryData[activeTabIndex];
+  const tabContainerRef = useRef(null);
+  const tabRefs = useRef([]);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchEndX = useRef(0);
+  const touchEndY = useRef(0);
+
+  // Auto-center active tab smoothly
+  useEffect(() => {
+    const activeTabEl = tabRefs.current[activeTabIndex];
+    if (activeTabEl && tabContainerRef.current) {
+      activeTabEl.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, [activeTabIndex]);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchEndX.current = e.touches[0].clientX;
+    touchEndY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+    touchEndY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = () => {
+    const deltaX = touchStartX.current - touchEndX.current;
+    const deltaY = touchStartY.current - touchEndY.current;
+    const minSwipeDistance = 50;
+
+    // Horizontal swipe dominates vertical scroll to avoid accidental triggers
+    if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      if (deltaX > 0) {
+        // Swiped Left -> Next Day
+        if (activeTabIndex < itineraryData.length - 1) {
+          setActiveTabIndex(activeTabIndex + 1);
+        }
+      } else {
+        // Swiped Right -> Previous Day
+        if (activeTabIndex > 0) {
+          setActiveTabIndex(activeTabIndex - 1);
+        }
+      }
+    }
+  };
 
   return (
     <div className="max-w-3xl mx-auto py-8">
       {/* Tabs */}
       <div className="mb-8">
-        <div className="flex overflow-x-auto gap-4 pb-4 pt-2 px-1" style={{ scrollbarWidth: 'none' }}>
+        <div 
+          ref={tabContainerRef}
+          className="flex overflow-x-auto gap-4 pb-4 pt-2 px-1 scroll-smooth" 
+          style={{ scrollbarWidth: 'none' }}
+        >
           {itineraryData.map((day, index) => {
             const isActive = index === activeTabIndex;
             return (
               <button
                 key={index}
+                ref={(el) => (tabRefs.current[index] = el)}
                 onClick={() => setActiveTabIndex(index)}
                 className={`relative flex-none px-6 py-3 rounded-xl text-sm font-semibold transition-all border
                   ${
                     isActive
-                      ? 'bg-white text-[#C96A4E] border-[#C96A4E] shadow-[0_4px_12px_rgba(201,106,78,0.1)]'
+                      ? 'bg-white text-[#C96A4E] border-[#C96A4E] shadow-[0_4px_12px_rgba(201,106,78,0.1)] scale-[1.02]'
                       : 'bg-white text-[#7A726D] border-[#EBE5DB] hover:border-[#C96A4E]/30 hover:text-[#C96A4E]'
                   }`}
-                style={isActive ? {} : {}}
               >
-                {/* Simulated ticket cutouts using pseudo elements in CSS normally, but we can do it inline or rely on the simple roundness */}
                 <div className="whitespace-nowrap">Day {index + 1}</div>
                 <div className="text-xs font-normal opacity-80">{day.date}</div>
               </button>
@@ -431,7 +491,12 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
         </div>
       </div>
 
-      <div className="space-y-12">
+      <div 
+        className="space-y-12 touch-pan-y"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="relative mt-6">
           {/* Timeline Line */}
           <div className="absolute left-[19px] top-0 bottom-0 w-[3px] rounded-full" style={{ background: 'linear-gradient(to bottom, #C96A4E, #B86B77)' }}></div>
@@ -526,6 +591,41 @@ export default function ItineraryTimeline({ activeTabIndex, setActiveTabIndex })
 
             <div className="pl-12 mt-6">
               <AccommodationCard accommodation={activeDay.accommodation} />
+            </div>
+
+            {/* Bottom Day Navigation */}
+            <div className="pl-12 pt-10 mt-6 border-t border-[#EBE5DB]/80 flex items-center justify-between gap-3">
+              <button
+                type="button"
+                disabled={activeTabIndex === 0}
+                onClick={() => setActiveTabIndex(Math.max(0, activeTabIndex - 1))}
+                className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition-all ${
+                  activeTabIndex === 0
+                    ? 'text-[#7A726D]/30 border-[#EBE5DB]/50 bg-transparent cursor-not-allowed'
+                    : 'text-[#7A726D] bg-white border-[#EBE5DB] hover:text-[#C96A4E] hover:border-[#C96A4E] shadow-sm active:scale-95'
+                }`}
+              >
+                <ChevronLeft className="w-4 h-4 shrink-0" />
+                <span>前一天{activeTabIndex > 0 ? ` (${itineraryData[activeTabIndex - 1].date})` : ''}</span>
+              </button>
+
+              <span className="text-xs text-[#7A726D]/60 font-medium hidden sm:inline-block">
+                👈 左右滑動切換日期 👉
+              </span>
+
+              <button
+                type="button"
+                disabled={activeTabIndex === itineraryData.length - 1}
+                onClick={() => setActiveTabIndex(Math.min(itineraryData.length - 1, activeTabIndex + 1))}
+                className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition-all ${
+                  activeTabIndex === itineraryData.length - 1
+                    ? 'text-[#7A726D]/30 border-[#EBE5DB]/50 bg-transparent cursor-not-allowed'
+                    : 'text-[#7A726D] bg-white border-[#EBE5DB] hover:text-[#C96A4E] hover:border-[#C96A4E] shadow-sm active:scale-95'
+                }`}
+              >
+                <span>後一天{activeTabIndex < itineraryData.length - 1 ? ` (${itineraryData[activeTabIndex + 1].date})` : ''}</span>
+                <ChevronRight className="w-4 h-4 shrink-0" />
+              </button>
             </div>
           </div>
         </div>

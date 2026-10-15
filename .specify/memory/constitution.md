@@ -37,3 +37,5 @@
   6. **地點詳細介紹 (Spot Details Inline Expandable)**：Spot 卡片可擴充 `description` 與 `imageUrl` 欄位。為減少操作中斷感，詳細圖文採用「卡片內嵌、點擊展開／收合」的方式呈現（Inline Expandable），取代全版彈窗，提供更滑順的瀏覽體驗。
   7. **景點圖片自動化 (Spot Image Fetching)**：景點小卡所需的圖片 (`imageUrl`)，應透過開發腳本（如 Wikipedia API）自動抓取並儲存於本地 `public/spots/` 中，以確保能夠順利顯示並避免外部防盜鏈導致的破圖問題。
   8. **時間區間標示 (Time Range)**：所有子卡片可選填時間區間，若有填寫，Timeline 應將其特別標示出來（例如 13:00 ~ 13:45）。
+- **營業與打烊時間提醒 (Business Hours & Closing Times)**：景點與餐飲小卡若有明確打烊或最後點餐時間（例如北斎茶房 17:30 打烊），必須在小卡備註或資訊欄位明確標註警示，提醒行程安排注意入店時間。
+- **手勢滑動切換行程日期 (Swipe Gesture for Day Navigation)**：行程時間軸 (ItineraryTimeline) 必須支援觸控手勢滑動（向左滑切換至下一天，向右滑切換至上一天），並與頂部日期標籤連動自動平滑置中，提升行動裝置上的瀏覽體驗。
