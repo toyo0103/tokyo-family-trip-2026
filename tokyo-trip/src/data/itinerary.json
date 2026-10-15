@@ -720,15 +720,43 @@
         "period": "早上",
         "activities": [
           {
-            "type": "spot",
-            "title": "皇居東御苑",
-            "locations": [
-              "皇居東御苑"
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "(半藏門線) 錦糸町車站",
+              "押上車站 (晴空塔)"
             ],
-            "note": "",
+            "duration": "3 min",
+            "notes": "搭乘地鐵半藏門線 1 站直達押上站，地下直通晴空街道購物中心",
+            "timeRange": ""
+          },
+          {
+            "type": "spot",
+            "title": "晴空塔購物中心 (Tokyo Solamachi)",
+            "locations": [
+              "東京晴空街道",
+              "東京晴空塔"
+            ],
+            "note": "吉卜力橡子共和國、寶可夢中心、日系女裝、生活雜貨與伴手禮專區",
             "timeRange": "",
-            "description": "皇居東御苑是過去江戶城本丸、二之丸及三之丸的所在地，現已作為皇室附屬庭園開放給一般民眾免費參觀。這裡不僅保留了江戶城天守台的巨大石垣，還有精心修剪的日式庭園與豐富的四季花草。漫步其中，能在東京最繁華的都心感受到濃厚的歷史底蘊與難得的寧靜。",
-            "imageUrl": "/spots/imperial-palace.jpg"
+            "description": "東京晴空塔下的「東京晴空街道 (Tokyo Solamachi)」是極具規模的複合式購物中心，集結超過 300 家各式專門店。包含吉卜力共和國、寶可夢中心等動漫周邊，以及日系服飾、精緻雜貨與各類伴手禮，非常好逛好買。",
+            "imageUrl": "/spots/tokyo-skytree.jpg"
+          },
+          {
+            "type": "food",
+            "options": [
+              {
+                "name": "晴空塔美食街 (Solamachi 3F Food Court)",
+                "category": null,
+                "note": "快速多樣、各式日式平價小吃"
+              },
+              {
+                "name": "晴空塔景觀餐廳街 (6F~7F Solamachi Dining)",
+                "category": null,
+                "note": "利久牛舌、六厘舍沾麵、鰻魚飯等知名美食"
+              }
+            ],
+            "timeRange": ""
           }
         ]
       },
@@ -736,20 +764,50 @@
         "period": "下午",
         "activities": [
           {
-            "type": "spot",
-            "title": "晴空塔 (Tokyo Skytree)",
-            "locations": [
-              "東京晴空塔"
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "(半藏門線) 押上車站",
+              "三越前車站 (日本橋)"
             ],
-            "note": "購物精品, 日牌女裝, 吉卜力橡子共和國與寶可夢中心",
-            "timeRange": "",
-            "description": "東京晴空塔高達 634 公尺，是目前世界第一高塔。除了能從展望台飽覽關東平原的壯麗日夜景之外，塔下的「東京晴空街道 (Tokyo Solamachi)」更是極具規模的複合式購物中心。這裡匯聚了從國際精品、日系服飾、傳統工藝品到各式知名動漫周邊，是好逛又好買的必訪地標。",
-            "imageUrl": "/spots/tokyo-skytree.jpg"
+            "duration": "11 min",
+            "notes": "搭乘半藏門線直達三越前站，地下連通 COREDO 室町 與 日本橋三越本店",
+            "timeRange": ""
           },
           {
-            "type": "text",
-            "content": "買藥妝",
-            "timeRange": ""
+            "type": "spot",
+            "title": "日本橋散策（COREDO 室町 ＋ 三越本館）",
+            "locations": [
+              "COREDO 室町",
+              "日本橋三越本店"
+            ],
+            "note": "押上搭半藏門線直達 11 分鐘\n茅乃舍高湯包、日式傳統工藝品、老牌百貨地下街與精緻伴手禮採買",
+            "timeRange": "",
+            "description": "日本橋是江戶文化的繁華起點。COREDO 室町融合了現代與江戶木造街町風格，匯集全日本百年名店（如茅乃舍高湯、木屋刀具、金箔工藝）；日本橋三越本店則是日本歷史最悠久的百貨公司，建築華麗典雅。兩者地下直通，逛街採買動線極為舒適。",
+            "imageUrl": "/spots/nihonbashi.jpg"
+          },
+          {
+            "type": "spot",
+            "title": "【備選】隅田公園（戶外水岸散策）",
+            "locations": [
+              "隅田公園",
+              "東京水町"
+            ],
+            "note": "💡 不想逛街採買藥妝者的悠閒選項\n從晴空塔沿「東京水町 (Tokyo Mizumachi)」徒步散策約 15 分鐘至隅田川畔，眺望晴空塔水岸風光",
+            "timeRange": "",
+            "description": "橫跨隅田川兩岸的隅田公園是東京極具代表性的水岸綠地。從晴空塔沿著高架橋下的「東京水町 (Tokyo Mizumachi)」徒步散策即可輕鬆抵達。園內林木扶疏、水波粼粼，能隔著河畔遠眺晴空塔倒影，非常適合不想逛街、想在戶外呼吸新鮮空氣與享受悠閒午後的朋友。",
+            "imageUrl": "/spots/sumida-park.jpg"
+          },
+          {
+            "type": "spot",
+            "title": "採買藥妝（日本橋商圈）",
+            "locations": [
+              "日本橋"
+            ],
+            "note": "三越前與日本橋站周邊藥妝店密集（松本清、Sundrug等），回國前補齊免稅商品",
+            "timeRange": "",
+            "description": "日本橋周邊有多間大型免稅藥妝店，品項齊全。趁著回國前最後一天下午，將常備藥品、美妝保養品、日用品一次採購齊全，採買完畢即可就近步行至花山烏龍麵排隊。",
+            "imageUrl": ""
           }
         ]
       },
@@ -757,9 +815,37 @@
         "period": "晚上",
         "activities": [
           {
-            "type": "text",
-            "content": "錦糸町車站周邊",
+            "type": "food",
+            "options": [
+              {
+                "name": "五代目 花山うどん 日本橋店",
+                "category": null,
+                "note": "群馬百年名店・名物「鬼ひも川」寬烏龍麵\n⚠️ 晚餐 17:30 開門，強烈建議 17:00 抵達門口排第一輪入座"
+              }
+            ],
             "timeRange": ""
+          },
+          {
+            "type": "transit",
+            "method": "train",
+            "route": [
+              "(半藏門線) 三越前車站 / 日本橋",
+              "(半藏門線) 錦糸町車站"
+            ],
+            "duration": "8 min",
+            "notes": "搭乘地鐵半藏門線直達錦糸町站，出站即達東武飯店",
+            "timeRange": ""
+          },
+          {
+            "type": "spot",
+            "title": "回飯店整理行李",
+            "locations": [
+              "東武ホテルレバント東京"
+            ],
+            "note": "打包所有戰利品與行李，備戰隔日 15:30 成田機場返台航班",
+            "timeRange": "",
+            "description": "晚餐後僅需 8 分鐘即回到飯店，時間充裕。可提早洗漱休息、整理打包幾天來的滿滿收穫與伴手禮，為隔天的返台旅程做好準備。",
+            "imageUrl": "/hotels/tobu-levant.jpg"
           }
         ]
       }
